@@ -1,5 +1,7 @@
 # Final Report — Overnight CPU-First Energy Build
 
+> **Readiness review supersedes the Runpod-ready claim in this report.** A 2026-04-30 xhigh verification pass at commit `58ab030` found that Wave 3 should be retained but the repo is **not ready for Runpod**. Treat this file as an implementation ledger, not the current readiness authority. Current authority: `WAVE4-CPU-HARDENING-BRIEF.md`.
+
 **Boundary:** Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
 
 **Status (post Wave 3 hardening):** All eleven gaps named in `CPU-HARDENING-BRIEF.md` are addressed. **The pipeline is now ready for Runpod.** Runpod cutover is a config-flag swap proven by a live `httpx.MockTransport` golden-fixture invariance test. Audit/KG writes are mandatory under `ENERGY_AUDIT_REQUIRED=true` with refusal-to-emit on missing. Test-local falsifiers are gone — all production falsifiers live in `energy_pipeline.l6.production_falsifiers` and are applied centrally via `accept_envelope`.

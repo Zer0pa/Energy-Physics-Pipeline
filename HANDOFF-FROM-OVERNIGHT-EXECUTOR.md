@@ -1,5 +1,7 @@
 # Handoff from Overnight Executor — Zer0pa Energy
 
+> **Superseded for Runpod readiness.** A 2026-04-30 xhigh verification pass at commit `58ab030` found that this handoff overclaims Runpod readiness. The next role is a Wave 4 CPU-hardening role, not a Runpod migration role. Current authority: `WAVE4-CPU-HARDENING-BRIEF.md`.
+
 **Boundary:** Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
 
 **From:** Overnight executor (Opus Max chief engineer + Sonnet/Opus subagents)
