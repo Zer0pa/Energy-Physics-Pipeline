@@ -23,7 +23,13 @@
 | Electrochem L1-L5 | Sonnet | adapters/electrochem/* + e2e + bounds | DONE — 29/29 green; real CPU on PyBaMM/PySCF/Cantera/PyPSA/pvlib; Solcore→analytic fallback |
 | Fusion L1-L5 + reasoning bench | Opus | adapters/fusion/* + Phase-0 + reasoning + IMAS netCDF fixture | STALLED mid-test-write (chief engineer wrote 4 missing fusion test files); 20/20 green |
 
-**Final test totals: 277 passed, 0 failed (50.6s wall).**
+**Final test totals (Wave 1): 277 passed, 0 failed (50.6s wall).**
+
+## Wave 1 → Wave 2 transition (2026-04-30)
+
+Operator paused after Wave 1 with the question: "have you done absolutely everything that can be done without a GPU?" The honest answer is **no** — there is meaningful CPU-side work remaining. See `NEXT-WAVE-PLAN.md`. Newly installed during the pre-pause audit: PyBOP 26.3, Pyrokinetics 0.8.0, OMAS 0.95.2, qiskit 2.4.1. Did not install on Python 3.13 darwin (deferred to Runpod-Linux): mace-torch, fairchem-core, botorch, ax-platform — all blocked by torch having no 3.13-darwin-arm wheel yet.
+
+Wakeup scheduled for ~1h (system clamp at 3600s; user requested 2h, will re-schedule on first wake). On wake: read `NEXT-WAVE-PLAN.md`, execute Waves A→D in order, commit + push, then re-evaluate.
 
 ## Decisions log (executor-side, deviations only)
 
