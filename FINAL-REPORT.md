@@ -2,9 +2,9 @@
 
 **Boundary:** Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
 
-**Status:** Sovereign acceptance gate cleared. CPU-first pipeline complete. Runpod migration is now a config-flag swap behind `ENERGY_L?_BACKEND=runpod_rest` and the existing `/v1/runpod/{layer}/{domain}` REST shape.
+**Status:** Sovereign acceptance gate cleared (Wave 1 + Wave 2). CPU-first pipeline complete. Runpod migration is now a config-flag swap behind `ENERGY_L?_BACKEND=runpod_rest` and the existing `/v1/runpod/{layer}/{domain}` REST shape.
 
-**Run window:** 2026-04-30, Sandton ZA. Lead agent Opus Max chief engineer. Five parallel subagents spawned (one stalled mid-test-write; orchestrator finished its tests).
+**Run window:** 2026-04-30, Sandton ZA. Lead agent Opus Max chief engineer. Two waves with five+four parallel subagents (Wave 1: foundation + 5 subagents; Wave 2: 4 more real-CPU adapter subagents + 9 cross-cutting items by orchestrator).
 
 ## Repo state at handoff
 
@@ -24,15 +24,15 @@ python3.13 -m venv .venv
 bash scripts/clean_runtime.sh
 ```
 
-## Tests and falsification wave
+## Tests and falsification wave (Wave 1 + Wave 2)
 
 | Suite | Count | Status |
 |---|---|---|
 | Contract (foundation + electrochem DRO + fusion DRO + sources + falsification schemas + plug-replaceability + REST stubs + canonical-JSON + audit/KG + L6) | ~120 cases (parametrised) | **all green** |
 | Falsification wave + TDA no-leakage | 63 | **all green** (12-of-12 acceptance gate) |
 | Scientific bounds (electrochem + fusion) | ~30 | **all green** |
-| Integration (electrochem e2e + fusion Phase-0 + fusion 50-task reasoning bench + MCP smoke + sources + reasoner) | ~64 | **all green** |
-| **Total** | **277** | **all green, 0 failures** |
+| Integration (electrochem e2e + fusion Phase-0 + fusion 50-task reasoning bench + MCP smoke + MCP stdio + sources + reasoner + PyBOP + OMAS + Pyrokinetics + VQE-H2 + plug-replaceability live + TDA-on-real-PyBaMM + cross-model disagreement live + R2S analytic + tandem PV + SA scenario) | ~120 | **all green** |
+| **Total** | **333** | **all green, 0 failures** |
 
 **Falsification wave verdict (sovereign acceptance gate):** 12 of 12.
 
@@ -62,29 +62,35 @@ bash scripts/clean_runtime.sh
 | Adapter | Library + version | Notes |
 |---|---|---|
 | `ElectronicStructureAdapter.singlepoint` | PySCF 2.13.0 | RHF/STO-3G on H2; deterministic |
+| `VqeH2Adapter` (electrochem L1 quantum slot) | qiskit 2.4.1 + PySCF | StatevectorEstimator + manual JW; 0.10 mHa abs error vs FCI; H2 STO-3G; PRD's "no quantum advantage claims" honored |
 | `PyBaMMBatteryAdapter` | PyBaMM 26.4.1 | DFN P2D Chen2020 1C discharge, 600s |
+| `PyBOPParameterInferenceAdapter` (electrochem L4) | PyBOP 26.3 + PyBaMM | Bayesian SPM parameter inference; SciPyMinimize; ~25% relative error within SNR limits |
 | `CanteraSofcAdapter` | Cantera 3.2.0 | GRI30 H2/air equilibrate |
 | `PyPSALcoeAdapter` | PyPSA 1.2.0 + HiGHS | Single-bus dispatch + MC LCOE (200 samples ±15% capex/opex) |
 | `PvlibYieldAdapter` | pvlib 0.15.1 | Ineichen clear-sky for Sandton (-26.10, 28.05), 7 days hourly |
 | `OpenMcManifestAdapter` (CPU path) | OpenMC if cross-section data present | Otherwise manifest-only; tiny Be-9 sphere transport |
 | `FreeGS4eAdapter` (CPU path) | freegs 0.8.2 | Diverted shaped equilibrium fixture |
+| `PyrokineticsParserAdapter` (fusion L2) | Pyrokinetics 0.8.0 | GS2→CGYRO round-trip residual=0.0 across q/shat/beta/Ti/Te |
 | `ImasPythonAdapter` | netCDF4 1.7.4 (IMAS-Python is LGPL — direct netCDF backend used) | Reads the local `imas_demo.nc` IDS-shaped fixture |
+| `OmasRealValidatorAdapter` (fusion L4) | OMAS 0.95.2 | Real IMAS Data Dictionary path validation; replaces stub `OmasConverterAdapter` |
 | `ReducedTransportCpuAdapter` | numpy + ITER H98(y,2) scaling | 0D scenario solver; emits DRO |
 | `FusionReasoningBench` | rules-based scorer | 50 tasks; refusal_recall=1.0 on the 10 forbidden tasks; rules-based, so envelope is `scientific_valid=False` even though refusal-gate passes |
 
 ### Engineering-stub paths (mode=engineering_stub, scientific_valid=False)
 
 - `ElectronicStructureAdapter.marcus` / `optical_spectrum`
-- `MLIPManifestAdapter` (no weights loaded)
+- `MLIPManifestAdapter` (no weights loaded; MACE/fairchem deferred to Runpod-Linux per torch on 3.13-darwin gap)
 - `trajectory_msd` (synthetic numpy MSD)
 - `phasefield_stub` (synthetic numpy tortuosity)
 - `SolcorePvAdapter` (Solcore failed pip install on Python 3.13 — analytic Shockley-Queisser fallback)
+- `TandemPvAdapter` (analytic perovskite/Si tandem with current matching; analytic only — Solcore replaces on Linux)
 - `PemAdapter` (analytic Butler-Volmer; AlphaPEM GPL-3 isolation deferred)
 - `ThermoelectricAdapter` (analytic Gaussian ZT(T))
 - `PySAMLcoeAdapter` (skipped live PySAM install; analytic LCOE fixture)
 - L2 fusion: `CgyroNonlinearAdapter`, `GyroSwinSurrogateAdapter` — both Runpod-only, REST stubs
 - L3 fusion: `JorekDryRunAdapter`, `BoutDryRunAdapter` — parser-only
-- L5 fusion: `ParamakGeometryAdapter` (Paramak install OK; CSG fallback if missing), `OpenmcCsgFixedSourceAdapter`, `OpenmcR2sAdapter` (R2S analytic stub)
+- L5 fusion: `ParamakGeometryAdapter` (Paramak install OK; CSG fallback if missing), `OpenmcCsgFixedSourceAdapter`, `OpenmcR2sAdapter`
+- L5 fusion: `R2sAnalyticActivationAdapter` (single-isotope point-kinetics analytic; Co-60 / Mn-56 / He-6 chains; warn-level gate; OpenMC R2S replaces on Runpod)
 - All FastAPI REST stubs at `/v1/electrochem/*` and `/v1/fusion/*` — return `engineering_stub` envelopes
 - `aiida_mcp.submit_dryrun` (manifest-only)
 

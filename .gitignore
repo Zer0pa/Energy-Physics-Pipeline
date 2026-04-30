@@ -27,3 +27,4 @@ hpc_secrets/
 *.log
 sources_log/raw/
 fixtures/_local_only/
+.claude/

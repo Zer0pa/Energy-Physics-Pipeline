@@ -1,0 +1,47 @@
+{
+  "scenario_id": "south-africa-2025-pgm-h2-research-fixture",
+  "boundary": "Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.",
+  "description": "Tiny SA-specific generation+demand fixture for the green-H2/PGM strategic story. Order-of-magnitude annual energy figures only; not an operational forecast. Synthetic, research-bound.",
+  "year": 2025,
+  "country": "ZA",
+  "energy_TWh_per_year": {
+    "coal_existing": 178.0,
+    "wind_onshore_planned": 6.5,
+    "solar_pv_planned": 14.2,
+    "battery_storage_dispatchable": 1.8,
+    "green_h2_export_target": 4.0,
+    "demand_total": 252.0
+  },
+  "pgm_context": {
+    "platinum_global_share_fraction": 0.85,
+    "iridium_global_share_fraction": 0.83,
+    "annual_pem_electrolyser_capex_USD_million": 220.0,
+    "annual_pem_fuel_cell_capex_USD_million": 95.0
+  },
+  "single_bus_load_profile_24h_MW": [
+    18000, 17200, 16400, 15800, 15500, 16200,
+    19500, 23800, 26100, 27300, 28000, 28400,
+    28600, 28200, 27800, 28000, 28500, 30100,
+    31200, 30200, 27800, 24500, 21300, 19500
+  ],
+  "solar_capacity_factor_24h": [
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.05,
+    0.18, 0.36, 0.55, 0.71, 0.82, 0.90,
+    0.93, 0.91, 0.85, 0.74, 0.58, 0.39,
+    0.20, 0.05, 0.0, 0.0, 0.0, 0.0
+  ],
+  "wind_capacity_factor_24h": [
+    0.41, 0.44, 0.47, 0.51, 0.55, 0.58,
+    0.55, 0.49, 0.43, 0.38, 0.34, 0.31,
+    0.30, 0.30, 0.31, 0.33, 0.36, 0.40,
+    0.46, 0.50, 0.52, 0.50, 0.47, 0.43
+  ],
+  "primary_sources": [
+    "South African Department of Mineral Resources and Energy",
+    "Council for Scientific and Industrial Research, SA",
+    "EU Global Gateway South Africa €4.7 bn package (2025-03)",
+    "Synthesis: PRD §SA Strategic Anchor"
+  ],
+  "rights_label": "public-research-fixture",
+  "sha256_placeholder": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+}

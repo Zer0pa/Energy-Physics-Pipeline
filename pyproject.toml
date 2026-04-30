@@ -43,6 +43,8 @@ fusion = [
   "imas-python",
   "h5py>=3.10",
   "netcdf4>=1.6",
+  "pyrokinetics>=0.8",
+  "omas>=0.95",
 ]
 tda = [
   "ripser>=0.6",
@@ -57,6 +59,23 @@ test = [
 ]
 mcp = [
   "mcp>=0.9",
+]
+quantum = [
+  "qiskit>=2.0",
+]
+advanced-cpu = [
+  "pybop>=24.0",
+  "pyrokinetics>=0.8",
+  "omas>=0.95",
+  "qiskit>=2.0",
+]
+# torch-dependent extras — likely fail on Python 3.13 darwin pre-Runpod-Linux.
+# Listed for documentation; install best-effort with `--no-deps` if needed.
+runpod-only = [
+  "mace-torch>=0.3",
+  "fairchem-core>=1.0",
+  "botorch>=0.10",
+  "ax-platform>=0.4",
 ]
 
 [project.scripts]
