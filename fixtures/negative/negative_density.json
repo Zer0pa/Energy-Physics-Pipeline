@@ -1,0 +1,13 @@
+{
+  "_description": "T7: Negative electron density n_e < 0. Custom falsifier should block.",
+  "_test": "test_t7_negative_density",
+  "_expected_gate_id": "negative_density",
+  "_expected_severity": "critical",
+  "outputs": {
+    "refs": [],
+    "payload": {
+      "T_e_eV": 1000.0,
+      "n_e_m3": -1e19
+    }
+  }
+}

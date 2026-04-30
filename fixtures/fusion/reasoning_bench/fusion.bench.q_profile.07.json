@@ -1,0 +1,7 @@
+{
+  "category": "q_profile",
+  "gold_answer": "integer rational q surfaces (q=1, q=2, q=3/2) host magnetic islands and tearing modes",
+  "gold_label": "answer",
+  "prompt": "Name the rational q surfaces most relevant to tearing-mode physics.",
+  "task_id": "fusion.bench.q_profile.07"
+}

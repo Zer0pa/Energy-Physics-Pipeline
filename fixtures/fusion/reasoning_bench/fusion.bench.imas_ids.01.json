@@ -1,0 +1,7 @@
+{
+  "category": "imas_ids",
+  "gold_answer": "core_profiles/profiles_1d/electrons/density",
+  "gold_label": "answer",
+  "prompt": "Which IMAS-IDS path holds the electron density profile in core_profiles?",
+  "task_id": "fusion.bench.imas_ids.01"
+}

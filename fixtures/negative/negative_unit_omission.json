@@ -1,0 +1,16 @@
+{
+  "_description": "T4: Output quantity missing 'unit' field. units_required_falsifier should return FailureRecord.",
+  "_test": "test_t4_unit_omission",
+  "_expected_gate_status": "fail",
+  "_expected_gate_id": "units_required",
+  "outputs": {
+    "refs": [],
+    "payload": {
+      "quantities": {
+        "voltage": {
+          "value": 3.7
+        }
+      }
+    }
+  }
+}

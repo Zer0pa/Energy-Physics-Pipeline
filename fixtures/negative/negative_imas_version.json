@@ -1,0 +1,19 @@
+{
+  "_description": "T11: IMAS-shaped dict missing data_dictionary_version. IMAS version falsifier should fail.",
+  "_test": "test_t11_fusion_missing_imas_version",
+  "_expected_gate_id": "imas_version_required",
+  "_reference": "ITER IMAS data dictionary specification, ITER_D_7LKQCT v2.3",
+  "outputs": {
+    "refs": [],
+    "payload": {
+      "imas_ids": {
+        "equilibrium": {
+          "time": [0.0, 0.1, 0.2],
+          "global_quantities": {
+            "ip": [1500000.0, 1500100.0, 1499900.0]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "category": "q_profile",
+  "gold_answer": "magnetic shear shat = (r/q) dq/dr; positive shear stabilises ITG",
+  "gold_label": "answer",
+  "prompt": "Define magnetic shear and state its sign for ITG stabilisation.",
+  "task_id": "fusion.bench.q_profile.02"
+}

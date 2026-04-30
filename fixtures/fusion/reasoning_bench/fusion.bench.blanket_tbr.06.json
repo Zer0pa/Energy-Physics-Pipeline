@@ -1,0 +1,7 @@
+{
+  "category": "blanket_tbr",
+  "gold_answer": "structural displacement damage (dpa) is a key materials constraint",
+  "gold_label": "answer",
+  "prompt": "What materials damage metric must accompany TBR in blanket optimisation?",
+  "task_id": "fusion.bench.blanket_tbr.06"
+}

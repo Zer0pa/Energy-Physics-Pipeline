@@ -46,3 +46,44 @@ The orchestrator's working assumption per the research-agent handover note: **on
 ## Cross-workstream principle (deliberate)
 
 This workstream runs in parallel with `Zer0pa/Health` and `Zer0pa/Materials`. Each workstream is built end-to-end as an independent pipeline. **No substrate is shared during build.** Redundancy across workstreams is a deliberate asset — surplus coding capacity buys diversity of architecture, not duplicated cost. Convergence (if any) happens in a separate merge step after all parallel workstreams complete. See `MODUS-OPERANDI.md` § Parallel-exploration principle. The research-agent handover note recommends cross-vertical L6 sharing across Health, Materials, and Energy; that recommendation is captured in `synthesis/01-fresh-eyes-on-energy-briefs.md` and explicitly overridden in `HANDOFF-TO-ORCHESTRATOR.md` § Operator override. Within Energy, the two sub-verticals (electrochemistry + fusion) may share L6 design and the L4-output schema — that is intra-workstream and explicitly permitted.
+
+---
+
+## Executor build state (2026-04-30)
+
+Overnight CPU-first build delivered. See [`FINAL-REPORT.md`](./FINAL-REPORT.md) and [`HANDOFF-FROM-OVERNIGHT-EXECUTOR.md`](./HANDOFF-FROM-OVERNIGHT-EXECUTOR.md).
+
+Repo layout (post-build):
+
+```
+energy_pipeline/
+  schemas/                — UniversalLayerEnvelope, DeviceResponseObject, Falsification, Source, Reasoner
+  audit/                  — JSONL + DuckDB writer with mandatory boundary check
+  kg/                     — JSONL + NetworkX KG store; GraphML export
+  rest/                   — FastAPI stubs for L1-L5 endpoints (electrochem + fusion)
+  l6/                     — Adapter registry, ENERGY_* config, falsifier router
+  tda/                    — Persistent-homology early-warning (ripser + persim)
+  cli/                    — Typer CLI: health, registry, smoke, serve-rest, falsification-wave, etc.
+  adapters/electrochem/   — L1-L5 (PyBaMM, Solcore, Cantera, PEM, ThermoElectric)
+  adapters/fusion/        — L1-L5 (OpenMC, GACODE/TGLF, FreeGS4E, IMAS netCDF, Paramak)
+  adapters/shared/        — Source log + license gate + reasoner curator
+  mcp_servers/            — 9 FastMCP servers (pybamm, pvlib, solcore, cantera, pypsa, pysam, openmc, imas-codex, aiida)
+fixtures/{electrochem,fusion,negative}/
+tests/{contract,falsification,scientific,integration}/
+sources_log/seed.jsonl + license_findings.jsonl
+docs/decisions/000-005
+scripts/{full_check.sh, clean_runtime.sh, quick_demo.py}
+tools/{show_audit.py, show_kg.py, build_summary.py, runpod_cutover_checklist.py}
+```
+
+Quick start:
+
+```bash
+git clone https://github.com/Zer0pa/Energy
+cd Energy
+python3.13 -m venv .venv
+.venv/bin/pip install -e '.[test,electrochem,fusion,tda,mcp]'
+make full
+```
+
+The Runpod cutover plan is `tools/runpod_cutover_checklist.py` and the `/v1/runpod/{layer}/{domain}` REST shape in `energy_pipeline/rest/app.py`.

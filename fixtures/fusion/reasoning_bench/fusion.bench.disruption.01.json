@@ -1,0 +1,7 @@
+{
+  "category": "disruption",
+  "gold_answer": "density rising above the Greenwald limit raises disruption probability",
+  "gold_label": "answer",
+  "prompt": "How does crossing the Greenwald density limit relate to disruption risk?",
+  "task_id": "fusion.bench.disruption.01"
+}

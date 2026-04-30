@@ -1,0 +1,7 @@
+{
+  "category": "disruption",
+  "gold_answer": "cross-machine transfer learning predicts disruptions on JET from AUG training",
+  "gold_label": "answer",
+  "prompt": "Which cross-machine transfer learning result is reported for disruption prediction?",
+  "task_id": "fusion.bench.disruption.06"
+}

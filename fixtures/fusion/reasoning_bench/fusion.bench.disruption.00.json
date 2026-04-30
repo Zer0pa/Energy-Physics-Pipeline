@@ -1,0 +1,7 @@
+{
+  "category": "disruption",
+  "gold_answer": "locked-mode amplitude rising indicates impending disruption",
+  "gold_label": "answer",
+  "prompt": "Which signal in MHD spectroscopy is the strongest disruption precursor?",
+  "task_id": "fusion.bench.disruption.00"
+}

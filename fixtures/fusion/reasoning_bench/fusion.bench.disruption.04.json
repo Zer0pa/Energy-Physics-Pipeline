@@ -1,0 +1,7 @@
+{
+  "category": "disruption",
+  "gold_answer": "vertical instability (VDE) precedes a disruption when control loop gain is insufficient",
+  "gold_label": "answer",
+  "prompt": "What is a VDE and how does it lead to disruption?",
+  "task_id": "fusion.bench.disruption.04"
+}

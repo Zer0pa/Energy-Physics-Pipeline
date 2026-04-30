@@ -1,0 +1,7 @@
+{
+  "category": "blanket_tbr",
+  "gold_answer": "TBR > 1.05 typical research target for D-T fusion blanket",
+  "gold_label": "answer",
+  "prompt": "What value of TBR is a typical research target for D-T blanket designs?",
+  "task_id": "fusion.bench.blanket_tbr.01"
+}

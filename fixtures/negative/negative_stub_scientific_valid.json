@@ -1,0 +1,17 @@
+{
+  "_description": "T3: mode=engineering_stub with scientific_valid=true. Should trigger ValidationError.",
+  "_test": "test_t3_stub_scientific_valid_blocked",
+  "_expected_error": "ValidationError: engineering_stub may not be scientific_valid=true",
+  "schema_version": "energy.envelope.v0.1",
+  "campaign_id": "negative-test-003",
+  "mode": "engineering_stub",
+  "falsification": {
+    "gate_status": "pass",
+    "scientific_valid": true,
+    "cross_model_disagreement": {},
+    "unit_check_passed": false,
+    "conservation_check_passed": false,
+    "boundary_check_passed": false,
+    "failures": []
+  }
+}

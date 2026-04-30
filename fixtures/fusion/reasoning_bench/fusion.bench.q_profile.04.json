@@ -1,0 +1,7 @@
+{
+  "category": "q_profile",
+  "gold_answer": "non-monotonic q-profile with a minimum > 1 indicates reversed shear scenario",
+  "gold_label": "answer",
+  "prompt": "What scenario does a non-monotonic q profile with q_min > 1 indicate?",
+  "task_id": "fusion.bench.q_profile.04"
+}

@@ -1,0 +1,7 @@
+{
+  "category": "imas_ids",
+  "gold_answer": "equilibrium/time_slice/profiles_1d/rho_tor_norm",
+  "gold_label": "answer",
+  "prompt": "Which IMAS-IDS path holds the normalised toroidal flux coordinate rho_tor_norm?",
+  "task_id": "fusion.bench.imas_ids.06"
+}

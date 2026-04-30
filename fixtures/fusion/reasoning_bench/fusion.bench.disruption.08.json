@@ -1,0 +1,7 @@
+{
+  "category": "disruption",
+  "gold_answer": "E-CAAD model classifies cross-machine disruption precursors",
+  "gold_label": "answer",
+  "prompt": "Which 2025 model classifies cross-machine disruption precursors?",
+  "task_id": "fusion.bench.disruption.08"
+}

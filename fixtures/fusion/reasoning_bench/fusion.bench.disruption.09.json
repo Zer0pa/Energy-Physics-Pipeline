@@ -1,0 +1,7 @@
+{
+  "category": "disruption",
+  "gold_answer": "open disruption exchange standard enables cross-machine ML training",
+  "gold_label": "answer",
+  "prompt": "What 2025 open standard enables cross-machine disruption ML training?",
+  "task_id": "fusion.bench.disruption.09"
+}

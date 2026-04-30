@@ -1,0 +1,7 @@
+{
+  "category": "imas_ids",
+  "gold_answer": "core_profiles/profiles_1d/electrons/temperature",
+  "gold_label": "answer",
+  "prompt": "Which IMAS-IDS path holds the electron temperature profile?",
+  "task_id": "fusion.bench.imas_ids.02"
+}

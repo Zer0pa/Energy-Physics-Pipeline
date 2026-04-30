@@ -1,0 +1,7 @@
+{
+  "category": "blanket_tbr",
+  "gold_answer": "TBR is research-bound only; PRD forbids treating it as the sole optimisation target",
+  "gold_label": "answer",
+  "prompt": "Why does the Zer0pa pipeline never optimise on TBR alone?",
+  "task_id": "fusion.bench.blanket_tbr.00"
+}

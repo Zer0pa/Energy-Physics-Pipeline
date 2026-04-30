@@ -1,0 +1,24 @@
+{
+  "_description": "T12: CrossModelDisagreementRecord values=[1.0,2.0], fail_threshold=0.5 → status=fail. Router blocks.",
+  "_test": "test_t12_cross_model_disagreement_fail",
+  "_expected_gate_id": "cross_model_disagreement_fail",
+  "_relative_disagreement": 1.0,
+  "_fail_threshold": 0.5,
+  "falsification": {
+    "cross_model_disagreement": {
+      "record_id": "rec-001",
+      "object_id": "battery-cell-001",
+      "quantity": "capacity_Ah",
+      "unit": "Ah",
+      "models_compared": ["PyBaMM-DFN", "SPM-surrogate"],
+      "values": [1.0, 2.0],
+      "uncertainties": [],
+      "metric": "relative",
+      "pass_threshold": 0.05,
+      "warn_threshold": 0.20,
+      "fail_threshold": 0.50,
+      "status": "fail",
+      "resolution_action": "block_handoff"
+    }
+  }
+}

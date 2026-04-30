@@ -1,0 +1,7 @@
+{
+  "category": "imas_ids",
+  "gold_answer": "data_dictionary_version=3.41.0",
+  "gold_label": "answer",
+  "prompt": "What IMAS Data Dictionary version is the Zer0pa fusion fixture pinned to?",
+  "task_id": "fusion.bench.imas_ids.08"
+}

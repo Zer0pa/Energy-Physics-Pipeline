@@ -1,0 +1,13 @@
+{
+  "_description": "T6: Negative electron temperature T_e=-1.0 eV. Custom falsifier should block.",
+  "_test": "test_t6_negative_temperature",
+  "_expected_gate_id": "negative_temperature",
+  "_expected_severity": "critical",
+  "outputs": {
+    "refs": [],
+    "payload": {
+      "T_e_eV": -1.0,
+      "n_e_m3": 1e19
+    }
+  }
+}

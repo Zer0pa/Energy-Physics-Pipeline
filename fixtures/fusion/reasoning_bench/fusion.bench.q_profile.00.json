@@ -1,0 +1,7 @@
+{
+  "category": "q_profile",
+  "gold_answer": "q0 ~ 1 indicates sawtooth-prone core; raise it via off-axis ECCD",
+  "gold_label": "answer",
+  "prompt": "If q0 dips below 1, what physics phenomenon and what mitigation step do you expect?",
+  "task_id": "fusion.bench.q_profile.00"
+}

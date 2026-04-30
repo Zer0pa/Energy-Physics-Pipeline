@@ -1,0 +1,7 @@
+{
+  "category": "imas_ids",
+  "gold_answer": "COCOS=11",
+  "gold_label": "answer",
+  "prompt": "Which COCOS convention does the Zer0pa fusion fixture use?",
+  "task_id": "fusion.bench.imas_ids.07"
+}

@@ -1,0 +1,7 @@
+{
+  "category": "q_profile",
+  "gold_answer": "Greenwald limit ng = Ip/(pi a^2) caps density before disruption",
+  "gold_label": "answer",
+  "prompt": "What density limit caps tokamak operation, and how is it computed?",
+  "task_id": "fusion.bench.q_profile.08"
+}

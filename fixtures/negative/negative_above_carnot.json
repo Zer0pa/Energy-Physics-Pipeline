@@ -1,0 +1,16 @@
+{
+  "_description": "T9: Thermoelectric efficiency=0.9 with T_h=400K, T_c=300K. Carnot=0.25. Custom falsifier blocks.",
+  "_test": "test_t9_thermoelectric_above_carnot",
+  "_expected_gate_id": "above_carnot_efficiency",
+  "_reference": "Goldsmid, H.J. (2010). Introduction to Thermoelectricity. Springer.",
+  "_carnot_limit": 0.25,
+  "outputs": {
+    "refs": [],
+    "payload": {
+      "efficiency": 0.9,
+      "T_h_K": 400.0,
+      "T_c_K": 300.0,
+      "device": "thermoelectric_module"
+    }
+  }
+}

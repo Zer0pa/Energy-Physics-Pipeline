@@ -1,0 +1,7 @@
+{
+  "category": "imas_ids",
+  "gold_answer": "equilibrium/time_slice/profiles_1d/q",
+  "gold_label": "answer",
+  "prompt": "Where in IMAS-IDS is the q profile stored at a given time slice?",
+  "task_id": "fusion.bench.imas_ids.00"
+}

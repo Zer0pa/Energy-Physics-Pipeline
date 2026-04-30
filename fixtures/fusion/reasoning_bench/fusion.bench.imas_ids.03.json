@@ -1,0 +1,7 @@
+{
+  "category": "imas_ids",
+  "gold_answer": "core_profiles/profiles_1d/t_i_average",
+  "gold_label": "answer",
+  "prompt": "Which IMAS-IDS path holds the volume-averaged ion temperature?",
+  "task_id": "fusion.bench.imas_ids.03"
+}

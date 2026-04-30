@@ -1,0 +1,12 @@
+{
+  "_description": "T8: PV fill_factor=1.2 exceeds physical [0,1] range. Pydantic ValidationError expected.",
+  "_test": "test_t8_pv_fill_factor_above_one",
+  "_expected_error": "ValidationError: fill_factor must be in [0, 1]",
+  "schema": "energy.dro.v0.1",
+  "response": {
+    "scalar_metrics": {
+      "fill_factor": 1.2,
+      "pce_fraction": 0.22
+    }
+  }
+}

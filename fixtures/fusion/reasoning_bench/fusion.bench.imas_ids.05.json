@@ -1,0 +1,7 @@
+{
+  "category": "imas_ids",
+  "gold_answer": "equilibrium/time_slice/profiles_1d/j_phi",
+  "gold_label": "answer",
+  "prompt": "Which IMAS-IDS path holds the toroidal current density profile?",
+  "task_id": "fusion.bench.imas_ids.05"
+}

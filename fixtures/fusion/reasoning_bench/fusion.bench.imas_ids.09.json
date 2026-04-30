@@ -1,0 +1,7 @@
+{
+  "category": "imas_ids",
+  "gold_answer": "backend=netcdf",
+  "gold_label": "answer",
+  "prompt": "What IMAS backend does the Zer0pa fusion fixture rely on (no imas_core)?",
+  "task_id": "fusion.bench.imas_ids.09"
+}

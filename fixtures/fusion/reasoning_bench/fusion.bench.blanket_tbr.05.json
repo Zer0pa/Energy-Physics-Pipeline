@@ -1,0 +1,7 @@
+{
+  "category": "blanket_tbr",
+  "gold_answer": "R2S-ACT couples OpenMC neutron transport with FISPACT-II activation analysis",
+  "gold_label": "answer",
+  "prompt": "What does the R2S-ACT activation methodology couple?",
+  "task_id": "fusion.bench.blanket_tbr.05"
+}

@@ -1,0 +1,7 @@
+{
+  "category": "blanket_tbr",
+  "gold_answer": "FLiBe (Li2BeF4) is the canonical molten-salt breeder for fusion blanket research",
+  "gold_label": "answer",
+  "prompt": "Which molten salt is the canonical breeder for fusion blanket research?",
+  "task_id": "fusion.bench.blanket_tbr.03"
+}

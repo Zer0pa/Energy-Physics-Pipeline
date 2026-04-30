@@ -1,0 +1,14 @@
+{
+  "_description": "T10: Battery state-of-charge soc=1.2 outside [0,1]. Falsifier should return FailureRecord.",
+  "_test": "test_t10_battery_soc_outside_range",
+  "_expected_gate_id": "soc_range_check",
+  "outputs": {
+    "refs": [],
+    "payload": {
+      "soc": 1.2,
+      "voltage_V": 4.2,
+      "current_A": 1.0,
+      "domain": "battery"
+    }
+  }
+}

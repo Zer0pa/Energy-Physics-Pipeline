@@ -1,0 +1,24 @@
+{
+  "fixture_id": "pv_sandton_v1",
+  "description": "Single-junction Si PV at Sandton, ZA — AM1.5G spectrum, 25 deg C",
+  "location": {
+    "name": "Sandton, Gauteng, ZA",
+    "latitude_deg": -26.10,
+    "longitude_deg": 28.05,
+    "altitude_m": 1645
+  },
+  "cell_type": "Si_single_junction",
+  "temperature_C": 25.0,
+  "irradiance_W_m2": 1000.0,
+  "spectrum": "AM1.5G",
+  "bandgap_eV": 1.12,
+  "shockley_queisser_pce_upper_fraction": 0.337,
+  "practical_pce_fraction": 0.22,
+  "practical_fill_factor": 0.82,
+  "voc_V": 0.68,
+  "jsc_mA_cm2": 39.5,
+  "assumptions": [
+    "Shockley-Queisser single-junction limit at 300 K",
+    "Recombination: radiative-only at S-Q; practical includes SRH + Auger"
+  ]
+}

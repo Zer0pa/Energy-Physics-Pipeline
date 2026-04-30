@@ -1,0 +1,16 @@
+{
+  "_description": "T2: License class D + mode=scientific + empty license_evidence_uri. Should trigger ValidationError.",
+  "_test": "test_t2_license_promotion_blocked",
+  "_expected_error": "ValidationError: license_class=D requires license_evidence_uri",
+  "schema_version": "energy.envelope.v0.1",
+  "campaign_id": "negative-test-002",
+  "mode": "scientific",
+  "backend": {
+    "adapter": "some-gpl-tool",
+    "tool": "gpl-tool",
+    "tool_version": "1.0",
+    "execution_mode": "local_cpu",
+    "license_class": "D",
+    "license_evidence_uri": ""
+  }
+}

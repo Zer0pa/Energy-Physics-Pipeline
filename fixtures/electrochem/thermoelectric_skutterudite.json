@@ -1,0 +1,20 @@
+{
+  "fixture_id": "thermoelectric_skutterudite_v1",
+  "description": "CoSb3-based skutterudite thermoelectric — analytic ZT vs T fixture",
+  "material": "CoSb3_filled_skutterudite",
+  "T_hot_K": 800.0,
+  "T_cold_K": 300.0,
+  "T_range_K": [300.0, 900.0],
+  "peak_ZT": 1.7,
+  "peak_ZT_T_K": 700.0,
+  "seebeck_coefficient_peak_uV_K": 220.0,
+  "electrical_conductivity_S_m": 4.5e4,
+  "thermal_conductivity_W_m_K": 1.8,
+  "carnot_efficiency_fraction": 0.375,
+  "assumptions": [
+    "ZT(T) parameterised as Gaussian around peak",
+    "Carnot limit: eta_C = 1 - T_cold/T_hot",
+    "Device efficiency < Carnot enforced as falsifier",
+    "No contact resistance; no Thomson effect"
+  ]
+}

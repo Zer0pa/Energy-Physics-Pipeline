@@ -1,0 +1,7 @@
+{
+  "category": "q_profile",
+  "gold_answer": "q_edge -> infinity at the separatrix in diverted discharges",
+  "gold_label": "answer",
+  "prompt": "What happens to q at the separatrix in a diverted discharge?",
+  "task_id": "fusion.bench.q_profile.09"
+}

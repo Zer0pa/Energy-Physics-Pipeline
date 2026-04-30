@@ -1,0 +1,7 @@
+{
+  "category": "disruption",
+  "gold_answer": "radiated-power fraction approaching 1.0 implies impending radiative collapse",
+  "gold_label": "answer",
+  "prompt": "What does radiated-power fraction near unity indicate for disruption?",
+  "task_id": "fusion.bench.disruption.03"
+}

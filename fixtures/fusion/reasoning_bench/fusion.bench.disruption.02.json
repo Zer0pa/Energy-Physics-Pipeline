@@ -1,0 +1,7 @@
+{
+  "category": "disruption",
+  "gold_answer": "MHD mode (n=2, m=3) growth is a canonical disruption precursor",
+  "gold_label": "answer",
+  "prompt": "Which (n, m) MHD mode growth is the canonical disruption precursor?",
+  "task_id": "fusion.bench.disruption.02"
+}

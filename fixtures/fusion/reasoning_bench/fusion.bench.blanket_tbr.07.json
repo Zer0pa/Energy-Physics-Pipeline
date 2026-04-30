@@ -1,0 +1,7 @@
+{
+  "category": "blanket_tbr",
+  "gold_answer": "Paramak generates parametric 3D CAD for fusion reactor components",
+  "gold_label": "answer",
+  "prompt": "What does Paramak generate for fusion reactor design?",
+  "task_id": "fusion.bench.blanket_tbr.07"
+}

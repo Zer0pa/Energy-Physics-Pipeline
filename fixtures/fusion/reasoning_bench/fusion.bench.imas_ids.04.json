@@ -1,0 +1,7 @@
+{
+  "category": "imas_ids",
+  "gold_answer": "equilibrium/time_slice/profiles_1d/pressure",
+  "gold_label": "answer",
+  "prompt": "Where in IMAS-IDS is the equilibrium pressure profile stored?",
+  "task_id": "fusion.bench.imas_ids.04"
+}

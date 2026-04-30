@@ -1,0 +1,7 @@
+{
+  "category": "q_profile",
+  "gold_answer": "q-profile monotonically rising indicates standard inductive scenario",
+  "gold_label": "answer",
+  "prompt": "If q increases monotonically with rho, what scenario class is the plasma in?",
+  "task_id": "fusion.bench.q_profile.03"
+}

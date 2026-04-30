@@ -1,0 +1,7 @@
+{
+  "category": "q_profile",
+  "gold_answer": "flat q-profile risks tearing modes near rational surfaces",
+  "gold_label": "answer",
+  "prompt": "What stability risk is associated with a flat q-profile near rational surfaces?",
+  "task_id": "fusion.bench.q_profile.05"
+}

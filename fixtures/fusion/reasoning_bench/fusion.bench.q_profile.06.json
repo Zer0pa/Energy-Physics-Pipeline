@@ -1,0 +1,7 @@
+{
+  "category": "q_profile",
+  "gold_answer": "low q95 increases disruption risk; q95 > 2 typically",
+  "gold_label": "answer",
+  "prompt": "Why is operating with low q95 risky?",
+  "task_id": "fusion.bench.q_profile.06"
+}

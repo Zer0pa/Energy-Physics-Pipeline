@@ -1,0 +1,22 @@
+{
+  "fixture_id": "sofc_simple_v1",
+  "description": "Simple SOFC operating on H2 at 800 deg C, 1 atm",
+  "fuel": "H2",
+  "oxidant": "air",
+  "temperature_C": 800.0,
+  "pressure_atm": 1.0,
+  "fuel_utilisation_fraction": 0.85,
+  "air_utilisation_fraction": 0.20,
+  "target_current_density_A_cm2": 0.5,
+  "electrolyte": "YSZ",
+  "anode": "Ni-YSZ",
+  "cathode": "LSM",
+  "nernst_voltage_V": 1.04,
+  "electrode_reference_convention": "O2/O2- (standard hydrogen electrode correction applied)",
+  "assumptions": [
+    "Isothermal operation at 800 C",
+    "Butler-Volmer kinetics at both electrodes",
+    "Ohmic drop through YSZ electrolyte dominant",
+    "1D planar geometry"
+  ]
+}

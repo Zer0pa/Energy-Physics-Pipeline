@@ -1,0 +1,7 @@
+{
+  "category": "disruption",
+  "gold_answer": "runaway-electron generation following disruption is a first-wall risk",
+  "gold_label": "answer",
+  "prompt": "What first-wall risk follows a tokamak disruption?",
+  "task_id": "fusion.bench.disruption.07"
+}

@@ -1,0 +1,19 @@
+{
+  "_description": "T5: DRO operating_conditions axis name='psi' with empty unit. COCOS falsifier should fail.",
+  "_test": "test_t5_bad_coordinate_convention",
+  "_expected_gate_id": "cocos_unit_required",
+  "_reference": "Sauter & Medvedev (2013). Tokamak coordinate conventions: COCOS. Comput. Phys. Commun. 184(2).",
+  "schema_version": "energy.dro.v0.1",
+  "sub_vertical": "fusion",
+  "device_family": "tokamak",
+  "operating_conditions": {
+    "axes": [
+      {
+        "name": "psi",
+        "unit": "",
+        "values": [0.0, 0.25, 0.5, 0.75, 1.0]
+      }
+    ],
+    "fixed": {}
+  }
+}

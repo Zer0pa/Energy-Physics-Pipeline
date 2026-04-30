@@ -1,0 +1,7 @@
+{
+  "category": "blanket_tbr",
+  "gold_answer": "Li-6 enrichment 60% commonly cited for FLiBe blanket research",
+  "gold_label": "answer",
+  "prompt": "What Li-6 enrichment is typically used in FLiBe blanket research?",
+  "task_id": "fusion.bench.blanket_tbr.02"
+}

@@ -1,0 +1,7 @@
+{
+  "category": "disruption",
+  "gold_answer": "ITER disruption rate target is below 1 in 200 pulses",
+  "gold_label": "answer",
+  "prompt": "What is the ITER disruption rate target?",
+  "task_id": "fusion.bench.disruption.05"
+}

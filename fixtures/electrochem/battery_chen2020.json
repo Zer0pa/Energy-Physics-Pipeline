@@ -1,0 +1,18 @@
+{
+  "fixture_id": "battery_chen2020_v1",
+  "description": "Chen2020 P2D Li-ion cell: LiNiMnCoO2 cathode, graphite anode, 1C discharge",
+  "cell_model": "Chen2020",
+  "c_rate": 1.0,
+  "temperature_K": 298.15,
+  "t_end_s": 3600,
+  "nominal_capacity_Ah": 5.0,
+  "ocv_V_soc1": 4.19,
+  "ocv_V_soc0": 2.50,
+  "internal_resistance_ohm": 0.01,
+  "electrode_reference_convention": "Li/Li+ (0 V)",
+  "assumptions": [
+    "Doyle-Fuller-Newman (DFN/P2D) model",
+    "Isothermal at 298.15 K",
+    "Single-particle equivalent valid at 1C"
+  ]
+}

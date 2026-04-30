@@ -1,0 +1,25 @@
+Zer0pa Energy — internal research workstream
+
+Copyright (c) 2026 Zer0pa.
+
+This repository is proprietary internal research infrastructure. Source code, schemas,
+fixtures, and decision documents are not licensed for redistribution outside the Zer0pa
+organisation without written permission.
+
+Adapter modules and schemas in this repository wrap and call third-party libraries that
+ship under their own licenses (Apache-2.0, BSD-3, MIT, LGPL-3, GPL-2/3, etc.). Each
+upstream license is recorded in `sources_log/license_findings.jsonl` and enforced by
+the `energy_pipeline.l6` license-promotion gate. No third-party tool is assumed to be
+permitted for any use case beyond what its own license grants.
+
+Any production deployment must:
+
+- Enumerate every adapter touched and verify its license class against
+  `sources_log/license_findings.jsonl`.
+- Refuse class C/D/E backends in `scientific` mode without an explicit
+  `kg://license-grant/<tool>` evidence record.
+- Carry the boundary block (see `BOUNDARY.md`) verbatim in every artifact.
+
+Outputs of this pipeline are research artifacts. They do not constitute regulatory,
+clinical, safety, or operational guarantees and may not be used for defence or weapons
+applications.

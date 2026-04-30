@@ -1,0 +1,7 @@
+{
+  "category": "blanket_tbr",
+  "gold_answer": "DAGMC enables OpenMC to operate on CAD-native blanket geometry",
+  "gold_label": "answer",
+  "prompt": "What does DAGMC do for OpenMC blanket simulations?",
+  "task_id": "fusion.bench.blanket_tbr.04"
+}

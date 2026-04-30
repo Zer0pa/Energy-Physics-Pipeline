@@ -1,0 +1,23 @@
+{
+  "fixture_id": "pem_butler_volmer_v1",
+  "description": "PEM electrolyser / fuel-cell — analytic Butler-Volmer fixture",
+  "device_type": "pem_electrolyzer",
+  "temperature_K": 353.15,
+  "pressure_cathode_Pa": 101325.0,
+  "pressure_anode_Pa": 101325.0,
+  "exchange_current_density_A_m2": 1.0e-3,
+  "alpha_a": 0.5,
+  "alpha_c": 0.5,
+  "membrane_conductivity_S_m": 10.0,
+  "membrane_thickness_m": 1.27e-4,
+  "j_range_A_m2": [0.0, 10000.0],
+  "n_points": 50,
+  "electrode_reference_convention": "RHE (reversible hydrogen electrode)",
+  "reversible_voltage_V": 1.23,
+  "assumptions": [
+    "Tafel regime for large overpotentials",
+    "Membrane resistance = rho * L (Ohmic)",
+    "Isothermal at 80 deg C",
+    "Single-phase flow; no mass-transport limitation in fixture"
+  ]
+}

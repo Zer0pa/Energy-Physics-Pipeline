@@ -1,0 +1,7 @@
+{
+  "category": "q_profile",
+  "gold_answer": "q95 = 3 is the standard ITER baseline scenario",
+  "gold_label": "answer",
+  "prompt": "What is the ITER baseline value of q95?",
+  "task_id": "fusion.bench.q_profile.01"
+}

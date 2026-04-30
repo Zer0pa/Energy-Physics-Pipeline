@@ -1,0 +1,7 @@
+{
+  "category": "blanket_tbr",
+  "gold_answer": "fusion blanket research focuses on TBR, activation, and materials damage simultaneously",
+  "gold_label": "answer",
+  "prompt": "Which three blanket figures of merit must be optimised jointly in research?",
+  "task_id": "fusion.bench.blanket_tbr.09"
+}
