@@ -189,8 +189,7 @@ class TdaEarlyWarning:
         self  (for chaining)
         """
         ws = self.window_spec
-        # delay in samples — if delay_s==0 use 1 sample lag
-        sample_rate = 1.0  # abstract; caller normalises
+        # delay in samples — if delay_s==0 use 1 sample lag (caller pre-normalises sample rate)
         delay_samples = max(1, int(ws.delay_s)) if ws.delay_s > 0 else 1
         pts = _takens_embed(time_series, ws.embedding_dim, delay_samples)
         result = ripser.ripser(pts, maxdim=1)

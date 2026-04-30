@@ -637,7 +637,8 @@ def _butler_volmer_iv(spec: dict | None = None) -> tuple[list[float], list[float
     n_pts = spec.get("n_points", 50)
     j0 = spec.get("exchange_current_density_A_m2", 1e-3)
     alpha_a = spec.get("alpha_a", 0.5)
-    alpha_c = spec.get("alpha_c", 0.5)
+    # alpha_c retained in spec for future Tafel-on-cathode-side extension
+    _alpha_c = spec.get("alpha_c", 0.5)  # noqa: F841
     T_K = spec.get("temperature_K", 1073.15)
     R_ohm = spec.get("membrane_resistance_ohm_m2", 0.05)
     V_eq = spec.get("reversible_voltage_V", 1.04)
@@ -682,7 +683,8 @@ class PemAdapter:
         V_rev = spec.get("reversible_voltage_V", 1.23)
         j0_A_m2 = spec.get("exchange_current_density_A_m2", 1e-3)
         alpha_a = spec.get("alpha_a", 0.5)
-        alpha_c = spec.get("alpha_c", 0.5)
+        # alpha_c retained in spec for future cathode Tafel extension
+        _alpha_c = spec.get("alpha_c", 0.5)  # noqa: F841
         sigma_S_m = spec.get("membrane_conductivity_S_m", 10.0)
         L_m = spec.get("membrane_thickness_m", 1.27e-4)
         n_pts = spec.get("n_points", 50)

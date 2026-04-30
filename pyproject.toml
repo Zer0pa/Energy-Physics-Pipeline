@@ -99,3 +99,24 @@ markers = [
   "integration: end-to-end paths",
   "scientific: physics-bounds tests",
 ]
+
+[tool.coverage.run]
+branch = true
+source = ["energy_pipeline"]
+omit = [
+  "energy_pipeline/mcp_servers/__main__*",
+  "*/__init__.py",
+]
+
+[tool.coverage.report]
+# Soft 80% gate (warn-only; not enforced by `pytest --cov-fail-under` here so CI stays
+# green during the post-Runpod expansion. Flip to `fail_under = 80` once active-learning
+# and Runpod-side adapters land.
+precision = 1
+show_missing = true
+skip_empty = true
+exclude_also = [
+  "if TYPE_CHECKING:",
+  "raise NotImplementedError",
+  "if __name__ == \"__main__\":",
+]

@@ -121,7 +121,7 @@ def test_fusion_phase0_endtoend(tmp_path, tmp_audit_kg):
         q_profile=l3.outputs.payload["q_profile"],
         psi_norm=l3.outputs.payload["psi_norm"],
     )
-    sha_sc = _write_envelope(aw, env_sc)
+    _write_envelope(aw, env_sc)
     aw.write_event(kind="dro", payload=dro.model_dump(mode="json"))
     kg.add_node(
         "DeviceResponseObject",

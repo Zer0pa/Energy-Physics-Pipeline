@@ -180,7 +180,7 @@ def test_real_pybamm_voltage_runs_through_tda(tmp_path):
     This uses the ACTUAL PyBaMMBatteryAdapter to generate the voltage trajectory,
     then runs TDA on the result. If PyBaMM is not importable the test skips.
     """
-    pybamm = pytest.importorskip("pybamm")
+    pytest.importorskip("pybamm")
     from energy_pipeline.adapters.electrochem.l4 import PyBaMMBatteryAdapter
 
     adapter = PyBaMMBatteryAdapter()

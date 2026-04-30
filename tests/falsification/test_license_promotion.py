@@ -82,9 +82,6 @@ def test_ab_scientific_empty_uri_passes(lc: LicenseClass):
 
 def test_license_promotion_falsifier_blocks():
     """license_promotion_falsifier returns FailureRecord for D+scientific+no-URI."""
-    # Build valid env first (stub mode, no URI constraint)
-    env = _make_env(LicenseClass.D, Mode.engineering_stub, "")
-    # Now manually test falsifier logic with scientific mode check
     # Build a scientific-mode env that bypasses Pydantic by using file:// URI
     env_sci = _make_env(LicenseClass.D, Mode.scientific, "file:///tmp/license.txt")
     # Falsifier should pass because URI starts with file://
@@ -95,8 +92,10 @@ def test_license_promotion_falsifier_blocks():
 def test_license_promotion_falsifier_with_bad_uri():
     """Construct scenario where falsifier can catch the case (bypasses Pydantic via stub mode)."""
     from energy_pipeline.schemas.envelope import FalsificationBlock
-    # engineering_stub mode passes Pydantic validation even without URI
-    env_stub = _make_env(LicenseClass.D, Mode.engineering_stub, "")
+    # engineering_stub mode passes Pydantic validation even without URI; build it to
+    # confirm the construct-level allowance, then test the falsifier directly with a
+    # synthetic scientific-mode env via the _FakeBackend below.
+    _make_env(LicenseClass.D, Mode.engineering_stub, "")
     # Now patch to scientific for testing the falsifier in isolation
     # We can test the falsifier function directly to verify it catches the issue
     class _FakeBackend:

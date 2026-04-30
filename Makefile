@@ -1,6 +1,6 @@
 PY ?= .venv/bin/python
 
-.PHONY: help install install-cpu test contract falsification scientific integration smoke serve clean lint full
+.PHONY: help install install-cpu test contract falsification scientific integration smoke serve clean lint full coverage
 
 help:
 	@echo "make install        — install package + test deps"
@@ -57,3 +57,8 @@ full:
 	$(PY) -m ruff check energy_pipeline tests || true
 	$(PY) -m pytest tests -q
 	$(PY) -m energy_pipeline.cli.main health
+
+coverage:
+	bash scripts/clean_runtime.sh
+	$(PY) -m pytest tests --cov=energy_pipeline --cov-report=term-missing --cov-report=xml
+	@echo "coverage.xml emitted; soft 80% gate is warn-only — see [tool.coverage.report] in pyproject.toml"

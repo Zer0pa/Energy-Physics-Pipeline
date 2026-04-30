@@ -225,7 +225,13 @@ class TestTdaBifurcationSanity:
         assert result is det
 
     def test_score_under_2s(self):
-        """Score on 1024-sample window with embedding_dim=3 must complete under 2s."""
+        """Score on 1024-sample window with embedding_dim=3 must complete under 2s.
+
+        Coverage instrumentation roughly triples wall time; relax the budget when a
+        tracer (coverage) is active.
+        """
+        import sys
+
         rng = np.random.default_rng(99)
         ts = np.sin(np.linspace(0, 8 * np.pi, 1024)) + 0.1 * rng.standard_normal(1024)
         ws = WindowSpec(length_s=1024.0, stride_s=1024.0, embedding_dim=3, delay_s=5.0)
@@ -235,8 +241,9 @@ class TestTdaBifurcationSanity:
         feat = det.score(ts)
         elapsed = time.perf_counter() - t0
 
-        print(f"\n1024-sample score time: {elapsed:.3f}s")
-        assert elapsed < 2.0, f"TDA score took {elapsed:.3f}s, exceeds 2s budget"
+        budget = 6.0 if sys.gettrace() is not None else 2.0
+        print(f"\n1024-sample score time: {elapsed:.3f}s (budget {budget}s, tracer={sys.gettrace() is not None})")
+        assert elapsed < budget, f"TDA score took {elapsed:.3f}s, exceeds {budget}s budget"
         assert feat.max_lifetime_h1 is not None
         assert feat.persistence_entropy is not None
 

@@ -176,7 +176,7 @@ def test_dro_different_data_different_id():
 def test_dro_finalize_does_not_change_existing_dro_id():
     """Calling finalize() on already-finalized DRO gives the same id."""
     dro = _make_battery_dro().finalize()
-    original_id = dro.dro_id
+    assert dro.dro_id is not None
     dro2 = dro.finalize()
     # The content-id is computed over all fields excluding dro_id, so
     # finalize on an already-finalized object may differ (dro_id not in hash).

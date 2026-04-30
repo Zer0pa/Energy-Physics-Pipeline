@@ -55,7 +55,7 @@ def test_full_pipeline_e2e(tmp_dirs):
         assert env_l1.envelope_id is not None
 
         from energy_pipeline.audit import write_envelope_event
-        env_l1_sha = write_envelope_event(audit, env_l1)
+        write_envelope_event(audit, env_l1)
 
         # KG: L1 SimulationRun + USED_TOOL
         kg.add_node(

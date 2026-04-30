@@ -144,8 +144,7 @@ def _try_freegs(spec: EquilibriumSpec) -> tuple[Optional[dict[str, Any]], Option
     for mod_name in ("freegs", "freegs4e"):
         try:
             m = importlib.import_module(mod_name)
-        except Exception as e:  # noqa: BLE001
-            err = type(e).__name__
+        except Exception:  # noqa: BLE001  — neither freegs nor freegs4e installed
             continue
         try:
             ver = getattr(m, "__version__", "unknown")
@@ -160,8 +159,10 @@ def _try_freegs(spec: EquilibriumSpec) -> tuple[Optional[dict[str, Any]], Option
                 ny=spec.ny,
             )
             psi = eq.psi()
-            R = np.asarray(eq.R if hasattr(eq, "R") else [], dtype=float)
-            Z = np.asarray(eq.Z if hasattr(eq, "Z") else [], dtype=float)
+            # Keep R/Z accessor compat for future direct mesh use; not assigned
+            # because we currently consume only psi.shape.
+            _ = np.asarray(eq.R if hasattr(eq, "R") else [], dtype=float)
+            _ = np.asarray(eq.Z if hasattr(eq, "Z") else [], dtype=float)
             return (
                 {
                     "ran_freegs": True,

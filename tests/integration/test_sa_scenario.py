@@ -49,7 +49,7 @@ def test_sa_fixture_through_pypsa_lcoe_path():
     spec dict. The adapter accepts arbitrary spec keys; the SA scenario adds
     realism but doesn't change the contract.
     """
-    pypsa = pytest.importorskip("pypsa")
+    pytest.importorskip("pypsa")
     from energy_pipeline.adapters.electrochem.l5 import PyPSALcoeAdapter
 
     data = json.loads(SA_FIXTURE.read_text())

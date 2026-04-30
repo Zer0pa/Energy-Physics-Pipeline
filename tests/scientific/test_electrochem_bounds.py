@@ -48,9 +48,7 @@ def test_fill_factor_lt_0_raises():
 def test_soc_out_of_range_raises():
     """Verify that SoC < 0 or > 1 triggers a ValueError."""
     from energy_pipeline.adapters.electrochem.l4 import PyBaMMBatteryAdapter
-    adapter = PyBaMMBatteryAdapter()
-    # Patch the run to force SoC check
-    # We test the guard directly by calling the validation logic
+    PyBaMMBatteryAdapter()  # smoke-construct; we test the guard logic directly below
     bad_soc = [-0.1, 1.5]  # out of range
     for s in bad_soc:
         with pytest.raises((ValueError, AssertionError)):
@@ -64,7 +62,7 @@ def test_soc_out_of_range_raises():
 
 def test_marcus_lambda_negative_marks_fail():
     """Marcus with lambda_eV < 0 should mark gate_status = fail."""
-    adapter = ElectronicStructureAdapter()
+    ElectronicStructureAdapter()  # smoke-construct; falsifier tested directly below
     # We cannot easily inject a negative lambda through the public interface
     # (the fixture is hardcoded positive) so we test the falsifier function directly.
     from energy_pipeline.schemas.envelope import FailureRecord
