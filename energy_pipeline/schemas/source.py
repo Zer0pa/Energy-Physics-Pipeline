@@ -37,5 +37,9 @@ class SourceManifest(BaseModel):
     bulk_data_stored: bool = False
     citation: str
     rights_notes: str = ""
+    # Per CPU hardening §H8 — entries that cannot be verified from any
+    # primary URL are demoted to `non_authority=True`. License-promotion
+    # consumers must refuse to use these entries as authority.
+    non_authority: bool = False
 
     model_config = ConfigDict(extra="forbid")

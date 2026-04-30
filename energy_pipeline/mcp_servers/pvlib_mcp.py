@@ -56,42 +56,31 @@ def build_server():  # noqa: ANN201
             inputs_to_str({"lat": lat, "lon": lon, "days": days})
         )
 
-        payload_out: dict = {}
-        exec_mode = ExecutionMode.gpu_rest_stub
-        mode = Mode.engineering_stub
-
+        spec = {"lat": lat, "lon": lon, "days": days, "campaign_id": "mcp-pvlib"}
         try:
             from energy_pipeline.adapters.electrochem import l5 as ec_l5  # type: ignore[attr-defined]
             adapter = ec_l5.PvlibYieldAdapter()
-            result = adapter.run(lat=lat, lon=lon, days=days)
-            payload_out = result if isinstance(result, dict) else {"result": str(result)}
-            exec_mode = ExecutionMode.local_cpu
-            mode = Mode.scientific
-        except Exception:
-            payload_out = {
-                "ghi_mean_W_m2": round(850.0 * max(0.1, 1.0 - abs(lat) / 90.0), 2),
-                "dni_mean_W_m2": round(750.0 * max(0.1, 1.0 - abs(lat) / 90.0), 2),
-                "dhi_mean_W_m2": round(100.0, 2),
-                "days": days,
-                "lat": lat,
-                "lon": lon,
-                "stub": True,
-            }
-
-        envelope = make_stub_envelope(
-            sub_vertical=SubVertical.electrochemistry,
-            layer=LayerLevel.L5,
-            domain=Domain.pv,
-            tool="pvlib-python",
-            tool_version="0.10+",
-            adapter_id="pvlib_l5",
-            license_class=LicenseClass.A,
-            license_evidence_uri="https://github.com/pvlib/pvlib-python/blob/main/LICENSE",
-            payload_in={"lat": lat, "lon": lon, "days": days},
-            payload_out=payload_out,
-            mode=mode,
-            execution_mode=exec_mode,
-        )
+            result = adapter.run(spec=spec)
+            envelope, _maybe_dro = result if isinstance(result, tuple) else (result, None)
+            dispatch_path = "real_adapter"
+        except Exception as e:
+            envelope = make_stub_envelope(
+                sub_vertical=SubVertical.electrochemistry,
+                layer=LayerLevel.L5,
+                domain=Domain.pv,
+                tool="pvlib-python",
+                tool_version="0.10+",
+                adapter_id="pvlib_l5",
+                license_class=LicenseClass.A,
+                license_evidence_uri="https://github.com/pvlib/pvlib-python/blob/main/LICENSE",
+                payload_in=spec,
+                payload_out={
+                    "stub_reason": f"{type(e).__name__}: {str(e)[:100]}",
+                },
+                mode=Mode.engineering_stub,
+                execution_mode=ExecutionMode.gpu_rest_stub,
+            )
+            dispatch_path = "stub_fallback"
         emit_audit_kg(envelope, tool_name="compute_clearsky", server_name=SERVER_NAME)
         return {
             "envelope_id": envelope.envelope_id,
@@ -100,6 +89,8 @@ def build_server():  # noqa: ANN201
             "domain": envelope.domain.value,
             "layer": envelope.layer.value,
             "mode": envelope.mode.value,
+            "execution_mode": envelope.backend.execution_mode.value,
+            "dispatch_path": dispatch_path,
             "irradiance_summary": envelope.outputs.payload,
         }
 

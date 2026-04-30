@@ -114,14 +114,32 @@ Resume autonomous execution per `NEXT-WAVE-PLAN.md`. Do not ask questions; proce
 The pipeline is CPU-side complete when:
 
 - [x] Foundation, MCP, TDA, Sources, Electrochem, Fusion subagent waves shipped.
-- [ ] Wave A (4 real-CPU adapter integrations) shipped.
-- [ ] Wave B (9 cross-cutting items) shipped.
-- [ ] Wave C (6 polish items) shipped.
-- [ ] Wave D (6 small items) shipped.
-- [ ] Full pytest suite green (>=320 tests projected after Wave A+B).
-- [ ] Falsification wave still 12-of-12.
-- [ ] CI workflow runs green on a fresh ubuntu-latest checkout.
-- [ ] Source manifest sha256 placeholders replaced with real digests.
-- [ ] Plug-replaceability live test green.
+- [x] Wave A (4 real-CPU adapter integrations) shipped.
+- [x] Wave B (9 cross-cutting items) shipped.
+- [x] Wave C (6 polish items) shipped.
+- [x] Wave D (6 small items) shipped.
+- [x] Full pytest suite green (>=320 tests projected after Wave A+B). **Actual: 333 after Wave 2; 452 after Wave 3.**
+- [x] Falsification wave still 12-of-12.
+- [x] CI workflow runs green on a fresh ubuntu-latest checkout.
+- [x] Source manifest sha256 placeholders replaced with real digests. **40 of 41; 1 demoted to non_authority.**
+- [x] Plug-replaceability live test green.
 
-Only after all checkboxes flip does the run earn the "absolutely everything CPU-side" verdict the operator asked for.
+All boxes flipped after Wave 2.
+
+## Wave 3 — CPU hardening (added after team review of `wave2-cpu-complete`)
+
+Team reviewer flagged 11 readiness gaps in `CPU-HARDENING-BRIEF.md`. All addressed:
+
+- [x] **H1** Strict install/check path (no `|| true`)
+- [x] **H2** Runpod backend resolver + `httpx.MockTransport` golden-fixture invariance test
+- [x] **H3** Mandatory audit/KG via `accept_envelope` enforcement layer
+- [x] **H4** Production falsifier module; default set applied centrally
+- [x] **H5** Recursive unit enforcement on physical leaves
+- [x] **H6** GPL Class B isolation gate; 14 promotion tests across all classes
+- [x] **H7** Widened forbidden-intent matcher; 55 paraphrase tests
+- [x] **H8** Source manifest cleanup (40 verified, 1 demoted)
+- [x] **H9** MCP wrappers call real typed adapter APIs; `dispatch_path` reported
+- [x] **H10** Parser/manifest adapters for CIF/xyz/SMILES + 12 tools
+- [x] **H11** Reports rewritten to drop overclaim; this entry is the audit trail
+
+Verdict: **READY FOR RUNPOD.**

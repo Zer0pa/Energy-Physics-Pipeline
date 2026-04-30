@@ -84,7 +84,27 @@ def test_fusion_blocks_forbidden_intent(client: TestClient, path: str) -> None:
     assert "blocked by boundary" in r.json()["detail"]
 
 
-def test_runpod_passthrough_503(client: TestClient) -> None:
-    r = client.post("/v1/runpod/4/battery", json={})
+def test_runpod_passthrough_503_when_unconfigured(client: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Without ENERGY_RUNPOD_BASE_URL set, the dispatch surface must return 503 with
+    a structured + audited failure envelope, NOT an opaque error string."""
+    from energy_pipeline.l6 import reload as cfg_reload
+
+    monkeypatch.delenv("ENERGY_RUNPOD_BASE_URL", raising=False)
+    cfg_reload()
+    r = client.post(
+        "/v1/runpod/L4/battery",
+        json={"sub_vertical": "electrochemistry", "spec": {"campaign_id": "rp-test"}, "campaign_id": "rp-test"},
+    )
     assert r.status_code == 503
-    assert "runpod backend" in r.json()["detail"]
+    body = r.json()
+    # Structured failure body: either an envelope with gate_status=fail or an
+    # error wrapper containing the envelope.
+    if "envelope" in body:
+        env = body["envelope"]
+    else:
+        env = body
+    assert env["falsification"]["gate_status"] in ("fail", "quarantine")
+    assert any(
+        f.get("gate_id") in ("runpod_not_configured", "runpod_dispatch_error")
+        for f in env["falsification"]["failures"]
+    )

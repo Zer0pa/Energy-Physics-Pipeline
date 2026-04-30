@@ -8,6 +8,27 @@ from energy_pipeline.l6.router import (
     units_required_falsifier,
     license_promotion_falsifier,
 )
+from energy_pipeline.l6.production_falsifiers import (
+    DEFAULT_FALSIFIER_SET,
+    apply_default_falsifiers,
+    apply_dro_falsifiers,
+    gpl_isolation_falsifier,
+    units_recursive_falsifier,
+    cocos_unit_falsifier_dro,
+    negative_te_falsifier,
+    negative_ne_falsifier,
+    above_carnot_falsifier,
+    soc_range_falsifier,
+    imas_version_falsifier,
+    cross_model_disagreement_falsifier,
+    GPL_TOOLS_REQUIRING_ISOLATION_EVIDENCE,
+)
+from energy_pipeline.l6.enforcement import (
+    accept_envelope,
+    accept_envelope_and_dro,
+    EnvelopeRejected,
+    audit_kg_default,
+)
 
 __all__ = [
     "EnergyConfig",
@@ -23,4 +44,21 @@ __all__ = [
     "stub_scientific_valid_falsifier",
     "units_required_falsifier",
     "license_promotion_falsifier",
+    "DEFAULT_FALSIFIER_SET",
+    "apply_default_falsifiers",
+    "apply_dro_falsifiers",
+    "gpl_isolation_falsifier",
+    "units_recursive_falsifier",
+    "cocos_unit_falsifier_dro",
+    "negative_te_falsifier",
+    "negative_ne_falsifier",
+    "above_carnot_falsifier",
+    "soc_range_falsifier",
+    "imas_version_falsifier",
+    "cross_model_disagreement_falsifier",
+    "GPL_TOOLS_REQUIRING_ISOLATION_EVIDENCE",
+    "accept_envelope",
+    "accept_envelope_and_dro",
+    "EnvelopeRejected",
+    "audit_kg_default",
 ]

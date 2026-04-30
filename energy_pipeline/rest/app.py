@@ -390,19 +390,83 @@ def create_app() -> FastAPI:
         )
         return env.model_dump(mode="json")
 
-    # Runpod cutover placeholder — same shape, returns 503 until backend lands.
+    # Runpod cutover surface. Forwards to ENERGY_RUNPOD_BASE_URL when set, else
+    # returns a structured failure envelope (audited) for callers to inspect.
+    @app.post("/v1/runpod/{layer}/{domain}/{op}")
     @app.post("/v1/runpod/{layer}/{domain}")
-    def runpod_passthrough(layer: str, domain: str, payload: dict[str, Any]) -> dict[str, Any]:
+    def runpod_dispatch(
+        layer: str,
+        domain: str,
+        payload: dict[str, Any],
+        op: str = "default",
+    ) -> Any:
+        from energy_pipeline.adapters.shared.runpod_dispatch import RunpodRestAdapter
+        from energy_pipeline.l6 import accept_envelope
+        from fastapi.responses import JSONResponse
+
         cfg = get_config()
-        # If config selected runpod_rest for this layer, this endpoint should exist; until
-        # Runpod is wired, refuse explicitly.
-        raise HTTPException(
-            status_code=503,
-            detail=(
-                f"runpod backend for layer={layer} domain={domain} not yet wired. "
-                f"current cfg L{layer}_backend={getattr(cfg, f'l{layer}_backend', 'unknown')}"
-            ),
+        try:
+            sv = SubVertical(payload.get("sub_vertical", "electrochemistry"))
+        except ValueError:
+            sv = SubVertical.electrochemistry
+        try:
+            lv = LayerLevel(layer if layer.startswith("L") else f"L{layer}")
+        except ValueError:
+            return JSONResponse(
+                status_code=400,
+                content={"error": f"unknown layer: {layer}"},
+            )
+        try:
+            dom = Domain(domain)
+        except ValueError:
+            return JSONResponse(
+                status_code=400,
+                content={"error": f"unknown domain: {domain}"},
+            )
+
+        # Pre-flight fusion intent gate even on dispatch
+        if sv == SubVertical.fusion:
+            intent_blob = " ".join([
+                str(payload.get("intent", "")),
+                str(payload.get("description", "")),
+                str(payload.get("notes", "")),
+                str(payload.get("spec", {}).get("intent", "") if isinstance(payload.get("spec"), dict) else ""),
+            ])
+            hit = check_fusion_intent(intent_blob)
+            if hit:
+                raise HTTPException(
+                    status_code=403,
+                    detail=(
+                        f"runpod fusion request blocked by boundary: matched forbidden intent "
+                        f"'{hit}'. Reframe to allowed research scope."
+                    ),
+                )
+
+        env = RunpodRestAdapter().dispatch(
+            layer=lv,
+            domain=dom,
+            sub_vertical=sv,
+            op=op,
+            spec=payload.get("spec", {}) if isinstance(payload.get("spec"), dict) else payload,
+            campaign_id=str(payload.get("campaign_id", "runpod-dispatch")),
         )
+        # Run through the production gate so audit/KG sees this and the strict
+        # gate refuses unconfigured / failed dispatches.
+        try:
+            gated = accept_envelope(env, write_audit=cfg.audit_required, write_kg=cfg.audit_required)
+        except Exception as e:  # noqa: BLE001 — surface as 503 with audited body
+            return JSONResponse(
+                status_code=503,
+                content={
+                    "error": "runpod dispatch refused by strict gate",
+                    "detail": str(e)[:300],
+                    "envelope": env.model_dump(mode="json"),
+                },
+            )
+        # On unconfigured / dispatch-error fall back to 503 so clients can branch.
+        if gated.falsification.gate_status.value in ("fail", "quarantine"):
+            return JSONResponse(status_code=503, content=gated.model_dump(mode="json"))
+        return gated.model_dump(mode="json")
 
     return app
 

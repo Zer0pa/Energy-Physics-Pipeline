@@ -20,18 +20,22 @@ All backend selection is via `ENERGY_*` env flags. Per `energy_pipeline.l6.confi
 ENERGY_EXECUTION_PROFILE=local_cpu_first   # local_cpu_first | runpod_first | hybrid
 ENERGY_ARTIFACT_MODE=manifest_only         # manifest_only | full_local | remote_objstore
 ENERGY_ALLOW_BULK_DATA=false               # never true on Mac
-ENERGY_AUDIT_REQUIRED=true                 # never false in production
-ENERGY_BOUNDARY_GATE=strict                # strict | warn | off
+ENERGY_AUDIT_REQUIRED=true                 # never false in production — accept_envelope refuses without writers
+ENERGY_BOUNDARY_GATE=strict                # strict | warn | off — strict raises EnvelopeRejected on fail/quarantine
 
 ENERGY_L1_BACKEND=local_cpu                # stub | local_cpu | gpu_rest_stub | runpod_rest
 ENERGY_L2_BACKEND=stub                     # CGYRO/GyroSwin Runpod-only
 ENERGY_L3_BACKEND=stub                     # JOREK/BOUT++ Runpod-only
 ENERGY_L4_BACKEND=local_cpu                # PyBaMM/IMAS real CPU
 ENERGY_L5_BACKEND=local_cpu                # PyPSA/pvlib real CPU
-ENERGY_L6_BACKEND=local_cpu                # AdapterRegistry + falsifier router
+ENERGY_L6_BACKEND=local_cpu                # AdapterRegistry + production falsifier router
 
 ENERGY_FUSION_GYROSWIN_BACKEND=stub        # stub | runpod_rest
 ENERGY_REASONER_BACKEND=local_stub         # local_stub | hosted_claude | runpod_vllm
+
+# Runpod cutover (Wave 3)
+ENERGY_RUNPOD_BASE_URL=                    # e.g. https://my-runpod.example/  — when empty, /v1/runpod/* returns 503 with audited failure envelope
+ENERGY_RUNPOD_TIMEOUT_S=30                 # httpx timeout per dispatch
 ```
 
 Read current config:
@@ -182,15 +186,27 @@ If you see `boundary blocked: matched forbidden intent '<term>'`:
 2. Reframe to allowed research scope (blanket / breeding-blanket / equilibrium / disruption).
 3. Do **not** add bypass code. Do not weaken the gate. The boundary discipline is the authority.
 
-## Runpod migration (the only thing left)
+## Runpod migration (status post Wave 3)
 
-Per `HANDOFF-FROM-OVERNIGHT-EXECUTOR.md` and `tools/runpod_cutover_checklist.py`:
+The cutover surface is **live** behind a config flag. Workflow:
 
-1. Wire your Runpod-side handlers under `/v1/runpod/{layer}/{domain}` in `energy_pipeline/rest/app.py`. Currently returns 503.
+1. Set `ENERGY_RUNPOD_BASE_URL=<your-runpod-base>` (e.g. `https://runpod-fr-1.example/`).
 2. Set the relevant `ENERGY_L?_BACKEND=runpod_rest`.
-3. Confirm `tests/integration/test_plug_replaceability_live.py` still passes.
-4. Confirm `tests/falsification/test_falsification_wave.py` still 12-of-12.
-5. Real DRO `output_hash` should match between `local_cpu` and `runpod_rest` paths on the same input (golden fixture).
+3. The REST app's `/v1/runpod/{layer}/{domain}/{op}` proxies via `RunpodRestAdapter`
+   to `<base>/v1/runpod/<layer>/<domain>/<op>`. Audit + KG writes are mandatory under
+   `ENERGY_AUDIT_REQUIRED=true`; failures surface as structured 503 envelopes.
+4. Run the live parity tests: `pytest tests/integration/test_runpod_dispatch.py
+   tests/integration/test_plug_replaceability_live.py -v` — they include a fake
+   Runpod backend via `httpx.MockTransport` proving golden-fixture invariance.
+5. Confirm `tests/falsification/test_falsification_wave.py` still 12-of-12.
+
+Failure modes the dispatcher handles:
+  - `ENERGY_RUNPOD_BASE_URL` empty → structured fail envelope (`gate_id="runpod_not_configured"`)
+  - upstream timeout / 5xx / 4xx → `runpod_dispatch_error`
+  - upstream returns malformed JSON / invalid envelope → `runpod_envelope_invalid`
+  - upstream returns mutated boundary block → `runpod_boundary_drift`
+
+Each is audited and the strict gate refuses to return.
 
 ## Known gaps deferred to Runpod-Linux
 

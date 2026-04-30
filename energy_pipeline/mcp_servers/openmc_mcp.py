@@ -59,40 +59,35 @@ def build_server():  # noqa: ANN201
         # Fusion boundary gate — check ALL input fields.
         check_fusion_intent_or_raise(inputs_to_str(geometry_spec))
 
-        payload_out: dict = {}
-        exec_mode = ExecutionMode.gpu_rest_stub
-        mode = Mode.engineering_stub
-
         try:
             from energy_pipeline.adapters.fusion import l1 as fu_l1  # type: ignore[attr-defined]
+            from energy_pipeline.adapters.fusion.l1 import OpenMcSpec
+            spec_obj = OpenMcSpec(
+                intent=str(geometry_spec.get("intent", "blanket neutronics screening for research")),
+                target_isotope=str(geometry_spec.get("target_isotope", "Be-9")),
+                radius_cm=float(geometry_spec.get("radius_cm", 1.0)),
+                particles=int(geometry_spec.get("particles", 100)),
+                campaign_id="mcp-openmc",
+            )
             adapter = fu_l1.OpenMcManifestAdapter()
-            result = adapter.run(geometry_spec=geometry_spec)
-            payload_out = result if isinstance(result, dict) else {"result": str(result)}
-            exec_mode = ExecutionMode.local_cpu
-            mode = Mode.scientific
-        except Exception:
-            payload_out = {
-                "tally_keff": {"value": 0.0, "unit": "1"},
-                "tally_relative_error": 0.05,
-                "library_version": "ENDF/B-VIII.1",
-                "geometry_spec": geometry_spec,
-                "stub": True,
-            }
-
-        envelope = make_stub_envelope(
-            sub_vertical=SubVertical.fusion,
-            layer=LayerLevel.L1,
-            domain=Domain.fusion,
-            tool="OpenMC",
-            tool_version="0.15.3",
-            adapter_id="openmc_l1",
-            license_class=LicenseClass.A,
-            license_evidence_uri="https://github.com/openmc-dev/openmc/blob/develop/LICENSE",
-            payload_in={"geometry_spec": geometry_spec},
-            payload_out=payload_out,
-            mode=mode,
-            execution_mode=exec_mode,
-        )
+            envelope = adapter.run(spec_obj)
+            dispatch_path = "real_adapter"
+        except Exception as e:
+            envelope = make_stub_envelope(
+                sub_vertical=SubVertical.fusion,
+                layer=LayerLevel.L1,
+                domain=Domain.fusion,
+                tool="OpenMC",
+                tool_version="0.15.3",
+                adapter_id="openmc_l1",
+                license_class=LicenseClass.A,
+                license_evidence_uri="https://github.com/openmc-dev/openmc/blob/develop/LICENSE",
+                payload_in={"geometry_spec": geometry_spec},
+                payload_out={"stub_reason": f"{type(e).__name__}: {str(e)[:100]}"},
+                mode=Mode.engineering_stub,
+                execution_mode=ExecutionMode.gpu_rest_stub,
+            )
+            dispatch_path = "stub_fallback"
         emit_audit_kg(envelope, tool_name="tiny_transport", server_name=SERVER_NAME)
         return {
             "envelope_id": envelope.envelope_id,
@@ -101,6 +96,8 @@ def build_server():  # noqa: ANN201
             "domain": envelope.domain.value,
             "layer": envelope.layer.value,
             "mode": envelope.mode.value,
+            "execution_mode": envelope.backend.execution_mode.value,
+            "dispatch_path": dispatch_path,
             "transport_summary": envelope.outputs.payload,
         }
 

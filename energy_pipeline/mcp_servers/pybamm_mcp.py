@@ -53,46 +53,42 @@ def build_server():  # noqa: ANN201
         """
         check_fusion_intent_or_raise(inputs_to_str({"rate_C": rate_C, "duration_s": duration_s}))
 
-        # Try real adapter; fall back to stub envelope.
-        payload_out: dict = {}
+        # Call the real adapter with its typed spec dict. The adapter's
+        # internal `_has_pybamm` flag decides whether the real PyBaMM engine
+        # runs (mode=scientific) or the analytic fallback (mode=engineering_stub).
+        spec = {
+            "rate_C": rate_C,
+            "duration_s": duration_s,
+            "campaign_id": "mcp-pybamm",
+        }
         try:
             from energy_pipeline.adapters.electrochem import l4 as ec_l4  # type: ignore[attr-defined]
             adapter = ec_l4.PyBaMMBatteryAdapter()
-            result = adapter.run(rate_C=rate_C, duration_s=duration_s)
-            payload_out = result if isinstance(result, dict) else {"result": str(result)}
-            exec_mode = ExecutionMode.local_cpu
-            mode = Mode.scientific
-        except Exception:
-            # REST stub fallback — shape-compatible canned output.
-            payload_out = {
-                "curve_voltage_time": {
-                    "x": list(range(0, int(duration_s) + 1, max(1, int(duration_s) // 10))),
-                    "y": [4.2 - 0.001 * i * rate_C for i in range(11)],
-                    "x_unit": "s",
-                    "y_unit": "V",
+            envelope, _dro = adapter.run(spec=spec)
+            dispatch_path = "real_adapter"
+        except Exception as e:
+            # Adapter unavailable entirely — fall back to a typed stub envelope
+            # so callers always get a contract-shaped response.
+            envelope = make_stub_envelope(
+                sub_vertical=SubVertical.electrochemistry,
+                layer=LayerLevel.L4,
+                domain=Domain.battery,
+                tool="PyBaMM",
+                tool_version="23.5+",
+                adapter_id="pybamm_l4",
+                license_class=LicenseClass.A,
+                license_evidence_uri="https://github.com/pybamm-team/PyBaMM/blob/develop/LICENSE.txt",
+                payload_in=spec,
+                payload_out={
+                    "stub_reason": f"{type(e).__name__}: {str(e)[:100]}",
+                    "rate_C_input": rate_C,
+                    "duration_s_input": duration_s,
                 },
-                "soc_range": [0.0, 1.0],
-                "rate_C_input": rate_C,
-                "duration_s_input": duration_s,
-                "stub": True,
-            }
-            exec_mode = ExecutionMode.gpu_rest_stub
-            mode = Mode.engineering_stub
+                mode=Mode.engineering_stub,
+                execution_mode=ExecutionMode.gpu_rest_stub,
+            )
+            dispatch_path = "stub_fallback"
 
-        envelope = make_stub_envelope(
-            sub_vertical=SubVertical.electrochemistry,
-            layer=LayerLevel.L4,
-            domain=Domain.battery,
-            tool="PyBaMM",
-            tool_version="23.5+",
-            adapter_id="pybamm_l4",
-            license_class=LicenseClass.A,
-            license_evidence_uri="https://github.com/pybamm-team/PyBaMM/blob/develop/LICENSE.txt",
-            payload_in={"rate_C": rate_C, "duration_s": duration_s},
-            payload_out=payload_out,
-            mode=mode,
-            execution_mode=exec_mode,
-        )
         emit_audit_kg(envelope, tool_name="simulate_discharge", server_name=SERVER_NAME)
         return {
             "envelope_id": envelope.envelope_id,
@@ -101,6 +97,8 @@ def build_server():  # noqa: ANN201
             "domain": envelope.domain.value,
             "layer": envelope.layer.value,
             "mode": envelope.mode.value,
+            "execution_mode": envelope.backend.execution_mode.value,
+            "dispatch_path": dispatch_path,
             "dro_summary": envelope.outputs.payload,
         }
 

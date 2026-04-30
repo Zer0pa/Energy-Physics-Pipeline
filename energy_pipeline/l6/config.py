@@ -47,6 +47,12 @@ class EnergyConfig:
     dro_schema_version: str = "energy.dro.v0.1"
     envelope_schema_version: str = "energy.envelope.v0.1"
 
+    # Runpod cutover knobs. When `runpod_base_url` is set, the REST app's
+    # `/v1/runpod/{layer}/{domain}` proxies to the upstream; otherwise it
+    # returns a structured error envelope (audited).
+    runpod_base_url: str = ""
+    runpod_request_timeout_s: float = 30.0
+
     @classmethod
     def from_env(cls) -> "EnergyConfig":
         return cls(
@@ -65,6 +71,8 @@ class EnergyConfig:
             reasoner_backend=_get("ENERGY_REASONER_BACKEND", "local_stub"),  # type: ignore[arg-type]
             dro_schema_version=_get("ENERGY_DRO_SCHEMA_VERSION", "energy.dro.v0.1"),
             envelope_schema_version=_get("ENERGY_ENVELOPE_SCHEMA_VERSION", "energy.envelope.v0.1"),
+            runpod_base_url=_get("ENERGY_RUNPOD_BASE_URL", ""),
+            runpod_request_timeout_s=float(os.environ.get("ENERGY_RUNPOD_TIMEOUT_S", "30") or "30"),
         )
 
 

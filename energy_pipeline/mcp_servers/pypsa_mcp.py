@@ -53,46 +53,29 @@ def build_server():  # noqa: ANN201
         """
         check_fusion_intent_or_raise(inputs_to_str(system_spec))
 
-        payload_out: dict = {}
-        exec_mode = ExecutionMode.gpu_rest_stub
-        mode = Mode.engineering_stub
-
+        spec = {**system_spec, "campaign_id": "mcp-pypsa"}
         try:
             from energy_pipeline.adapters.electrochem import l5 as ec_l5  # type: ignore[attr-defined]
             adapter = ec_l5.PyPSALcoeAdapter()
-            result = adapter.run(system_spec=system_spec)
-            payload_out = result if isinstance(result, dict) else {"result": str(result)}
-            exec_mode = ExecutionMode.local_cpu
-            mode = Mode.scientific
-        except Exception:
-            # Stub LCOE using simplified formula: (CAPEX * CRF + OPEX) / (CF * 8760)
-            capex = float(system_spec.get("capex_USD_per_kW", 1200.0))
-            opex = float(system_spec.get("opex_USD_per_kWh", 0.005))
-            cf = float(system_spec.get("capacity_factor", 0.25))
-            n = float(system_spec.get("lifetime_years", 25.0))
-            r = float(system_spec.get("discount_rate", 0.07))
-            crf = (r * (1 + r) ** n) / ((1 + r) ** n - 1)
-            lcoe_val = (capex * crf / 1000.0 + opex * cf * 8760) / (cf * 8760)
-            payload_out = {
-                "lcoe_USD_per_kWh": round(lcoe_val, 5),
-                "system_spec": system_spec,
-                "stub": True,
-            }
-
-        envelope = make_stub_envelope(
-            sub_vertical=SubVertical.electrochemistry,
-            layer=LayerLevel.L5,
-            domain=Domain.pv,
-            tool="PyPSA",
-            tool_version="0.31",
-            adapter_id="pypsa_l5",
-            license_class=LicenseClass.A,
-            license_evidence_uri="https://github.com/PyPSA/PyPSA/blob/master/LICENSE",
-            payload_in={"system_spec": system_spec},
-            payload_out=payload_out,
-            mode=mode,
-            execution_mode=exec_mode,
-        )
+            result = adapter.run(spec=spec)
+            envelope, _dro = result if isinstance(result, tuple) else (result, None)
+            dispatch_path = "real_adapter"
+        except Exception as e:
+            envelope = make_stub_envelope(
+                sub_vertical=SubVertical.electrochemistry,
+                layer=LayerLevel.L5,
+                domain=Domain.pv,
+                tool="PyPSA",
+                tool_version="0.31",
+                adapter_id="pypsa_l5",
+                license_class=LicenseClass.A,
+                license_evidence_uri="https://github.com/PyPSA/PyPSA/blob/master/LICENSE",
+                payload_in={"system_spec": system_spec},
+                payload_out={"stub_reason": f"{type(e).__name__}: {str(e)[:100]}"},
+                mode=Mode.engineering_stub,
+                execution_mode=ExecutionMode.gpu_rest_stub,
+            )
+            dispatch_path = "stub_fallback"
         emit_audit_kg(envelope, tool_name="lcoe", server_name=SERVER_NAME)
         return {
             "envelope_id": envelope.envelope_id,
@@ -101,6 +84,8 @@ def build_server():  # noqa: ANN201
             "domain": envelope.domain.value,
             "layer": envelope.layer.value,
             "mode": envelope.mode.value,
+            "execution_mode": envelope.backend.execution_mode.value,
+            "dispatch_path": dispatch_path,
             "lcoe_result": envelope.outputs.payload,
         }
 

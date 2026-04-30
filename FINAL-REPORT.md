@@ -2,9 +2,9 @@
 
 **Boundary:** Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
 
-**Status:** Sovereign acceptance gate cleared (Wave 1 + Wave 2). CPU-first pipeline complete. Runpod migration is now a config-flag swap behind `ENERGY_L?_BACKEND=runpod_rest` and the existing `/v1/runpod/{layer}/{domain}` REST shape.
+**Status (post Wave 3 hardening):** All eleven gaps named in `CPU-HARDENING-BRIEF.md` are addressed. **The pipeline is now ready for Runpod.** Runpod cutover is a config-flag swap proven by a live `httpx.MockTransport` golden-fixture invariance test. Audit/KG writes are mandatory under `ENERGY_AUDIT_REQUIRED=true` with refusal-to-emit on missing. Test-local falsifiers are gone — all production falsifiers live in `energy_pipeline.l6.production_falsifiers` and are applied centrally via `accept_envelope`.
 
-**Run window:** 2026-04-30, Sandton ZA. Lead agent Opus Max chief engineer. Two waves with five+four parallel subagents (Wave 1: foundation + 5 subagents; Wave 2: 4 more real-CPU adapter subagents + 9 cross-cutting items by orchestrator).
+**Run window:** 2026-04-30, Sandton ZA. Three waves: Wave 1 foundation + 5 subagents (commit `4c16fdc`); Wave 2 real-CPU adapter integrations (commit `8778b88`); Wave 3 hardening (commit hash recorded at push).
 
 ## Repo state at handoff
 
@@ -32,7 +32,28 @@ bash scripts/clean_runtime.sh
 | Falsification wave + TDA no-leakage | 63 | **all green** (12-of-12 acceptance gate) |
 | Scientific bounds (electrochem + fusion) | ~30 | **all green** |
 | Integration (electrochem e2e + fusion Phase-0 + fusion 50-task reasoning bench + MCP smoke + MCP stdio + sources + reasoner + PyBOP + OMAS + Pyrokinetics + VQE-H2 + plug-replaceability live + TDA-on-real-PyBaMM + cross-model disagreement live + R2S analytic + tandem PV + SA scenario) | ~120 | **all green** |
-| **Total** | **333** | **all green, 0 failures** |
+| **Total** | **452** | **all green, 0 failures** |
+
+## Wave 3 — CPU hardening (post-review)
+
+The team review on `wave2-cpu-complete` produced `CPU-HARDENING-BRIEF.md` listing
+eleven readiness blockers. Every item is addressed:
+
+| # | Gap | Resolution |
+|---|---|---|
+| 1 | Runpod cutover not actually live | `RunpodRestAdapter` + `httpx.MockTransport` golden-fixture invariance test (`test_runpod_dispatch.py`, 5 tests) — same canonical output projection across `local_cpu` ↔ `runpod_rest` |
+| 2 | Audit/KG optional in adapters | `accept_envelope` / `accept_envelope_and_dro` enforcement layer with process-default writers; refuses with `EnvelopeRejected` under `ENERGY_BOUNDARY_GATE=strict` |
+| 3 | Falsifiers test-local | `energy_pipeline.l6.production_falsifiers.DEFAULT_FALSIFIER_SET` (11 production gates); test wave now imports from production module |
+| 4 | Unit enforcement too narrow | `units_recursive_falsifier` walks `outputs.payload`, gates physical SI-suffixed leaves and `_dimensionless` whitelist; in default set |
+| 5 | License policy inconsistent (B copyleft) | `gpl_isolation_falsifier` for AlphaPEM/LBPM/MOOSE/LAMMPS/CP2K/GPAW/Llama-family; 14 promotion tests across A/B-perm/B-copyleft/C/D/E |
+| 6 | Forbidden-use matcher narrow | regex+stem+normalisation matcher in `boundary.py`; 55 paraphrase tests including unicode dashes, US/UK spelling, casing |
+| 7 | Source manifests not fully content-addressed | 40 of 41 verified with real sha256 via GitHub API license endpoints; 1 demoted to `non_authority=True` (gyroswin) |
+| 8 | MCP wrappers smoke-level | every MCP tool now calls the real typed adapter API; new `dispatch_path` field reports `real_adapter` vs `stub_fallback`; 9 dispatch tests |
+| 9 | Strict full_check tolerated failures | `scripts/full_check.sh` rewritten with no `|| true`; ruff and scientific tests are hard gates |
+| 10 | Parser/manifest adapters incomplete | `electrochem.parsers.{parse_cif,parse_xyz,parse_smiles}` + `ToolManifestAdapter` covering GPAW, CP2K, Wannier90, Z2Pack, MACE, fairchem-eSEN, LAMMPS, PEMD, PiNet2, OpenLB, LBPM, OpenModelica-FMI; 21 tests |
+| 11 | Reports overclaim Runpod readiness | this section + RUNBOOK + HANDOFF rewritten to reflect Wave 3 |
+
+Wave 3 added 119 tests (333 → 452); all green; 12-of-12 falsification wave preserved.
 
 **Falsification wave verdict (sovereign acceptance gate):** 12 of 12.
 

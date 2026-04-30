@@ -1,14 +1,11 @@
 # Source Manifest Verification Summary
 
-Run at: 2026-04-30T04:23:09.321448+00:00
+Run at: 2026-04-30T11:55:10.202896+00:00
 
 - Total entries: 41
-- Verified (real sha256): 35
-- Failed: 6
+- Verified (real sha256): 40
+- Failed: 0
 
-## Failure breakdown
-
-- `http 404` × 6
 
 ## Per-entry results
 
@@ -17,7 +14,7 @@ Run at: 2026-04-30T04:23:09.321448+00:00
 | `pyscf` | <https://github.com/pyscf/pyscf/blob/master/LICENSE> | OK |
 | `gpaw` | <https://gitlab.com/gpaw/gpaw/-/blob/master/COPYING> | OK |
 | `cp2k` | <https://github.com/cp2k/cp2k/blob/master/LICENSE> | OK |
-| `mace-code` | <https://github.com/ACEsuit/mace/blob/main/LICENSE> | FAIL |
+| `mace-code` | <https://api.github.com/repos/ACEsuit/mace/license> | OK |
 | `fairchem-code` | <https://github.com/facebookresearch/fairchem/blob/main/LICENSE.md> | OK |
 | `oc25-esen-model` | <https://huggingface.co/facebook/OC25> | OK |
 | `pemd` | <https://github.com/HouGroup/PEMD/blob/main/setup.py> | OK |
@@ -35,23 +32,23 @@ Run at: 2026-04-30T04:23:09.321448+00:00
 | `pvlib-python` | <https://github.com/pvlib/pvlib-python/blob/main/LICENSE> | OK |
 | `nrel-pysam` | <https://github.com/NREL/pysam/blob/main/LICENSE> | OK |
 | `openmc` | <https://github.com/openmc-dev/openmc/blob/develop/LICENSE> | OK |
-| `dagmc` | <https://github.com/svalinn/DAGMC/blob/develop/LICENSE> | FAIL |
+| `dagmc` | <https://api.github.com/repos/svalinn/DAGMC/license> | OK |
 | `gacode` | <https://github.com/gafusion/gacode/blob/master/LICENSE> | OK |
 | `gene` | <https://www.genecode.org/license.html> | OK |
-| `gyroswin` | <https://github.com/gyroswin/gyroswin> | FAIL |
+| `gyroswin` | <non-authority://gyroswin/url-not-publicly-resolvable> | FAIL |
 | `pyrokinetics` | <https://github.com/pyro-kinetics/pyrokinetics> | OK |
 | `jorek` | <https://www.jorek.eu> | OK |
 | `bout-plus-plus` | <https://github.com/boutproject/BOUT-dev/blob/next/LICENSE> | OK |
 | `freegs` | <https://github.com/freegs-plasma/freegs> | OK |
 | `imas-core-5.6.0` | <https://github.com/iterorganization/IMAS-Core/releases/tag/5.6.0> | OK |
 | `imas-codex-pyproject` | <https://github.com/iterorganization/imas-codex/blob/main/pyproject.toml> | OK |
-| `omas` | <https://github.com/gafusion/omas/blob/master/LICENSE> | FAIL |
+| `omas` | <https://api.github.com/repos/gafusion/omas/license> | OK |
 | `duqtools` | <https://github.com/duqtools/duqtools> | OK |
 | `mitim-fusion` | <https://github.com/pabloprf/MITIM-fusion> | OK |
 | `omfit` | <https://omfit.io> | OK |
-| `paramak` | <https://github.com/fusion-energy/paramak/blob/main/LICENSE.txt> | FAIL |
+| `paramak` | <https://api.github.com/repos/fusion-energy/paramak/license> | OK |
 | `pf-pino` | <https://github.com/NanxiiChen/PF-PINO> | OK |
 | `aqcat25` | <https://huggingface.co/datasets/SandboxAQ/aqcat25-dataset> | OK |
 | `deepseek-r1-distill-llama-70b` | <https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-70B> | OK |
-| `endf-b-viii-0` | <https://www.nndc.bnl.gov/endf/b8.0/> | FAIL |
+| `endf-b-viii-0` | <https://www.oecd-nea.org/jcms/pl_22343/jeff-3-3-and-endf-b-viii-0-evaluations> | OK |
 | `jeff-4.0` | <https://www.oecd-nea.org/dbdata/jeff/jeff40/> | OK |

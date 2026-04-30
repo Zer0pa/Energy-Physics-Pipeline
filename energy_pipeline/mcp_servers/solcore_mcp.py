@@ -55,44 +55,29 @@ def build_server():  # noqa: ANN201
             inputs_to_str({"material": material, "irradiance_W_m2": irradiance_W_m2})
         )
 
-        payload_out: dict = {}
-        exec_mode = ExecutionMode.gpu_rest_stub
-        mode = Mode.engineering_stub
-
+        spec = {"material": material, "irradiance_W_m2": irradiance_W_m2, "campaign_id": "mcp-solcore"}
         try:
             from energy_pipeline.adapters.electrochem import l4 as ec_l4  # type: ignore[attr-defined]
             adapter = ec_l4.SolcorePvAdapter()
-            result = adapter.run(material=material, irradiance_W_m2=irradiance_W_m2)
-            payload_out = result if isinstance(result, dict) else {"result": str(result)}
-            exec_mode = ExecutionMode.local_cpu
-            mode = Mode.scientific
-        except Exception:
-            # Stub: simple GaAs-like values scaled by irradiance fraction
-            irr_frac = irradiance_W_m2 / 1000.0
-            payload_out = {
-                "material": material,
-                "irradiance_W_m2": irradiance_W_m2,
-                "Jsc_mA_cm2": round(29.5 * irr_frac, 3),
-                "Voc_V": round(1.03 - 0.02 * (1.0 - irr_frac), 4),
-                "FF": 0.85,
-                "PCE_pct": round(29.5 * irr_frac * 1.03 * 0.85 / irradiance_W_m2 * 100, 2),
-                "stub": True,
-            }
-
-        envelope = make_stub_envelope(
-            sub_vertical=SubVertical.electrochemistry,
-            layer=LayerLevel.L4,
-            domain=Domain.pv,
-            tool="Solcore",
-            tool_version="6.x",
-            adapter_id="solcore_l4",
-            license_class=LicenseClass.B,
-            license_evidence_uri="https://github.com/qpv-research-group/solcore5/blob/develop/LICENSE.txt",
-            payload_in={"material": material, "irradiance_W_m2": irradiance_W_m2},
-            payload_out=payload_out,
-            mode=mode,
-            execution_mode=exec_mode,
-        )
+            result = adapter.run(spec=spec)
+            envelope, _dro = result if isinstance(result, tuple) else (result, None)
+            dispatch_path = "real_adapter"
+        except Exception as e:
+            envelope = make_stub_envelope(
+                sub_vertical=SubVertical.electrochemistry,
+                layer=LayerLevel.L4,
+                domain=Domain.pv,
+                tool="Solcore",
+                tool_version="6.x",
+                adapter_id="solcore_l4",
+                license_class=LicenseClass.B,
+                license_evidence_uri="https://github.com/qpv-research-group/solcore5/blob/develop/LICENSE.txt",
+                payload_in=spec,
+                payload_out={"stub_reason": f"{type(e).__name__}: {str(e)[:100]}"},
+                mode=Mode.engineering_stub,
+                execution_mode=ExecutionMode.gpu_rest_stub,
+            )
+            dispatch_path = "stub_fallback"
         emit_audit_kg(envelope, tool_name="iv_curve", server_name=SERVER_NAME)
         return {
             "envelope_id": envelope.envelope_id,
@@ -101,6 +86,8 @@ def build_server():  # noqa: ANN201
             "domain": envelope.domain.value,
             "layer": envelope.layer.value,
             "mode": envelope.mode.value,
+            "execution_mode": envelope.backend.execution_mode.value,
+            "dispatch_path": dispatch_path,
             "iv_summary": envelope.outputs.payload,
         }
 

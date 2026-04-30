@@ -145,12 +145,24 @@ def test_rest_stub_envelope_invariants(path: str, sub_vertical: str, layer: str)
 # ---------------------------------------------------------------------------
 
 
-def test_runpod_placeholder_503_until_wired():
+def test_runpod_placeholder_503_until_wired(monkeypatch: pytest.MonkeyPatch):
+    """Without ENERGY_RUNPOD_BASE_URL set, dispatch returns 503 with a
+    STRUCTURED + audited failure envelope, not an opaque error string."""
+    monkeypatch.delenv("ENERGY_RUNPOD_BASE_URL", raising=False)
+    cfg_reload()
     client = TestClient(create_app())
-    r = client.post("/v1/runpod/4/battery", json={"campaign_id": "cutover-shape"})
+    r = client.post(
+        "/v1/runpod/L4/battery",
+        json={"sub_vertical": "electrochemistry", "spec": {}, "campaign_id": "rp-503"},
+    )
     assert r.status_code == 503
-    detail = r.json().get("detail", "")
-    assert "runpod backend" in detail
+    body = r.json()
+    env = body.get("envelope", body)
+    assert env["falsification"]["gate_status"] in ("fail", "quarantine")
+    assert any(
+        f["gate_id"] in ("runpod_not_configured", "runpod_dispatch_error")
+        for f in env["falsification"]["failures"]
+    )
 
 
 # ---------------------------------------------------------------------------

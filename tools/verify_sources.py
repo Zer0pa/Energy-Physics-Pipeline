@@ -77,8 +77,23 @@ def main() -> int:
 
     for i, e in enumerate(entries, 1):
         url = e.get("uri", "")
+        # H8: explicit non_authority flag means "this entry is acknowledged
+        # unresolved; do not attempt fetch and do not count as a failure".
+        if e.get("non_authority"):
+            print(f"  [{i:3}/{len(entries)}] {e.get('source_id', '?'):<26} SKIP (non-authority)")
+            verified = dict(e)
+            verified.setdefault("rights_notes", "")
+            verified["rights_notes"] = (verified["rights_notes"] or "") + " | verification skipped: non_authority flag"
+            out.append(verified)
+            continue
         if not url:
             print(f"  [{i:3}/{len(entries)}] skip: no URI in entry {e.get('source_id', '?')}")
+            continue
+        if not (url.startswith("http://") or url.startswith("https://") or url.startswith("ftp://")):
+            print(f"  [{i:3}/{len(entries)}] {e.get('source_id', '?'):<26} SKIP (non-fetchable URI)")
+            verified = dict(e)
+            verified["rights_notes"] = (verified.get("rights_notes") or "") + " | verification skipped: non-fetchable URI"
+            out.append(verified)
             continue
         sha, status = fetch_sha256(url)
         verdict = "OK" if status == "ok" else f"FAIL ({status})"
@@ -99,8 +114,12 @@ def main() -> int:
             out.append(verified)
         time.sleep(0.05)  # be polite
 
+    skipped = len(out) - successes - failures
     print()
-    print(f"results: {successes} ok, {failures} fail ({failures + successes} total)")
+    print(
+        f"results: {successes} ok, {failures} fail, {skipped} skipped (non-authority / non-fetchable) "
+        f"({len(out)} total)"
+    )
     if failure_reasons:
         print("failure breakdown:")
         for k, v in sorted(failure_reasons.items(), key=lambda kv: -kv[1]):

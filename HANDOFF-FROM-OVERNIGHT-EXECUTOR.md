@@ -7,6 +7,14 @@
 **Repo:** https://github.com/Zer0pa/Energy
 **Final commit hash:** _filled in at run completion_
 
+## Status post Wave 3
+
+Three waves shipped. Wave 3 closes every gap in `CPU-HARDENING-BRIEF.md` (see
+`FINAL-REPORT.md` § Wave 3 table). The repo is **ready for Runpod**: cutover is
+a config-flag swap, audit/KG are mandatory, falsifiers are production-applied,
+and a `httpx.MockTransport` test proves golden-fixture invariance across
+`local_cpu` ↔ `runpod_rest`.
+
 ## What you inherit
 
 A complete CPU-side Energy pipeline:
