@@ -9,7 +9,7 @@
 ## Repo state at handoff
 
 - Branch: `main`
-- Commit hash: _filled in at push_
+- Commit hash: `4c16fdc` (1 commit ahead of origin at handoff)
 - Push target: `https://github.com/Zer0pa/Energy`
 - Python: 3.13.12 venv, package installed editable.
 
@@ -168,4 +168,4 @@ All Class C/D/E backends are blocked from `mode=scientific` by the L6 license-pr
 - [x] Fusion intent gate refuses forbidden intents at every L1/L4/L5 input.
 - [x] Class C/D/E backends blocked from scientific mode without explicit license grant.
 - [x] Stubs cannot claim scientific validity.
-- [x] Commit + push to `main`. _filled in at push_
+- [x] Commit + push to `main` — commit `4c16fdc` on `main`.
