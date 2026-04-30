@@ -108,14 +108,35 @@ def test_gpl_or_conditional_tool_in_scientific_without_evidence_is_blocked(tool:
     "tool,evidence",
     [
         ("AlphaPEM", "kg://license-grant/AlphaPEM-isolated-2026-04-30"),
-        ("LBPM", "https://license-grants.zer0pa.internal/LBPM"),
-        ("LAMMPS", "file:///etc/zer0pa/grants/LAMMPS.txt"),
+        ("LBPM", "kg://license-grant/LBPM-subprocess-isolated-v1"),
+        ("LAMMPS", "file:///etc/zer0pa/license-grants/LAMMPS.txt"),
+        ("CP2K", "file:///etc/zer0pa/license-grants/CP2K-2026-04-30.json"),
     ],
 )
 def test_gpl_tool_with_explicit_evidence_passes(tool: str, evidence: str):
+    """Wave 4 §5: only `kg://license-grant/...` or
+    `file:///etc/zer0pa/license-grants/...` count as isolation evidence."""
     env = _envelope(tool=tool, license_class=LicenseClass.B, license_evidence_uri=evidence)
     failures = gpl_isolation_falsifier(env)
     assert failures is None
+
+
+@pytest.mark.parametrize(
+    "evidence",
+    [
+        "https://github.com/gassraphael/AlphaPEM/blob/main/LICENSE",
+        "https://license-grants.zer0pa.internal/AlphaPEM",  # external host, not file://
+        "file:///tmp/some-other-grant.txt",  # not the canonical local prefix
+        "",  # empty
+    ],
+)
+def test_gpl_tool_with_bare_https_or_unvetted_evidence_blocked(evidence: str):
+    """Wave 4 §5: bare HTTPS LICENSE URLs and ad-hoc local paths are NOT
+    acceptable isolation evidence — public license pages aren't isolation grants."""
+    env = _envelope(tool="AlphaPEM", license_class=LicenseClass.B, license_evidence_uri=evidence)
+    failures = gpl_isolation_falsifier(env)
+    assert failures is not None
+    assert any(f.gate_id == "gpl_isolation_required" for f in failures)
 
 
 # ---------------------------------------------------------------------------

@@ -9,7 +9,18 @@ from energy_pipeline.rest import create_app
 
 
 @pytest.fixture()
-def client() -> TestClient:
+def client(monkeypatch: pytest.MonkeyPatch) -> TestClient:
+    """Force every layer to the stub backend so the contract tests in this file
+    always probe the canned-envelope path, regardless of what the resolver
+    would otherwise route to under `ENERGY_L?_BACKEND`. Wave 4 adds same-shape
+    cutover; the local_cpu / runpod_rest branches are covered in dedicated
+    test files (`test_runpod_dispatch.py`, `test_runpod_same_endpoint.py`)."""
+    from energy_pipeline.l6 import reload as cfg_reload
+
+    for k in ("L1", "L2", "L3", "L4", "L5", "L6"):
+        monkeypatch.setenv(f"ENERGY_{k}_BACKEND", "gpu_rest_stub")
+    monkeypatch.setenv("ENERGY_BOUNDARY_GATE", "warn")  # don't strict-fail stub warns
+    cfg_reload()
     return TestClient(create_app())
 
 

@@ -67,7 +67,10 @@ def test_pybamm_local_cpu_vs_rest_stub_contract(monkeypatch: pytest.MonkeyPatch)
     """Run a battery L4 spec through both the REST stub (gpu_rest_stub) and the
     local-CPU PyBaMM adapter; assert the envelope-level contract is preserved."""
 
-    # 1) REST stub envelope
+    # 1) REST stub envelope (force backend=stub on the same endpoint)
+    monkeypatch.setenv("ENERGY_L4_BACKEND", "gpu_rest_stub")
+    monkeypatch.setenv("ENERGY_BOUNDARY_GATE", "warn")
+    cfg_reload()
     client = TestClient(create_app())
     stub_response = client.post("/v1/electrochem/l4/pybamm", json={"campaign_id": "live-cutover", "domain": "battery"})
     assert stub_response.status_code == 200
@@ -120,8 +123,16 @@ def test_pybamm_local_cpu_vs_rest_stub_contract(monkeypatch: pytest.MonkeyPatch)
         ("/v1/fusion/l4/scenario", "fusion", "L4"),
     ],
 )
-def test_rest_stub_envelope_invariants(path: str, sub_vertical: str, layer: str):
-    """Each REST stub produces an envelope that satisfies the cutover contract."""
+def test_rest_stub_envelope_invariants(path: str, sub_vertical: str, layer: str, monkeypatch: pytest.MonkeyPatch):
+    """Each REST stub produces an envelope that satisfies the cutover contract.
+
+    Force every layer backend to stub so this test probes only the canned-stub
+    surface, regardless of the live-CPU resolver wiring.
+    """
+    for k in ("L1", "L2", "L3", "L4", "L5", "L6"):
+        monkeypatch.setenv(f"ENERGY_{k}_BACKEND", "gpu_rest_stub")
+    monkeypatch.setenv("ENERGY_BOUNDARY_GATE", "warn")
+    cfg_reload()
     client = TestClient(create_app())
     intent = "blanket TBR research" if "fusion" in path else "battery research"
     r = client.post(path, json={"campaign_id": "cutover-shape", "intent": intent})

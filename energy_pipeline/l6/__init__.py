@@ -19,6 +19,8 @@ from energy_pipeline.l6.production_falsifiers import (
     negative_ne_falsifier,
     above_carnot_falsifier,
     soc_range_falsifier,
+    pv_fill_factor_falsifier,
+    pce_fraction_falsifier,
     imas_version_falsifier,
     cross_model_disagreement_falsifier,
     GPL_TOOLS_REQUIRING_ISOLATION_EVIDENCE,
@@ -28,6 +30,11 @@ from energy_pipeline.l6.enforcement import (
     accept_envelope_and_dro,
     EnvelopeRejected,
     audit_kg_default,
+)
+from energy_pipeline.l6.backend_resolver import (
+    resolve_and_dispatch,
+    fusion_intent_or_403,
+    fusion_intent_blob,
 )
 
 __all__ = [
@@ -54,6 +61,8 @@ __all__ = [
     "negative_ne_falsifier",
     "above_carnot_falsifier",
     "soc_range_falsifier",
+    "pv_fill_factor_falsifier",
+    "pce_fraction_falsifier",
     "imas_version_falsifier",
     "cross_model_disagreement_falsifier",
     "GPL_TOOLS_REQUIRING_ISOLATION_EVIDENCE",
@@ -61,4 +70,7 @@ __all__ = [
     "accept_envelope_and_dro",
     "EnvelopeRejected",
     "audit_kg_default",
+    "resolve_and_dispatch",
+    "fusion_intent_or_403",
+    "fusion_intent_blob",
 ]

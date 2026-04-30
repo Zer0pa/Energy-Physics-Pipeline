@@ -240,7 +240,7 @@ class StructureParserAdapter:
             campaign_id=campaign_id,
             failures=failures,
         )
-        return accept_envelope(env, write_audit=False, write_kg=False)
+        return accept_envelope(env, write_audit=True, write_kg=True)
 
     def parse_xyz(self, path_or_text: str | Path, *, campaign_id: str = "xyz") -> UniversalLayerEnvelope:
         try:
@@ -266,7 +266,7 @@ class StructureParserAdapter:
             campaign_id=campaign_id,
             failures=failures,
         )
-        return accept_envelope(env, write_audit=False, write_kg=False)
+        return accept_envelope(env, write_audit=True, write_kg=True)
 
     def parse_smiles(self, s: str, *, campaign_id: str = "smiles") -> UniversalLayerEnvelope:
         try:
@@ -292,7 +292,7 @@ class StructureParserAdapter:
             campaign_id=campaign_id,
             failures=failures,
         )
-        return accept_envelope(env, write_audit=False, write_kg=False)
+        return accept_envelope(env, write_audit=True, write_kg=True)
 
 
 # ---------------------------------------------------------------------------
@@ -348,7 +348,7 @@ class ToolManifestAdapter:
             mode=Mode.engineering_stub,
             campaign_id=campaign_id,
         )
-        return accept_envelope(env, write_audit=False, write_kg=False)
+        return accept_envelope(env, write_audit=True, write_kg=True)
 
 
 # ---------------------------------------------------------------------------

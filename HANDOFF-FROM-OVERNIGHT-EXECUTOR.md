@@ -1,6 +1,12 @@
 # Handoff from Overnight Executor — Zer0pa Energy
 
-> **Superseded for Runpod readiness.** A 2026-04-30 xhigh verification pass at commit `58ab030` found that this handoff overclaims Runpod readiness. The next role is a Wave 4 CPU-hardening role, not a Runpod migration role. Current authority: `WAVE4-CPU-HARDENING-BRIEF.md`.
+> **Wave 4 closes the readiness gate.** Same-shape `/v1/<sub>/<layer>/<op>`
+> endpoints honor `ENERGY_L?_BACKEND` end-to-end (live test:
+> `tests/integration/test_runpod_same_endpoint.py`). Audit/KG is mandatory on
+> every accepted REST + parser + adapter + MCP path. Audit/KG runtime is
+> parallel-safe via `ENERGY_AUDIT_DIR` / `ENERGY_AUDIT_DB_PATH` / `ENERGY_KG_DIR`.
+> Production falsifier set is 13 gates applied centrally. The Runpod
+> migration role can proceed at the Wave 4 commit.
 
 **Boundary:** Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
 

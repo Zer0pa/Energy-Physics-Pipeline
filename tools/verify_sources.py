@@ -133,25 +133,43 @@ def main() -> int:
             fp.write(json.dumps(v, ensure_ascii=False) + "\n")
     print(f"\nwrote {VERIFIED.relative_to(ROOT)} ({len(out)} entries)")
 
-    # Summary markdown
+    # Summary markdown — Wave 4 §6: distinguish verified / failed / skipped
+    # / non-authority explicitly.
+    skipped_non_authority = sum(1 for o in out if o.get("non_authority"))
+    skipped_non_fetchable = sum(
+        1
+        for o in out
+        if (not o.get("uri", "").startswith(("http://", "https://", "ftp://")))
+        and not o.get("non_authority")
+    )
     with SUMMARY.open("w") as fp:
         fp.write("# Source Manifest Verification Summary\n\n")
         fp.write(f"Run at: {datetime.now(timezone.utc).isoformat()}\n\n")
         fp.write(f"- Total entries: {len(entries)}\n")
         fp.write(f"- Verified (real sha256): {successes}\n")
-        fp.write(f"- Failed: {failures}\n\n")
+        fp.write(f"- Failed (authority): {failures}\n")
+        fp.write(f"- Skipped (non_authority): {skipped_non_authority}\n")
+        fp.write(f"- Skipped (non-fetchable URI): {skipped_non_fetchable}\n\n")
         if failure_reasons:
-            fp.write("## Failure breakdown\n\n")
+            fp.write("## Authority failure breakdown\n\n")
             for k, v in sorted(failure_reasons.items(), key=lambda kv: -kv[1]):
                 fp.write(f"- `{k}` × {v}\n")
-        fp.write("\n## Per-entry results\n\n")
-        fp.write("| source_id | URI | verdict |\n|---|---|---|\n")
+            fp.write("\n")
+        fp.write("## Per-entry results\n\n")
+        fp.write("| source_id | bucket | URI |\n|---|---|---|\n")
         for o in out:
             sid = o.get("source_id", "?")
             uri = o.get("uri", "")
             ck = o.get("checksum", "")
-            verdict = "OK" if ck.startswith("sha256:") and "0000" not in ck else "FAIL"
-            fp.write(f"| `{sid}` | <{uri}> | {verdict} |\n")
+            if o.get("non_authority"):
+                bucket = "skipped (non_authority)"
+            elif not uri.startswith(("http://", "https://", "ftp://")):
+                bucket = "skipped (non-fetchable)"
+            elif ck.startswith("sha256:") and "0000" not in ck:
+                bucket = "verified"
+            else:
+                bucket = "failed"
+            fp.write(f"| `{sid}` | {bucket} | <{uri}> |\n")
     print(f"wrote {SUMMARY.relative_to(ROOT)}")
     return 0
 

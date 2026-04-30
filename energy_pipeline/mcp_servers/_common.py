@@ -122,53 +122,61 @@ def emit_audit_kg(
     *,
     tool_name: str,
     server_name: str,
-) -> None:
-    """Write an audit event and two KG nodes (ToolAdapter + SimulationRun) + USED_TOOL edge."""
-    audit = _get_audit()
-    kg = _get_kg()
+) -> UniversalLayerEnvelope:
+    """Wave 4 §2: route MCP outputs through the *central* enforcement path
+    (`accept_envelope`) so audit/KG semantics match REST and adapter paths.
 
-    payload = envelope.model_dump(mode="json")
-    kind = payload.get("schema_version", "envelope")
-    audit.write_event(kind=kind, payload=payload)
+    The legacy private `_get_audit()` / `_get_kg()` singletons are still used
+    as a fallback when a process-default writer/store cannot be created (rare).
+    Returns the gated envelope so callers can surface the production
+    falsifier-block to the client.
+    """
+    from energy_pipeline.l6 import accept_envelope, EnvelopeRejected
 
-    # ToolAdapter node — boundary_required=False (metadata-only node per KGStore docstring)
-    tool_node_id = f"tool-adapter::{server_name}::{tool_name}"
     try:
+        gated = accept_envelope(envelope)
+        return gated
+    except EnvelopeRejected:
+        # Strict gate refused; surface a structured exception with the
+        # envelope state so the MCP layer can return an error to the client.
+        raise
+    except Exception:
+        # Last-resort: write via the local singletons so we never silently
+        # drop an MCP-emitted envelope in tests / lab environments.
+        audit = _get_audit()
+        kg = _get_kg()
+        payload = envelope.model_dump(mode="json")
+        kind = payload.get("schema_version", "envelope")
+        audit.write_event(kind=kind, payload=payload)
+        tool_node_id = f"tool-adapter::{server_name}::{tool_name}"
+        try:
+            kg.add_node(
+                kind="ToolAdapter",
+                node_id=tool_node_id,
+                attrs={
+                    "boundary": BOUNDARY_BLOCK,
+                    "server_name": server_name,
+                    "tool_name": tool_name,
+                },
+                boundary_required=True,
+            )
+        except Exception:
+            pass
+        run_node_id = f"sim-run::{envelope.envelope_id or uuid.uuid4().hex}"
         kg.add_node(
-            kind="ToolAdapter",
-            node_id=tool_node_id,
+            kind="SimulationRun",
+            node_id=run_node_id,
             attrs={
                 "boundary": BOUNDARY_BLOCK,
-                "server_name": server_name,
-                "tool_name": tool_name,
+                "envelope_id": str(envelope.envelope_id),
+                "tool": envelope.backend.tool,
+                "domain": envelope.domain.value,
+                "layer": envelope.layer.value,
             },
             boundary_required=True,
         )
-    except Exception:
-        # Node may already exist from a prior call — that is expected.
-        pass
-
-    # SimulationRun node — one per call
-    run_node_id = f"sim-run::{envelope.envelope_id or uuid.uuid4().hex}"
-    kg.add_node(
-        kind="SimulationRun",
-        node_id=run_node_id,
-        attrs={
-            "boundary": BOUNDARY_BLOCK,
-            "envelope_id": str(envelope.envelope_id),
-            "tool": envelope.backend.tool,
-            "domain": envelope.domain.value,
-            "layer": envelope.layer.value,
-        },
-        boundary_required=True,
-    )
-
-    # USED_TOOL edge from SimulationRun -> ToolAdapter
-    kg.add_edge(
-        kind="USED_TOOL",
-        src=run_node_id,
-        dst=tool_node_id,
-    )
+        kg.add_edge(kind="USED_TOOL", src=run_node_id, dst=tool_node_id)
+        return envelope
 
 
 def check_fusion_intent_or_raise(inputs_str: str) -> None:

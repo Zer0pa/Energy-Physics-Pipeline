@@ -6,11 +6,8 @@ adapter or subagent work. Not a substitute for the integration tests.
 from __future__ import annotations
 
 import sys
-from datetime import datetime, timezone
-from uuid import uuid4
 
 from energy_pipeline.audit import AuditWriter
-from energy_pipeline.boundary import BOUNDARY_BLOCK
 from energy_pipeline.kg import KGStore
 from energy_pipeline.schemas import (
     BackendBlock,

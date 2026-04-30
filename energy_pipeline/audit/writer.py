@@ -23,11 +23,25 @@ def _project_root() -> Path:
 
 
 def default_audit_dir() -> Path:
+    """Audit JSONL directory. Reads `ENERGY_AUDIT_DIR` env to enable parallel-safe
+    runtime per worktree/subagent (Wave 4 §3)."""
+    import os as _os
+
+    override = _os.environ.get("ENERGY_AUDIT_DIR", "").strip()
+    if override:
+        return Path(override).expanduser()
     return _project_root() / "audit_log"
 
 
 def default_db_path() -> Path:
-    return _project_root() / "audit_log" / "audit.duckdb"
+    """DuckDB index path. Reads `ENERGY_AUDIT_DB_PATH` first, then falls back to
+    `<ENERGY_AUDIT_DIR>/audit.duckdb`."""
+    import os as _os
+
+    override = _os.environ.get("ENERGY_AUDIT_DB_PATH", "").strip()
+    if override:
+        return Path(override).expanduser()
+    return default_audit_dir() / "audit.duckdb"
 
 
 class AuditWriter:

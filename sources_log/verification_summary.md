@@ -1,54 +1,55 @@
 # Source Manifest Verification Summary
 
-Run at: 2026-04-30T11:55:10.202896+00:00
+Run at: 2026-04-30T14:15:49.631819+00:00
 
 - Total entries: 41
-- Verified (real sha256): 40
-- Failed: 0
-
+- Verified (real sha256): 39
+- Failed (authority): 0
+- Skipped (non_authority): 2
+- Skipped (non-fetchable URI): 0
 
 ## Per-entry results
 
-| source_id | URI | verdict |
+| source_id | bucket | URI |
 |---|---|---|
-| `pyscf` | <https://github.com/pyscf/pyscf/blob/master/LICENSE> | OK |
-| `gpaw` | <https://gitlab.com/gpaw/gpaw/-/blob/master/COPYING> | OK |
-| `cp2k` | <https://github.com/cp2k/cp2k/blob/master/LICENSE> | OK |
-| `mace-code` | <https://api.github.com/repos/ACEsuit/mace/license> | OK |
-| `fairchem-code` | <https://github.com/facebookresearch/fairchem/blob/main/LICENSE.md> | OK |
-| `oc25-esen-model` | <https://huggingface.co/facebook/OC25> | OK |
-| `pemd` | <https://github.com/HouGroup/PEMD/blob/main/setup.py> | OK |
-| `pinn-pinet2` | <https://github.com/Teoroo-CMC/PiNN> | OK |
-| `lammps` | <https://github.com/lammps/lammps/blob/develop/LICENSE> | OK |
-| `moose` | <https://github.com/idaholab/moose/blob/master/LICENSE> | OK |
-| `lbpm` | <https://github.com/OPM/LBPM/blob/master/LICENSE> | OK |
-| `pybamm` | <https://github.com/pybamm-team/PyBaMM/blob/develop/LICENSE.txt> | OK |
-| `pybop` | <https://github.com/pybop-team/PyBOP/blob/develop/LICENSE> | OK |
-| `alphapem` | <https://github.com/gassraphael/AlphaPEM> | OK |
-| `cantera` | <https://github.com/Cantera/cantera/blob/main/License.txt> | OK |
-| `solcore5` | <https://github.com/qpv-research-group/solcore5/blob/develop/LICENSE.txt> | OK |
-| `scaps-1d` | <https://scaps.elis.ugent.be> | OK |
-| `pypsa` | <https://github.com/PyPSA/PyPSA/blob/master/LICENSE> | OK |
-| `pvlib-python` | <https://github.com/pvlib/pvlib-python/blob/main/LICENSE> | OK |
-| `nrel-pysam` | <https://github.com/NREL/pysam/blob/main/LICENSE> | OK |
-| `openmc` | <https://github.com/openmc-dev/openmc/blob/develop/LICENSE> | OK |
-| `dagmc` | <https://api.github.com/repos/svalinn/DAGMC/license> | OK |
-| `gacode` | <https://github.com/gafusion/gacode/blob/master/LICENSE> | OK |
-| `gene` | <https://www.genecode.org/license.html> | OK |
-| `gyroswin` | <non-authority://gyroswin/url-not-publicly-resolvable> | FAIL |
-| `pyrokinetics` | <https://github.com/pyro-kinetics/pyrokinetics> | OK |
-| `jorek` | <https://www.jorek.eu> | OK |
-| `bout-plus-plus` | <https://github.com/boutproject/BOUT-dev/blob/next/LICENSE> | OK |
-| `freegs` | <https://github.com/freegs-plasma/freegs> | OK |
-| `imas-core-5.6.0` | <https://github.com/iterorganization/IMAS-Core/releases/tag/5.6.0> | OK |
-| `imas-codex-pyproject` | <https://github.com/iterorganization/imas-codex/blob/main/pyproject.toml> | OK |
-| `omas` | <https://api.github.com/repos/gafusion/omas/license> | OK |
-| `duqtools` | <https://github.com/duqtools/duqtools> | OK |
-| `mitim-fusion` | <https://github.com/pabloprf/MITIM-fusion> | OK |
-| `omfit` | <https://omfit.io> | OK |
-| `paramak` | <https://api.github.com/repos/fusion-energy/paramak/license> | OK |
-| `pf-pino` | <https://github.com/NanxiiChen/PF-PINO> | OK |
-| `aqcat25` | <https://huggingface.co/datasets/SandboxAQ/aqcat25-dataset> | OK |
-| `deepseek-r1-distill-llama-70b` | <https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-70B> | OK |
-| `endf-b-viii-0` | <https://www.oecd-nea.org/jcms/pl_22343/jeff-3-3-and-endf-b-viii-0-evaluations> | OK |
-| `jeff-4.0` | <https://www.oecd-nea.org/dbdata/jeff/jeff40/> | OK |
+| `pyscf` | verified | <https://github.com/pyscf/pyscf/blob/master/LICENSE> |
+| `gpaw` | verified | <https://gitlab.com/gpaw/gpaw/-/blob/master/COPYING> |
+| `cp2k` | verified | <https://github.com/cp2k/cp2k/blob/master/LICENSE> |
+| `mace-code` | verified | <https://api.github.com/repos/ACEsuit/mace/license> |
+| `fairchem-code` | verified | <https://github.com/facebookresearch/fairchem/blob/main/LICENSE.md> |
+| `oc25-esen-model` | verified | <https://huggingface.co/facebook/OC25> |
+| `pemd` | verified | <https://github.com/HouGroup/PEMD/blob/main/setup.py> |
+| `pinn-pinet2` | verified | <https://github.com/Teoroo-CMC/PiNN> |
+| `lammps` | verified | <https://github.com/lammps/lammps/blob/develop/LICENSE> |
+| `moose` | verified | <https://github.com/idaholab/moose/blob/master/LICENSE> |
+| `lbpm` | verified | <https://github.com/OPM/LBPM/blob/master/LICENSE> |
+| `pybamm` | verified | <https://github.com/pybamm-team/PyBaMM/blob/develop/LICENSE.txt> |
+| `pybop` | verified | <https://github.com/pybop-team/PyBOP/blob/develop/LICENSE> |
+| `alphapem` | verified | <https://github.com/gassraphael/AlphaPEM> |
+| `cantera` | verified | <https://github.com/Cantera/cantera/blob/main/License.txt> |
+| `solcore5` | verified | <https://github.com/qpv-research-group/solcore5/blob/develop/LICENSE.txt> |
+| `scaps-1d` | verified | <https://scaps.elis.ugent.be> |
+| `pypsa` | verified | <https://github.com/PyPSA/PyPSA/blob/master/LICENSE> |
+| `pvlib-python` | verified | <https://github.com/pvlib/pvlib-python/blob/main/LICENSE> |
+| `nrel-pysam` | verified | <https://github.com/NREL/pysam/blob/main/LICENSE> |
+| `openmc` | verified | <https://github.com/openmc-dev/openmc/blob/develop/LICENSE> |
+| `dagmc` | verified | <https://api.github.com/repos/svalinn/DAGMC/license> |
+| `gacode` | verified | <https://github.com/gafusion/gacode/blob/master/LICENSE> |
+| `gene` | verified | <https://www.genecode.org/license.html> |
+| `gyroswin` | skipped (non_authority) | <non-authority://gyroswin/url-not-publicly-resolvable> |
+| `pyrokinetics` | verified | <https://github.com/pyro-kinetics/pyrokinetics> |
+| `jorek` | skipped (non_authority) | <non-authority://jorek/no-canonical-license-url> |
+| `bout-plus-plus` | verified | <https://github.com/boutproject/BOUT-dev/blob/next/LICENSE> |
+| `freegs` | verified | <https://github.com/freegs-plasma/freegs> |
+| `imas-core-5.6.0` | verified | <https://github.com/iterorganization/IMAS-Core/releases/tag/5.6.0> |
+| `imas-codex-pyproject` | verified | <https://github.com/iterorganization/imas-codex/blob/main/pyproject.toml> |
+| `omas` | verified | <https://api.github.com/repos/gafusion/omas/license> |
+| `duqtools` | verified | <https://github.com/duqtools/duqtools> |
+| `mitim-fusion` | verified | <https://github.com/pabloprf/MITIM-fusion> |
+| `omfit` | verified | <https://omfit.io> |
+| `paramak` | verified | <https://api.github.com/repos/fusion-energy/paramak/license> |
+| `pf-pino` | verified | <https://github.com/NanxiiChen/PF-PINO> |
+| `aqcat25` | verified | <https://huggingface.co/datasets/SandboxAQ/aqcat25-dataset> |
+| `deepseek-r1-distill-llama-70b` | verified | <https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-70B> |
+| `endf-b-viii-0` | verified | <https://www.oecd-nea.org/jcms/pl_22343/jeff-3-3-and-endf-b-viii-0-evaluations> |
+| `jeff-4.0` | verified | <https://www.oecd-nea.org/dbdata/jeff/jeff40/> |

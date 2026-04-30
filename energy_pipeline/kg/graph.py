@@ -62,6 +62,13 @@ def _project_root() -> Path:
 
 
 def default_kg_dir() -> Path:
+    """KG JSONL directory. Reads `ENERGY_KG_DIR` env for parallel-safe runtime per
+    worktree/subagent (Wave 4 §3)."""
+    import os as _os
+
+    override = _os.environ.get("ENERGY_KG_DIR", "").strip()
+    if override:
+        return Path(override).expanduser()
     return _project_root() / "kg_store"
 
 

@@ -57,14 +57,22 @@ GPL_TOOLS_REQUIRING_ISOLATION_EVIDENCE: frozenset[str] = frozenset(
 )
 
 
-def gpl_isolation_falsifier(env: UniversalLayerEnvelope) -> list[FailureRecord] | None:
-    """Refuse scientific mode for known GPL-style tools without an isolation grant URI.
+_VETTED_LOCAL_GRANT_PREFIX = "file:///etc/zer0pa/license-grants/"
 
-    Acceptance: `BackendBlock.license_evidence_uri` must start with
-    `kg://license-grant/`, `https://`, or `file://` AND must explicitly mention
-    "isolated" or "grant" or "isolation" in the URI/path. We treat any URI in the
-    grant namespaces as compliant for now; tightening to require a substring match
-    on "isolated" is a future hardening step.
+
+def gpl_isolation_falsifier(env: UniversalLayerEnvelope) -> list[FailureRecord] | None:
+    """Refuse scientific mode for GPL-style tools without an isolation grant URI.
+
+    Wave 4 §5 tightening: a public `https://...` LICENSE URL is NOT acceptable
+    isolation evidence. Acceptable forms:
+
+      * `kg://license-grant/<tool>...` — knowledge-graph isolation grant record.
+      * `file:///etc/zer0pa/license-grants/...` — vetted local grant record (the
+        single canonical local prefix for production deploys).
+
+    The bare project LICENSE URL (which is publicly shared with everyone) cannot
+    constitute an isolation/grant decision — the brief states "public HTTPS
+    license pages do not count as GPL/conditional isolation grants".
     """
     if env.mode != Mode.scientific:
         return None
@@ -73,19 +81,20 @@ def gpl_isolation_falsifier(env: UniversalLayerEnvelope) -> list[FailureRecord] 
     if not needs:
         return None
     uri = env.backend.license_evidence_uri or ""
-    if not uri.startswith(("kg://license-grant/", "file://", "https://")):
-        return [
-            FailureRecord(
-                gate_id="gpl_isolation_required",
-                severity="fail",
-                message=(
-                    f"Tool '{env.backend.tool}' is GPL/conditional-license; "
-                    "scientific mode requires `kg://license-grant/...` (or https:// / file://) "
-                    "evidence of isolation grant. Got empty evidence URI."
-                ),
-            )
-        ]
-    return None
+    if uri.startswith("kg://license-grant/") or uri.startswith(_VETTED_LOCAL_GRANT_PREFIX):
+        return None
+    return [
+        FailureRecord(
+            gate_id="gpl_isolation_required",
+            severity="fail",
+            message=(
+                f"Tool '{env.backend.tool}' is GPL/conditional-license; "
+                "scientific mode requires `kg://license-grant/<tool>` or "
+                f"`{_VETTED_LOCAL_GRANT_PREFIX}<tool>...` evidence. "
+                f"Got `{uri}` — bare HTTPS LICENSE URLs are not isolation grants."
+            ),
+        )
+    ]
 
 
 # ---------------------------------------------------------------------------
@@ -369,6 +378,91 @@ def above_carnot_falsifier(env: UniversalLayerEnvelope) -> list[FailureRecord] |
 
 
 # ---------------------------------------------------------------------------
+# PV fill factor (T8) — at envelope payload level
+# ---------------------------------------------------------------------------
+
+
+def pv_fill_factor_falsifier(env: UniversalLayerEnvelope) -> list[FailureRecord] | None:
+    """PV fill factor must be in [0, 1]. The DRO `ScalarMetrics._zero_one`
+    validator catches this at construct time; we also check the envelope's
+    output payload because some adapters emit `fill_factor` directly without
+    a DRO.
+    """
+    payload = env.outputs.payload or {}
+
+    def _walk_for_fill_factor(p: Any) -> list[float]:
+        out = []
+        if isinstance(p, Mapping):
+            for k, v in p.items():
+                lk = k.lower() if isinstance(k, str) else ""
+                if "fill_factor" in lk and isinstance(v, (int, float)) and not isinstance(v, bool):
+                    out.append(float(v))
+                elif "fill_factor" in lk and isinstance(v, Mapping) and "value" in v:
+                    val = v.get("value")
+                    if isinstance(val, (int, float)) and not isinstance(val, bool):
+                        out.append(float(val))
+                else:
+                    out.extend(_walk_for_fill_factor(v))
+        elif isinstance(p, (list, tuple)):
+            for item in p:
+                out.extend(_walk_for_fill_factor(item))
+        return out
+
+    bad = [v for v in _walk_for_fill_factor(payload) if not (0.0 <= v <= 1.0)]
+    if bad:
+        return [
+            FailureRecord(
+                gate_id="pv_fill_factor_range",
+                severity="fail",
+                message=f"PV fill_factor outside [0, 1]: {bad}",
+            )
+        ]
+    return None
+
+
+def pce_fraction_falsifier(env: UniversalLayerEnvelope) -> list[FailureRecord] | None:
+    """PV PCE fraction must be in [0, 1] — same logic as fill factor."""
+    payload = env.outputs.payload or {}
+
+    def _walk(p: Any) -> list[float]:
+        out = []
+        if isinstance(p, Mapping):
+            for k, v in p.items():
+                lk = k.lower() if isinstance(k, str) else ""
+                if (
+                    "pce_fraction" in lk
+                    and isinstance(v, (int, float))
+                    and not isinstance(v, bool)
+                ):
+                    out.append(float(v))
+                elif (
+                    "pce_fraction" in lk
+                    and isinstance(v, Mapping)
+                    and "value" in v
+                ):
+                    val = v.get("value")
+                    if isinstance(val, (int, float)) and not isinstance(val, bool):
+                        out.append(float(val))
+                else:
+                    out.extend(_walk(v))
+        elif isinstance(p, (list, tuple)):
+            for item in p:
+                out.extend(_walk(item))
+        return out
+
+    bad = [v for v in _walk(payload) if not (0.0 <= v <= 1.0)]
+    if bad:
+        return [
+            FailureRecord(
+                gate_id="pv_pce_fraction_range",
+                severity="fail",
+                message=f"PCE fraction outside [0, 1]: {bad}",
+            )
+        ]
+    return None
+
+
+# ---------------------------------------------------------------------------
 # Battery SoC range (T10)
 # ---------------------------------------------------------------------------
 
@@ -450,6 +544,8 @@ DEFAULT_FALSIFIER_SET: tuple[Falsifier, ...] = (
     negative_ne_falsifier,
     above_carnot_falsifier,
     soc_range_falsifier,
+    pv_fill_factor_falsifier,
+    pce_fraction_falsifier,
     imas_version_falsifier,
     cross_model_disagreement_falsifier,
 )
