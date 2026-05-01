@@ -4,7 +4,30 @@ Canonical home for the Zer0pa Energy work stream. Multi-agent handoff: synthesis
 
 ## Boundary
 
-Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications excluded under operator policy.
+Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
+
+## Enterprise status and H100 completion plan
+
+Wave 4 made this repository ready to begin Runpod migration. It did **not**
+complete the enterprise Energy pipeline.
+
+The current authority documents are:
+
+- [`RUNPOD-READINESS.md`](./RUNPOD-READINESS.md) — why the CPU substrate can now accept Runpod backends without an architectural rewrite.
+- [`H100-ENTERPRISE-COMPLETION-PLAN.md`](./H100-ENTERPRISE-COMPLETION-PLAN.md) — what remains to complete the pipeline end-to-end on the provisioned H100.
+
+Do not treat a service smoke test, a shaped-envelope response, or one endpoint
+flip as pipeline completion. Completion requires live same-endpoint cutover,
+GPU-backed scientific lanes, dataful execution, production falsification,
+CPU-vs-GPU regression, audit/KG provenance, and an enterprise handoff.
+
+H100 planning estimate:
+
+| Completion band | Meaning | H100-hours | One-H100 wall clock |
+|---|---|---:|---:|
+| Setup evidence only | Runpod service or one endpoint returning a shaped envelope. Not completion. | 8-24 | 0.5-1 day |
+| Minimum enterprise completion | One serious electrochem GPU lane, one serious fusion or reasoner lane, live same-endpoint cutover, audit/KG, falsification, regression, handoff. | 180-500 | 8-21 days |
+| Full multi-lane Energy completion | Multiple electrochem + fusion GPU lanes, calibrated dataful campaigns, cross-model/TDA coverage, repeatable operational handoff. | 600-1500 | 25-63 days |
 
 ## Two sub-verticals, one workstream
 
