@@ -1,112 +1,196 @@
-# Zer0pa Energy — Workstream Repository
+# Zer0pa Energy
 
-Canonical home for the Zer0pa Energy work stream. Multi-agent handoff: synthesis → orchestrator → overnight executor → Runpod migration. Repo is the source of truth across machines.
+> Live window into the Zer0pa lab. Energy is an active in-silico pipeline workstream, not a finished commercial service.
 
-## Boundary
+Boundary: Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
 
-Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
+## What This Is
 
-## Enterprise status and H100 completion plan
+Energy is an in-silico electrochemistry and fusion pipeline: CPU authority is Runpod-ready; enterprise H100 completion remains active.
 
-Wave 4 made this repository ready to begin Runpod migration. It did **not**
-complete the enterprise Energy pipeline.
+This repo is the canonical workstream surface for Zer0pa Energy: a six-layer research pipeline spanning electrochemical conversion and fusion / plasma physics. It contains the PRD, source briefs, CPU-first execution artifacts, falsification tests, Runpod readiness evidence, and the H100 completion plan.
 
-The current authority documents are:
+The current state is deliberately WIP-visible. Wave 4 made the CPU substrate ready to accept GPU backends through the same public endpoints. It did not complete the enterprise GPU-backed pipeline. The remaining authority metric is the H100 execution wave described in [`H100-ENTERPRISE-COMPLETION-PLAN.md`](./H100-ENTERPRISE-COMPLETION-PLAN.md).
 
-- [`RUNPOD-READINESS.md`](./RUNPOD-READINESS.md) — why the CPU substrate can now accept Runpod backends without an architectural rewrite.
-- [`H100-ENTERPRISE-COMPLETION-PLAN.md`](./H100-ENTERPRISE-COMPLETION-PLAN.md) — what remains to complete the pipeline end-to-end on the provisioned H100.
+## Pipeline Mechanics
 
-Do not treat a service smoke test, a shaped-envelope response, or one endpoint
-flip as pipeline completion. Completion requires live same-endpoint cutover,
-GPU-backed scientific lanes, dataful execution, production falsification,
-CPU-vs-GPU regression, audit/KG provenance, and an enterprise handoff.
+| Field | Value |
+| --- | --- |
+| Architecture | Six-layer in-silico energy pipeline: L1 electronic structure, L2 atomistic/MLIP, L3 mesoscale, L4 device, L5 stack/system, L6 orchestration |
+| Sub-verticals | Electrochemical conversion and fusion / plasma physics |
+| L6 spine | `EnergyConfig`, adapter registry, backend resolver, production falsifier set, audit/KG enforcement |
+| Device object | Shared L4 `DeviceResponseObject` for device-response artifacts |
+| Current runtime | CPU-first substrate with Runpod cutover hooks; H100 enterprise completion active |
+| Cutover control | `ENERGY_RUNPOD_BASE_URL` plus `ENERGY_L?_BACKEND=runpod_rest` |
 
-H100 planning estimate:
+Within Energy, the two sub-verticals may share L6 design and the L4 response schema. Across Health, Materials, and Energy, substrate sharing remains disallowed during build; redundancy is part of the parallel-exploration strategy.
 
-| Completion band | Meaning | H100-hours | One-H100 wall clock |
-|---|---|---:|---:|
-| Setup evidence only | Runpod service or one endpoint returning a shaped envelope. Not completion. | 8-24 | 0.5-1 day |
-| Minimum enterprise completion | One serious electrochem GPU lane, one serious fusion or reasoner lane, live same-endpoint cutover, audit/KG, falsification, regression, handoff. | 180-500 | 8-21 days |
-| Full multi-lane Energy completion | Multiple electrochem + fusion GPU lanes, calibrated dataful campaigns, cross-model/TDA coverage, repeatable operational handoff. | 600-1500 | 25-63 days |
+## Key Metrics
 
-## Two sub-verticals, one workstream
+| Metric | Value | Baseline |
+| --- | --- | --- |
+| Strict CPU gate | `475 passed`, `0 failed`, `STRICT FULL CHECK OK`, `79.72%` coverage | `RUNPOD-READINESS.md`; Wave 4 |
+| Source manifests | `39 ok`, `0 fail`, `2 non_authority skipped` | `tools/verify_sources.py --dry-run` |
+| Runpod cutover substrate | Same public endpoint flips by config flag | `tests/integration/test_runpod_same_endpoint.py` |
+| Enterprise H100 completion | `180-500` H100-hours minimum; `600-1500` H100-hours full multi-lane | `H100-ENTERPRISE-COMPLETION-PLAN.md` |
+
+## Repo Identity
+
+| Field | Value |
+| --- | --- |
+| Identifier | Energy |
+| Repository | https://github.com/Zer0pa/Energy |
+| Portfolio | Energy workstream |
+| Visibility | INTERNAL |
+| Default Branch | main |
+| Authority Source | `RUNPOD-READINESS.md`; `H100-ENTERPRISE-COMPLETION-PLAN.md`; `PRD.md` |
+| License | Proprietary - Zer0pa internal research artifact |
+| Last Verified | 2026-05-02 |
+
+## Readiness
+
+| Field | Value |
+| --- | --- |
+| CPU substrate | PASS - Wave 4 closes same-endpoint Runpod cutover, mandatory audit/KG, parallel runtime, source verification, and pointer manifests |
+| Runpod migration | STAGED - repo can begin H100 work without architectural rewrite |
+| Enterprise pipeline completion | ACTIVE - GPU-backed scientific lanes and falsification wave still required |
+| Public/lab posture | WIP window - evidence-forward, not finished-product language |
+
+### Honest Blocker
+
+No GPU-backed enterprise completion wave has passed yet. A service smoke test, shaped envelope, or single endpoint flip is not completion. The first serious H100 mandate is one electrochem GPU lane, one fusion or reasoner lane, live same-endpoint cutover, audit/KG provenance, and full falsification/regression.
+
+## What We Prove
+
+- Wave 4 same-endpoint cutover is wired: public `/v1/<sub>/<layer>/<op>` routes through `energy_pipeline.l6.backend_resolver.resolve_and_dispatch`.
+- Accepted envelopes go through central `accept_envelope` / `accept_envelope_and_dro` enforcement with production falsifiers, audit JSONL/DuckDB, and KG writes.
+- The CPU-first suite is strict enough to reject overclaiming: full check, Runpod same-endpoint tests, mandatory audit/KG tests, and parallel audit/KG safety tests are present.
+- Source evidence is content-addressed or demoted: current authority sources report 39 verified entries, zero authority failures, and two non-authority skips.
+- The H100 completion plan names the real remaining work: dataful GPU-backed lanes, CPU-vs-GPU regression, cross-model disagreement, TDA where applicable, and enterprise handoff.
+
+## What We Don't Claim
+
+- We do not claim the enterprise Energy pipeline is complete.
+- We do not claim a Runpod smoke test, single shaped envelope, or one endpoint flip is sufficient completion evidence.
+- We do not claim regulatory certification, deployable product readiness, clinical/human-subject use, or defence/weapons applicability.
+- We do not claim all GPU/HPC tools are integrated; MACE/fairchem/eSEN, GyroSwin/CGYRO, vLLM reasoner, OpenMC/GPAW/R2S remain H100 work.
+- We do not claim blocked or conditional licenses are cleared without `kg://license-grant/...` evidence.
+- We do not commit bulk datasets to git; dataful execution must use manifests, small fixtures, checksums, and private object storage where needed.
+
+## Verification Status
+
+| Code | Check | Verdict |
+| --- | --- | --- |
+| V_01 | Wave 4 strict CPU gate: 475 passed, 0 failed, 79.72% coverage | PASS |
+| V_02 | Same-endpoint Runpod cutover tests | PASS |
+| V_03 | Mandatory audit/KG and parallel runtime tests | PASS |
+| V_04 | Source manifest authority verification: 39 ok / 0 fail / 2 non-authority skipped | PASS |
+| V_05 | H100 enterprise GPU completion wave | UNTESTED |
+
+## Proof Anchors
+
+| Path | State |
+| --- | --- |
+| `RUNPOD-READINESS.md` | VERIFIED |
+| `H100-ENTERPRISE-COMPLETION-PLAN.md` | VERIFIED |
+| `FINAL-REPORT.md` | VERIFIED |
+| `PRD.md` | VERIFIED |
+| `tests/integration/test_runpod_same_endpoint.py` | VERIFIED |
+| `sources_log/verification_summary.md` | VERIFIED |
+
+## Repo Shape
+
+| Field | Value |
+| --- | --- |
+| Proof Anchors | 6 display anchors |
+| Portfolio | Energy workstream |
+| Package | `energy_pipeline` |
+| Authority Source | `RUNPOD-READINESS.md`; `H100-ENTERPRISE-COMPLETION-PLAN.md`; `PRD.md` |
+| Source | `energy_pipeline/` |
+| Tests | `tests/contract/`; `tests/falsification/`; `tests/scientific/`; `tests/integration/` |
+| Evidence | `FINAL-REPORT.md`; `RUNPOD-READINESS.md`; `sources_log/`; `docs/decisions/` |
+| H100 Plan | `H100-ENTERPRISE-COMPLETION-PLAN.md` |
+| Support Sections | Sub-verticals; Front Door Receipts; Agent Read Order; Provenance; Cross-workstream Principle; Executor Build State; Quick Start |
+
+## Sub-verticals
 
 Energy spans two physically distinct sub-verticals that share the six-layer scale hierarchy and L6 orchestration spine:
 
-- **Electrochemical** — Butler-Volmer master equation; polarisation curve V(j) is the device-response token; buyers exist today (battery digital twins, PEM catalyst screening, perovskite PV); SA PGM strategic anchor.
-- **Fusion / plasma** — Grad-Shafranov equilibrium + gyrokinetic Vlasov-Maxwell master equations; plasma equilibrium state vector is the device-response token; first commercial window (IMAS open-sourced December 2025); IMAS-MCP enables LLM agentic interface (April 2026).
+- **Electrochemical** - Butler-Volmer master equation; polarisation curve V(j) is the device-response token; buyer context includes battery digital twins, PEM catalyst screening, perovskite PV, and SA PGM strategy.
+- **Fusion / plasma** - Grad-Shafranov equilibrium plus gyrokinetic Vlasov-Maxwell master equations; plasma equilibrium state vector is the device-response token; IMAS-MCP enables an LLM agentic interface.
 
-The orchestrator's working assumption per the research-agent handover note: **one PRD with Part A (electrochemistry) and Part B (fusion) sharing the L6 spine**. Within Energy, sharing is permitted and recommended. Across workstreams (Health, Materials, Energy), no substrate is shared — see § Parallel-exploration principle in `MODUS-OPERANDI.md`.
+The orchestrator resolved the PRD structure as one PRD with Part A for electrochemistry and Part B for fusion, sharing L6 and the L4 output schema inside Energy only.
 
-## What is in here
+## Front Door Receipts
 
-| Path | Purpose | Author role |
-|---|---|---|
-| `MODUS-OPERANDI.md` | Reusable multi-agent pattern + parallel-exploration principle (Health, Materials, Energy run independently in parallel; convergence happens after all complete, not during) | Synthesis agent |
-| `HANDOFF-TO-ORCHESTRATOR.md` | Energy-specific brief for the next agent (the energy orchestrator) — defines what they inherit and what they must produce | Synthesis agent |
-| `ORCHESTRATOR-STARTUP-PROMPT.md` | The exact prompt the user pastes into a fresh agent session to spin up the energy orchestrator | Synthesis agent |
-| `source-briefs/` | Inherited research input — the research-agent handover note plus two technology-landscape briefs (electrochemical M2S; fusion + SA + LLM + data standards) | External (consumer of synthesis) |
-| `synthesis/` | Fresh-eyes reading of the briefs and handover note — what is not yet seen, the information-theoretic foundation reframe, the unified L4 device-response object, twelve specific things the briefs do not see | Synthesis agent |
-| `PRD.md` (to be written) | The PRD that drives the overnight long-horizon execution on a Runpod-bound machine | Energy orchestrator |
+| Receipt | Value |
+| --- | --- |
+| Alignment Source | `/Users/Zer0pa/orchestration-state/ZER0PA_LANE_AGENT_FRONT_DOOR_GUIDANCE_2026-05-02.md` |
+| Front Door Profile | `Pipeline Mechanics` |
+| Canonical Zones | `What This Is`; `Pipeline Mechanics`; `Key Metrics`; `Repo Identity`; `Readiness`; `What We Prove`; `What We Don't Claim`; `Verification Status`; `Proof Anchors`; `Repo Shape` |
+| Current GitHub Target | `main` |
 
-## Read order for the next agent
+## Agent Read Order
 
-1. `MODUS-OPERANDI.md` — how the role chain works and why these workstreams stay independent.
-2. `HANDOFF-TO-ORCHESTRATOR.md` — what you (energy orchestrator) inherit and produce.
-3. `source-briefs/00-research-agent-handover-note.md` — the prior research agent's self-assessment, best-of-breed picks per layer for both sub-verticals, five first-of-kind opportunities, license risk flags, priority build order, the one decision flagged for you.
-4. `source-briefs/01-electrochemical-m2s-pipeline.md` — Brief #1 — full six-layer M2S pipeline for batteries, electrolysers, fuel cells, PV, thermoelectrics.
-5. `source-briefs/02-fusion-sa-llm-data-standards.md` — Brief #2 — fusion / plasma six-layer pipeline; SA PGM context; electrochemistry reasoning LLMs; battery data standards.
-6. `synthesis/01-fresh-eyes-on-energy-briefs.md` — synthesis-agent reframe; this is the substrate for your own fresh-eyes augmentation.
+For full execution context, read:
+
+1. [`MODUS-OPERANDI.md`](./MODUS-OPERANDI.md) - role chain and parallel-exploration principle.
+2. [`PRD.md`](./PRD.md) - long-horizon product requirements and interface contracts.
+3. [`RUNPOD-READINESS.md`](./RUNPOD-READINESS.md) - Wave 4 CPU substrate readiness for Runpod migration.
+4. [`H100-ENTERPRISE-COMPLETION-PLAN.md`](./H100-ENTERPRISE-COMPLETION-PLAN.md) - H100 enterprise completion gates and hour budget.
+5. [`source-briefs/00-research-agent-handover-note.md`](./source-briefs/00-research-agent-handover-note.md) - prior research handover.
+6. [`synthesis/01-fresh-eyes-on-energy-briefs.md`](./synthesis/01-fresh-eyes-on-energy-briefs.md) - fresh-eyes synthesis substrate.
 
 ## Provenance
 
 - Initial commit: 2026-04-30.
-- Research agent: Perplexity (electrochemical M2S brief; fusion second-pass brief; handover note).
-- Synthesis agent: Claude Opus 4.7 (1M context), 2026-04-30.
-- Next agent: energy orchestrator (writes `PRD.md`).
-- Following: overnight executor on a Runpod-bound machine.
+- Research input: electrochemical M2S brief; fusion / plasma second-pass brief; research-agent handover note.
+- Synthesis/orchestration: fresh-eyes synthesis, PRD, Handoff-to-Overnight-Executor.
+- Overnight execution: CPU-first build, Wave 2, Wave 3, Wave 4 hardening.
+- Current next role: H100 Runpod enterprise completion wave.
 
-## Cross-workstream principle (deliberate)
+## Cross-workstream Principle
 
-This workstream runs in parallel with `Zer0pa/Health` and `Zer0pa/Materials`. Each workstream is built end-to-end as an independent pipeline. **No substrate is shared during build.** Redundancy across workstreams is a deliberate asset — surplus coding capacity buys diversity of architecture, not duplicated cost. Convergence (if any) happens in a separate merge step after all parallel workstreams complete. See `MODUS-OPERANDI.md` § Parallel-exploration principle. The research-agent handover note recommends cross-vertical L6 sharing across Health, Materials, and Energy; that recommendation is captured in `synthesis/01-fresh-eyes-on-energy-briefs.md` and explicitly overridden in `HANDOFF-TO-ORCHESTRATOR.md` § Operator override. Within Energy, the two sub-verticals (electrochemistry + fusion) may share L6 design and the L4-output schema — that is intra-workstream and explicitly permitted.
+This workstream runs in parallel with `Zer0pa/Health` and `Zer0pa/Materials`. Each workstream is built end-to-end as an independent pipeline. No substrate is shared during build. Redundancy across workstreams is deliberate: surplus coding capacity buys diversity of architecture. Any convergence happens later as a separate merge step after parallel workstreams complete.
 
----
+Within Energy, electrochemistry and fusion may share L6 design and the L4 `DeviceResponseObject`; that is intra-workstream sharing and explicitly permitted.
 
-## Executor build state (2026-04-30)
+## Executor Build State
 
-Overnight CPU-first build delivered. See [`FINAL-REPORT.md`](./FINAL-REPORT.md) and [`HANDOFF-FROM-OVERNIGHT-EXECUTOR.md`](./HANDOFF-FROM-OVERNIGHT-EXECUTOR.md).
+Overnight CPU-first build delivered. See [`FINAL-REPORT.md`](./FINAL-REPORT.md), [`RUNPOD-READINESS.md`](./RUNPOD-READINESS.md), and [`HANDOFF-FROM-OVERNIGHT-EXECUTOR.md`](./HANDOFF-FROM-OVERNIGHT-EXECUTOR.md).
 
-Repo layout (post-build):
+Repo layout:
 
-```
+```text
 energy_pipeline/
-  schemas/                — UniversalLayerEnvelope, DeviceResponseObject, Falsification, Source, Reasoner
-  audit/                  — JSONL + DuckDB writer with mandatory boundary check
-  kg/                     — JSONL + NetworkX KG store; GraphML export
-  rest/                   — FastAPI stubs for L1-L5 endpoints (electrochem + fusion)
-  l6/                     — Adapter registry, ENERGY_* config, falsifier router
-  tda/                    — Persistent-homology early-warning (ripser + persim)
-  cli/                    — Typer CLI: health, registry, smoke, serve-rest, falsification-wave, etc.
-  adapters/electrochem/   — L1-L5 (PyBaMM, Solcore, Cantera, PEM, ThermoElectric)
-  adapters/fusion/        — L1-L5 (OpenMC, GACODE/TGLF, FreeGS4E, IMAS netCDF, Paramak)
-  adapters/shared/        — Source log + license gate + reasoner curator
-  mcp_servers/            — 9 FastMCP servers (pybamm, pvlib, solcore, cantera, pypsa, pysam, openmc, imas-codex, aiida)
-fixtures/{electrochem,fusion,negative}/
-tests/{contract,falsification,scientific,integration}/
-sources_log/seed.jsonl + license_findings.jsonl
-docs/decisions/000-005
-scripts/{full_check.sh, clean_runtime.sh, quick_demo.py}
-tools/{show_audit.py, show_kg.py, build_summary.py, runpod_cutover_checklist.py}
+  schemas/                - UniversalLayerEnvelope, DeviceResponseObject, Falsification, Source, Reasoner
+  audit/                  - JSONL + DuckDB writer with mandatory boundary check
+  kg/                     - JSONL + NetworkX KG store; GraphML export
+  rest/                   - FastAPI endpoints for L1-L5 electrochem + fusion
+  l6/                     - config, backend resolver, registry, production falsifiers, enforcement
+  tda/                    - persistent-homology early warning
+  cli/                    - health, registry, smoke, serve-rest, falsification-wave
+  adapters/electrochem/   - L1-L5 CPU, manifest, pointer, and Runpod-ready paths
+  adapters/fusion/        - L1-L5 CPU, parser, manifest, reasoning, and Runpod-ready paths
+  adapters/shared/        - source log, license gate, reasoner curator, Runpod dispatch
+  mcp_servers/            - FastMCP servers for energy tool-calling
+fixtures/
+tests/
+sources_log/
+docs/decisions/
+scripts/
+tools/
 ```
 
-Quick start:
+## Quick Start
 
 ```bash
 git clone https://github.com/Zer0pa/Energy
 cd Energy
 python3.13 -m venv .venv
-.venv/bin/pip install -e '.[test,electrochem,fusion,tda,mcp]'
-make full
+.venv/bin/pip install -e '.[test,tda,mcp]'
+.venv/bin/pip install pybamm pybop pypsa pvlib cantera pyscf netCDF4 freegs omas pyrokinetics qiskit mcp ripser persim
+ENERGY_AUDIT_DIR=$(mktemp -d) ENERGY_KG_DIR=$(mktemp -d) bash scripts/full_check.sh
 ```
 
-The Runpod cutover plan is `tools/runpod_cutover_checklist.py` and the `/v1/runpod/{layer}/{domain}` REST shape in `energy_pipeline/rest/app.py`.
+Runpod migration starts by setting `ENERGY_RUNPOD_BASE_URL` and flipping the target layer with `ENERGY_L?_BACKEND=runpod_rest`. The enterprise completion standard is in [`H100-ENTERPRISE-COMPLETION-PLAN.md`](./H100-ENTERPRISE-COMPLETION-PLAN.md).
