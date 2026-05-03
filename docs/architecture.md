@@ -1,4 +1,4 @@
-# Architecture — Zer0pa Energy Pipeline
+# Architecture — Energy Physics Pipeline
 
 **Boundary:** Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
 

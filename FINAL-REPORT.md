@@ -22,7 +22,7 @@
 ## Commands run (canonical)
 
 ```bash
-git clone https://github.com/Zer0pa/Energy-Physics-Pipeline "/Users/zer0palab/Energy Pipeline"
+git clone https://github.com/Zer0pa/Energy-Physics-Pipeline "/Users/zer0palab/Energy-Physics-Pipeline"
 python3.13 -m venv .venv
 .venv/bin/pip install -e '.[test]' pybamm pypsa pvlib cantera pyscf netCDF4 freegs ripser persim mcp
 .venv/bin/python -m pytest tests          # 277 passed, 0 failed, 50.6s

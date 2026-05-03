@@ -2,13 +2,13 @@
 
 **Status:** Accepted  
 **Date:** 2026-04-30  
-**Authors:** Zer0pa Energy pipeline team
+**Authors:** Energy Physics Pipeline team
 
 ---
 
 ## Context
 
-The Model Context Protocol (MCP) is an open standard for connecting AI assistants to data sources and tools (see <https://modelcontextprotocol.io/>). Every MCP server exposes a set of typed tools that a language model can call. The Zer0pa Energy pipeline exposes research simulators — PyBaMM, pvlib, Solcore, Cantera, PyPSA, PySAM, OpenMC, IMAS-Python, AiiDA — as MCP tools.
+The Model Context Protocol (MCP) is an open standard for connecting AI assistants to data sources and tools (see <https://modelcontextprotocol.io/>). Every MCP server exposes a set of typed tools that a language model can call. Energy Physics Pipeline exposes research simulators — PyBaMM, pvlib, Solcore, Cantera, PyPSA, PySAM, OpenMC, IMAS-Python, AiiDA — as MCP tools.
 
 ## Decision
 

@@ -96,7 +96,7 @@ def _stub_envelope(
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        title="Zer0pa Energy REST stubs",
+        title="Energy Physics Pipeline REST surface",
         version="0.1.0",
         description=BOUNDARY_BLOCK,
     )

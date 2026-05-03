@@ -1,4 +1,4 @@
-"""MCP server suite for the Zer0pa Energy CPU-first pipeline.
+"""MCP server suite for the Energy Physics Pipeline CPU-first substrate.
 
 Each sub-module exposes ``build_server() -> FastMCP`` and a ``__main__`` guard.
 The registry module lists all servers and their metadata.

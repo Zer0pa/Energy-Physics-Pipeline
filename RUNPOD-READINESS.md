@@ -99,7 +99,7 @@ Process:
 
 ```bash
 # Reproduce on a fresh clone
-git clone https://github.com/Zer0pa/Energy
+git clone https://github.com/Zer0pa/Energy-Physics-Pipeline
 cd Energy-Physics-Pipeline
 git checkout wave4-cpu-hardening
 python3.13 -m venv .venv

@@ -40,7 +40,7 @@ def health() -> None:
     cfg = get_config()
     aw = AuditWriter()
     kg = KGStore()
-    table = Table(title="Energy Pipeline Health")
+    table = Table(title="Energy Physics Pipeline Health")
     table.add_column("Field")
     table.add_column("Value")
     table.add_row("Boundary block length", str(len(BOUNDARY_BLOCK)))

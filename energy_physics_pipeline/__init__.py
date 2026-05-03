@@ -1,4 +1,4 @@
-"""Zer0pa Energy — CPU-first in silico research infrastructure.
+"""Energy Physics Pipeline — CPU-first in silico research infrastructure.
 
 Boundary: research infrastructure for in silico energy science (electrochemistry +
 fusion). No regulatory certification, clinical, human-subject, defence, or weapons use.

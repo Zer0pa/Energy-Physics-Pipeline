@@ -5,7 +5,7 @@
 ## TL;DR
 
 ```bash
-git clone https://github.com/Zer0pa/Energy
+git clone https://github.com/Zer0pa/Energy-Physics-Pipeline
 cd Energy-Physics-Pipeline
 python3.13 -m venv .venv
 .venv/bin/pip install -e '.[test,electrochem,fusion,tda,mcp,advanced-cpu]'

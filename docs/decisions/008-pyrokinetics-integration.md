@@ -10,7 +10,7 @@ Defence / weapons applications are out of scope under operator policy.
 
 **Status:** Accepted  
 **Date:** 2026-04-30  
-**Deciders:** Zer0pa Energy Pipeline architecture team  
+**Deciders:** Energy Physics Pipeline architecture team
 **Refs:** PRD §"Part B - Fusion / Plasma Contracts" §L2; fusion handover note
 
 ---

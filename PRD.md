@@ -29,7 +29,7 @@ The lead must keep docs and handover artifacts frozen until the real gate is met
 
 ## Source Basis
 
-The local folder `/Users/Zer0pa/Energy-Physics-Pipeline Portfolio/Energy Pipeline Research` was checked and is byte-identical to:
+The local research folder `/Users/Zer0pa/Energy-Physics-Pipeline Portfolio/Energy-Physics-Pipeline Research` was checked and is byte-identical to:
 
 - `source-briefs/01-electrochemical-m2s-pipeline.md`
 - `source-briefs/02-fusion-sa-llm-data-standards.md`

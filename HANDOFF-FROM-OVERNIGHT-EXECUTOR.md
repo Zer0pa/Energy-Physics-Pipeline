@@ -12,7 +12,7 @@
 
 **From:** Overnight executor (Opus Max chief engineer + Sonnet/Opus subagents)
 **To:** Runpod migration role
-**Repo:** https://github.com/Zer0pa/Energy
+**Repo:** https://github.com/Zer0pa/Energy-Physics-Pipeline
 **Final commit hash:** _filled in at run completion_
 
 ## Status post Wave 3
@@ -94,7 +94,7 @@ Customer can audit its campaign; Zer0pa retains redacted operational provenance 
 ## Quick smoke test
 
 ```bash
-git clone https://github.com/Zer0pa/Energy
+git clone https://github.com/Zer0pa/Energy-Physics-Pipeline
 cd Energy-Physics-Pipeline
 python3.13 -m venv .venv
 .venv/bin/pip install -e '.[test,electrochem,fusion,tda,mcp]'

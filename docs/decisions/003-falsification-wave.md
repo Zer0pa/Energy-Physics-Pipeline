@@ -8,7 +8,7 @@
 
 ## Context
 
-The Zer0pa Energy pipeline must not emit any result that is physically absurd, legally incoherent, or methodologically compromised.  A falsification wave — 12 negative cases that must each be explicitly blocked or quarantined — is the acceptance gate before any research artifact is promoted toward an L5/L6 optimization or published result.
+Energy Physics Pipeline must not emit any result that is physically absurd, legally incoherent, or methodologically compromised. A falsification wave — 12 negative cases that must each be explicitly blocked or quarantined — is the acceptance gate before any research artifact is promoted toward an L5/L6 optimization or published result.
 
 The PRD states: *"Any output without units, uncertainty, source manifest, and falsifier status is invalid."*  
 And: *"Never average away a failed disagreement."*

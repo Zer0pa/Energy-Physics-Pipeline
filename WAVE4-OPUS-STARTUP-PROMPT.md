@@ -12,7 +12,7 @@ AUTHORITY
 Proceed immediately. Do not ask the user clarifying questions. Do not report progress until the end unless blocked by missing credentials or inaccessible GitHub. Use your own judgement to make decisions that move the repo toward more performant, more dataful, and more scientifically powerful engineering outcomes. Do not optimize for a narratable win. The sovereign gate is Runpod readiness under the repo PRD, not a green-looking partial demo.
 
 REPO
-Canonical: https://github.com/Zer0pa/Energy
+Canonical: https://github.com/Zer0pa/Energy-Physics-Pipeline
 Branch: main
 
 FIRST ACTIONS
