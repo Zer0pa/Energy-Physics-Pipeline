@@ -1,0 +1,26 @@
+cff-version: "1.2.0"
+title: "Energy Physics Pipeline"
+message: "If you use this software in your research, please cite it using the metadata from this file."
+type: software
+authors:
+  - name: "Zer0pa"
+repository-code: "https://github.com/Zer0pa/Energy-Physics-Pipeline"
+abstract: >
+  CPU-first in-silico research infrastructure for electrochemical conversion and
+  fusion / plasma physics. A six-layer pipeline spanning L1 electronic structure
+  through L6 orchestration, with same-endpoint Runpod cutover substrate and
+  H100 enterprise completion path. Covers battery digital twins, PEM catalyst
+  screening, perovskite PV, and gyrokinetic plasma equilibrium simulation.
+keywords:
+  - electrochemistry
+  - fusion
+  - plasma
+  - in-silico
+  - pipeline
+  - falsification
+  - runpod
+  - h100
+license: "LicenseRef-Zer0pa-SAL-7.1"
+date-released: "2026-05-03"
+version: "0.1.0"
+url: "https://github.com/Zer0pa/Energy-Physics-Pipeline"

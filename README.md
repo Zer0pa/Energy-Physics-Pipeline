@@ -125,7 +125,6 @@ The orchestrator resolved the PRD structure as one PRD with Part A for electroch
 
 | Receipt | Value |
 | --- | --- |
-| Alignment Source | `/Users/Zer0pa/orchestration-state/ZER0PA_LANE_AGENT_FRONT_DOOR_GUIDANCE_2026-05-02.md` |
 | Front Door Profile | `Pipeline Mechanics` |
 | Canonical Zones | `What This Is`; `Pipeline Mechanics`; `Key Metrics`; `Repo Identity`; `Readiness`; `What We Prove`; `What We Don't Claim`; `Verification Status`; `Proof Anchors`; `Repo Shape` |
 | Current GitHub Target | `main` |

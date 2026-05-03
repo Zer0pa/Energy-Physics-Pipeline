@@ -1,0 +1,32 @@
+{
+  "title": "Energy Physics Pipeline",
+  "description": "CPU-first in-silico research infrastructure for electrochemical conversion and fusion / plasma physics. A six-layer pipeline (L1 electronic structure → L6 orchestration) with same-endpoint Runpod cutover substrate and H100 enterprise completion path.",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Zer0pa"
+    }
+  ],
+  "keywords": [
+    "electrochemistry",
+    "fusion",
+    "plasma physics",
+    "in-silico pipeline",
+    "falsification",
+    "runpod",
+    "h100",
+    "battery simulation",
+    "gyrokinetics"
+  ],
+  "license": "other-open",
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "scheme": "url",
+      "identifier": "https://github.com/Zer0pa/Energy-Physics-Pipeline",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ],
+  "notes": "Source-available under Zer0pa SAL v7.1 (LicenseRef-Zer0pa-SAL-7.1). Converts to Apache 2.0 three years after first public release of each version. See LICENSE for full terms."
+}

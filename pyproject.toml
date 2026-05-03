@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,9 +8,21 @@ version = "0.1.0"
 description = "Energy Physics Pipeline - CPU-first in silico research infrastructure for electrochemistry and fusion / plasma physics."
 readme = "README.md"
 requires-python = ">=3.11"
-license = {text = "Proprietary — Zer0pa internal research artifact"}
+license = {text = "LicenseRef-Zer0pa-SAL-7.1"}
+license-files = ["LICENSE"]
 authors = [{name = "Zer0pa Architect Prime"}]
 keywords = ["electrochemistry", "fusion", "plasma", "pybamm", "openmc", "imas", "pypsa", "pvlib", "research"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Operating System :: OS Independent",
+  "Topic :: Scientific/Engineering :: Chemistry",
+  "Topic :: Scientific/Engineering :: Physics",
+]
 
 dependencies = [
   "pydantic>=2.6,<3",
@@ -111,7 +123,7 @@ omit = [
 [tool.coverage.report]
 # Soft 80% gate (warn-only; not enforced by `pytest --cov-fail-under` here so CI stays
 # green during the post-Runpod expansion. Flip to `fail_under = 80` once active-learning
-# and Runpod-side adapters land.
+# and Runpod-side adapters land.)
 precision = 1
 show_missing = true
 skip_empty = true
