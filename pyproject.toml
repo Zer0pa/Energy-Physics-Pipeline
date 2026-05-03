@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Energy Physics Pipeline - CPU-first in silico research infrastructure for electrochemistry and fusion / plasma physics."
 readme = "README.md"
 requires-python = ">=3.11"
-license = {text = "LicenseRef-Zer0pa-SAL-7.1"}
+license = "LicenseRef-Zer0pa-SAL-7.1"
 license-files = ["LICENSE"]
 authors = [{name = "Zer0pa Architect Prime"}]
 keywords = ["electrochemistry", "fusion", "plasma", "pybamm", "openmc", "imas", "pypsa", "pvlib", "research"]
