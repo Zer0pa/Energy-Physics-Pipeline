@@ -38,27 +38,27 @@ integration:
 	$(PY) -m pytest tests/integration -v
 
 smoke:
-	$(PY) -m energy_pipeline.cli.main health
-	$(PY) -m energy_pipeline.cli.main registry
-	$(PY) -m energy_pipeline.cli.main smoke
+	$(PY) -m energy_physics_pipeline.cli.main health
+	$(PY) -m energy_physics_pipeline.cli.main registry
+	$(PY) -m energy_physics_pipeline.cli.main smoke
 
 serve:
-	$(PY) -m energy_pipeline.cli.main serve-rest
+	$(PY) -m energy_physics_pipeline.cli.main serve-rest
 
 clean:
 	bash scripts/clean_runtime.sh
 
 lint:
-	$(PY) -m ruff check energy_pipeline tests
+	$(PY) -m ruff check energy_physics_pipeline tests
 
 full:
 	bash scripts/clean_runtime.sh
 	$(PY) -m pip install -e '.[test]' -q
-	$(PY) -m ruff check energy_pipeline tests || true
+	$(PY) -m ruff check energy_physics_pipeline tests || true
 	$(PY) -m pytest tests -q
-	$(PY) -m energy_pipeline.cli.main health
+	$(PY) -m energy_physics_pipeline.cli.main health
 
 coverage:
 	bash scripts/clean_runtime.sh
-	$(PY) -m pytest tests --cov=energy_pipeline --cov-report=term-missing --cov-report=xml
+	$(PY) -m pytest tests --cov=energy_physics_pipeline --cov-report=term-missing --cov-report=xml
 	@echo "coverage.xml emitted; soft 80% gate is warn-only — see [tool.coverage.report] in pyproject.toml"

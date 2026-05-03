@@ -11,10 +11,10 @@ from pathlib import Path
 
 import pytest
 
-from energy_pipeline.audit.writer import AuditWriter
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.kg.graph import KGStore
-from energy_pipeline.adapters.fusion import FusionReasoningBench
+from energy_physics_pipeline.audit.writer import AuditWriter
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.kg.graph import KGStore
+from energy_physics_pipeline.adapters.fusion import FusionReasoningBench
 
 
 @pytest.fixture()

@@ -22,10 +22,10 @@ import httpx
 import pytest
 from fastapi.testclient import TestClient
 
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.l6 import reload as cfg_reload
-from energy_pipeline.rest import create_app
-from energy_pipeline.schemas.canonical import sha256_of
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.l6 import reload as cfg_reload
+from energy_physics_pipeline.rest import create_app
+from energy_physics_pipeline.schemas.canonical import sha256_of
 
 
 def _projection(env_dump: dict[str, Any]) -> str:
@@ -51,7 +51,7 @@ def _projection(env_dump: dict[str, Any]) -> str:
 
 def _patch_runpod_dispatch_with_handler(monkeypatch: pytest.MonkeyPatch, handler):
     """Force RunpodRestAdapter to use a MockTransport client during this test."""
-    import energy_pipeline.adapters.shared.runpod_dispatch as rp
+    import energy_physics_pipeline.adapters.shared.runpod_dispatch as rp
 
     original_init = rp.RunpodRestAdapter.__init__
 

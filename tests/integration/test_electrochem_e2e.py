@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from energy_pipeline.adapters.electrochem import (
+from energy_physics_pipeline.adapters.electrochem import (
     ElectronicStructureAdapter,
     MLIPManifestAdapter,
     PyBaMMBatteryAdapter,
@@ -18,11 +18,11 @@ from energy_pipeline.adapters.electrochem import (
     phasefield_stub,
     trajectory_msd,
 )
-from energy_pipeline.audit import AuditWriter
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.kg import KGStore
-from energy_pipeline.schemas.dro import DeviceResponseObject
-from energy_pipeline.schemas.envelope import (
+from energy_physics_pipeline.audit import AuditWriter
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.kg import KGStore
+from energy_physics_pipeline.schemas.dro import DeviceResponseObject
+from energy_physics_pipeline.schemas.envelope import (
     LayerLevel,
     SubVertical,
 )
@@ -54,7 +54,7 @@ def test_full_pipeline_e2e(tmp_dirs):
         assert env_l1.boundary == BOUNDARY_BLOCK
         assert env_l1.envelope_id is not None
 
-        from energy_pipeline.audit import write_envelope_event
+        from energy_physics_pipeline.audit import write_envelope_event
         write_envelope_event(audit, env_l1)
 
         # KG: L1 SimulationRun + USED_TOOL

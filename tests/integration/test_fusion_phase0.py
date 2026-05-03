@@ -14,10 +14,10 @@ from pathlib import Path
 
 import pytest
 
-from energy_pipeline.audit.writer import AuditWriter
-from energy_pipeline.kg.graph import KGStore
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.adapters.fusion import (
+from energy_physics_pipeline.audit.writer import AuditWriter
+from energy_physics_pipeline.kg.graph import KGStore
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.adapters.fusion import (
     OpenMcManifestAdapter,
     TglfReducedAdapter,
     CgyroNonlinearAdapter,
@@ -30,11 +30,11 @@ from energy_pipeline.adapters.fusion import (
     FusionReasoningBench,
     write_imas_fixture,
 )
-from energy_pipeline.adapters.fusion.l1 import OpenMcSpec
-from energy_pipeline.adapters.fusion.l2 import GyroSpec
-from energy_pipeline.adapters.fusion.l3 import EquilibriumSpec
-from energy_pipeline.adapters.fusion.l4 import ImasReadSpec, TokamakScenarioSpec
-from energy_pipeline.adapters.fusion.l5 import BlanketGeomSpec
+from energy_physics_pipeline.adapters.fusion.l1 import OpenMcSpec
+from energy_physics_pipeline.adapters.fusion.l2 import GyroSpec
+from energy_physics_pipeline.adapters.fusion.l3 import EquilibriumSpec
+from energy_physics_pipeline.adapters.fusion.l4 import ImasReadSpec, TokamakScenarioSpec
+from energy_physics_pipeline.adapters.fusion.l5 import BlanketGeomSpec
 
 
 @pytest.fixture()

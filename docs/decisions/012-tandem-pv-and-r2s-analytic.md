@@ -6,7 +6,7 @@
 
 Two analytic upgrades to deepen the electrochem L4 and fusion L5 paths without GPU dependence:
 
-### Tandem PV (`energy_pipeline/adapters/electrochem/l4_tandem_pv.py`)
+### Tandem PV (`energy_physics_pipeline/adapters/electrochem/l4_tandem_pv.py`)
 
 Replaces the single-junction Shockley-Queisser fallback (used when Solcore failed to install on Python 3.13 darwin) with a **2-terminal current-matched perovskite/Si tandem** analytic. Outputs:
 
@@ -19,7 +19,7 @@ Replaces the single-junction Shockley-Queisser fallback (used when Solcore faile
 
 This is **`scientific_valid=False`** — the analytic uses a flat Voc - 0.25 V floor and ignores spectral mismatch, thermal recombination, and series resistance. But it gives operators a defensible Voc/PCE band for the perovskite/Si tandem story before Solcore (or a Linux Runpod) takes over.
 
-### R2S analytic activation (`energy_pipeline/adapters/fusion/l5_r2s.py`)
+### R2S analytic activation (`energy_physics_pipeline/adapters/fusion/l5_r2s.py`)
 
 Replaces the all-stub `OpenmcR2sAdapter` with a single-isotope point-kinetics activation calculator covering:
 

@@ -8,7 +8,7 @@
 
 **Boundary:** Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
 
-**Status (post Wave 3 hardening):** All eleven gaps named in `CPU-HARDENING-BRIEF.md` are addressed. **The pipeline is now ready for Runpod.** Runpod cutover is a config-flag swap proven by a live `httpx.MockTransport` golden-fixture invariance test. Audit/KG writes are mandatory under `ENERGY_AUDIT_REQUIRED=true` with refusal-to-emit on missing. Test-local falsifiers are gone — all production falsifiers live in `energy_pipeline.l6.production_falsifiers` and are applied centrally via `accept_envelope`.
+**Status (post Wave 3 hardening):** All eleven gaps named in `CPU-HARDENING-BRIEF.md` are addressed. **The pipeline is now ready for Runpod.** Runpod cutover is a config-flag swap proven by a live `httpx.MockTransport` golden-fixture invariance test. Audit/KG writes are mandatory under `ENERGY_AUDIT_REQUIRED=true` with refusal-to-emit on missing. Test-local falsifiers are gone — all production falsifiers live in `energy_physics_pipeline.l6.production_falsifiers` and are applied centrally via `accept_envelope`.
 
 **Run window:** 2026-04-30, Sandton ZA. Three waves: Wave 1 foundation + 5 subagents (commit `4c16fdc`); Wave 2 real-CPU adapter integrations (commit `8778b88`); Wave 3 hardening (commit hash recorded at push).
 
@@ -16,17 +16,17 @@
 
 - Branch: `main`
 - Commit hash: `4c16fdc` (1 commit ahead of origin at handoff)
-- Push target: `https://github.com/Zer0pa/Energy`
+- Push target: `https://github.com/Zer0pa/Energy-Physics-Pipeline`
 - Python: 3.13.12 venv, package installed editable.
 
 ## Commands run (canonical)
 
 ```bash
-git clone https://github.com/Zer0pa/Energy "/Users/zer0palab/Energy Pipeline"
+git clone https://github.com/Zer0pa/Energy-Physics-Pipeline "/Users/zer0palab/Energy Pipeline"
 python3.13 -m venv .venv
 .venv/bin/pip install -e '.[test]' pybamm pypsa pvlib cantera pyscf netCDF4 freegs ripser persim mcp
 .venv/bin/python -m pytest tests          # 277 passed, 0 failed, 50.6s
-.venv/bin/python -m ruff check energy_pipeline tests
+.venv/bin/python -m ruff check energy_physics_pipeline tests
 bash scripts/clean_runtime.sh
 ```
 
@@ -49,7 +49,7 @@ eleven readiness blockers. Every item is addressed:
 |---|---|---|
 | 1 | Runpod cutover not actually live | `RunpodRestAdapter` + `httpx.MockTransport` golden-fixture invariance test (`test_runpod_dispatch.py`, 5 tests) — same canonical output projection across `local_cpu` ↔ `runpod_rest` |
 | 2 | Audit/KG optional in adapters | `accept_envelope` / `accept_envelope_and_dro` enforcement layer with process-default writers; refuses with `EnvelopeRejected` under `ENERGY_BOUNDARY_GATE=strict` |
-| 3 | Falsifiers test-local | `energy_pipeline.l6.production_falsifiers.DEFAULT_FALSIFIER_SET` (11 production gates); test wave now imports from production module |
+| 3 | Falsifiers test-local | `energy_physics_pipeline.l6.production_falsifiers.DEFAULT_FALSIFIER_SET` (11 production gates); test wave now imports from production module |
 | 4 | Unit enforcement too narrow | `units_recursive_falsifier` walks `outputs.payload`, gates physical SI-suffixed leaves and `_dimensionless` whitelist; in default set |
 | 5 | License policy inconsistent (B copyleft) | `gpl_isolation_falsifier` for AlphaPEM/LBPM/MOOSE/LAMMPS/CP2K/GPAW/Llama-family; 14 promotion tests across A/B-perm/B-copyleft/C/D/E |
 | 6 | Forbidden-use matcher narrow | regex+stem+normalisation matcher in `boundary.py`; 55 paraphrase tests including unicode dashes, US/UK spelling, casing |
@@ -68,15 +68,15 @@ authority failures. Every one is now closed:
 
 | # | Wave 4 gap | Resolution |
 |---|---|---|
-| 1 | Same-shape Runpod cutover | New `energy_pipeline.l6.backend_resolver.resolve_and_dispatch` is invoked by every public `/v1/<sub>/<layer>/<op>` endpoint. `ENERGY_L?_BACKEND=runpod_rest` on the SAME endpoint forwards through `RunpodRestAdapter`; structured 503 envelope when `ENERGY_RUNPOD_BASE_URL` empty. New tests: `tests/integration/test_runpod_same_endpoint.py` (5 tests). |
+| 1 | Same-shape Runpod cutover | New `energy_physics_pipeline.l6.backend_resolver.resolve_and_dispatch` is invoked by every public `/v1/<sub>/<layer>/<op>` endpoint. `ENERGY_L?_BACKEND=runpod_rest` on the SAME endpoint forwards through `RunpodRestAdapter`; structured 503 envelope when `ENERGY_RUNPOD_BASE_URL` empty. New tests: `tests/integration/test_runpod_same_endpoint.py` (5 tests). |
 | 2 | Audit/KG mandatory on every accepted output | REST endpoints now route through `accept_envelope`. Parser adapters flipped from `write_audit=False` to `write_audit=True`. MCP `_common.emit_audit_kg` now delegates to `accept_envelope` (central enforcement). New tests: `tests/integration/test_mandatory_audit_kg_counts.py` (4 tests, REST/parser/adapter/MCP). |
 | 3 | Parallel-safe audit/KG runtime | `ENERGY_AUDIT_DIR`, `ENERGY_AUDIT_DB_PATH`, `ENERGY_KG_DIR` env overrides; `default_audit_dir`/`default_db_path`/`default_kg_dir` honor them. New tests: `tests/integration/test_audit_kg_parallel_safety.py` (subprocess + thread collision). |
 | 4 | Production falsifier coverage incomplete | `pv_fill_factor_falsifier` and `pce_fraction_falsifier` added to `DEFAULT_FALSIFIER_SET`; full set is now 13 gates applied centrally. |
 | 5 | License/source policy misaligned | `gpl_isolation_falsifier` tightened: only `kg://license-grant/...` or `file:///etc/zer0pa/license-grants/...` count as evidence. Bare HTTPS LICENSE URLs explicitly REJECTED. Tests in `test_class_b_promotion.py` (now 30 tests). |
 | 6 | Source verification not clean | `JOREK` demoted to `non_authority=True` (no canonical license URL). `verify_sources.py` summary now distinguishes verified / failed / non_authority / non-fetchable buckets. Live result: 39 ok, 0 fail, 2 skipped (gyroswin + jorek). |
-| 7 | OPTIMADE/MP/NOMAD pointer manifests absent | `energy_pipeline.adapters.electrochem.data_pointers` with `optimade_pointer` / `materials_project_pointer` / `nomad_pointer` factories. Manifest-only; no bulk data. 5 contract tests. |
+| 7 | OPTIMADE/MP/NOMAD pointer manifests absent | `energy_physics_pipeline.adapters.electrochem.data_pointers` with `optimade_pointer` / `materials_project_pointer` / `nomad_pointer` factories. Manifest-only; no bulk data. 5 contract tests. |
 | 8 | Reports overclaim readiness | This section + `HANDOFF-FROM-OVERNIGHT-EXECUTOR.md` + `RUNBOOK.md` + `NEXT-WAVE-PLAN.md` updated to cite Wave 4 evidence. The supersedes-banner is removed only when this report is at the Wave 4 commit. |
-| 9 | Script quality | `scripts/quick_demo.py` cleaned (unused imports). `scripts/full_check.sh` already strict (no `\|\| true` survived from Wave 3). `ruff check energy_pipeline tests scripts` passes. |
+| 9 | Script quality | `scripts/quick_demo.py` cleaned (unused imports). `scripts/full_check.sh` already strict (no `\|\| true` survived from Wave 3). `ruff check energy_physics_pipeline tests scripts` passes. |
 
 Wave 4 added 23 tests (452 → 475); all green; falsification wave still
 12-of-12; production-falsifier set is 13 gates including PV fill / PCE.
@@ -167,7 +167,7 @@ Wave 4 added 23 tests (452 → 475); all green; falsification wave still
 | L5 | Large OpenMC GPU transport | GPU |
 | L5 | OpenMC R2S full activation | HPC |
 
-The Runpod cutover REST shape is `/v1/runpod/{layer}/{domain}` in `energy_pipeline/rest/app.py`; currently returns 503. Wire your Runpod handlers under that route. See `tools/runpod_cutover_checklist.py` for a generated cutover plan.
+The Runpod cutover REST shape is `/v1/runpod/{layer}/{domain}` in `energy_physics_pipeline/rest/app.py`; currently returns 503. Wire your Runpod handlers under that route. See `tools/runpod_cutover_checklist.py` for a generated cutover plan.
 
 ## License blockers and mitigations
 
@@ -194,7 +194,7 @@ All Class C/D/E backends are blocked from `mode=scientific` by the L6 license-pr
 3. **Cross-machine GyroSwin generalisation:** train on DIII-D, validate on KSTAR public manifests, transfer to ITER geometry. PRD acceptance: same-machine MAPE <15%, cross-machine <25%, Spearman >=0.8, ECE <=0.1.
 4. **Fine-tune DeepSeek-R1-Distill-Llama-70B** on the 50-task fusion reasoning benchmark + IMAS-MCP traces; replace the rules-based scorer with a real LLM scorer; flip `ENERGY_REASONER_BACKEND=runpod_vllm`.
 5. **Resolve PF-PINO / GENE / AQCat25** license clarifications; only with `kg://license-grant/<tool>` evidence URI lift the class-C/D/E gates.
-6. **TDA early-warning campaigns** across battery thermal runaway, electrolyser stack degradation, plasma disruption — using the cross-domain detectors already shipped in `energy_pipeline/tda/cross_domain.py`.
+6. **TDA early-warning campaigns** across battery thermal runaway, electrolyser stack degradation, plasma disruption — using the cross-domain detectors already shipped in `energy_physics_pipeline/tda/cross_domain.py`.
 7. **Solcore re-install once Python 3.13 wheels exist** (or pin a 3.11 venv side-by-side); promote PV path from Shockley-Queisser fallback to real DD/SQ stack.
 
 ## Do-not-merge / do-not-ship

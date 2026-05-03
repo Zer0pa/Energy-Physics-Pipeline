@@ -8,12 +8,12 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-from energy_pipeline.schemas.falsification import (
+from energy_physics_pipeline.schemas.falsification import (
     CrossModelDisagreementRecord,
     DisagreementMetric,
     DisagreementStatus,
 )
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.schemas import (
     UniversalLayerEnvelope,
     BackendBlock,
     FalsificationBlock,
@@ -26,8 +26,8 @@ from energy_pipeline.schemas import (
     SubVertical,
     Domain,
 )
-from energy_pipeline.l6.router import run as router_run
-from energy_pipeline.schemas.envelope import FailureRecord
+from energy_physics_pipeline.l6.router import run as router_run
+from energy_physics_pipeline.schemas.envelope import FailureRecord
 
 
 def _cmd(status: DisagreementStatus = DisagreementStatus.fail) -> CrossModelDisagreementRecord:

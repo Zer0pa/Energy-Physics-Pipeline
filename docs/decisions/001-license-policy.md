@@ -2,7 +2,7 @@
 
 **Status:** Active  
 **Date:** 2026-04-30  
-**Source:** PRD §License And Status Findings; `energy_pipeline/schemas/envelope.py` (`_class_cde_promotion_gate`); `energy_pipeline/adapters/shared/license_gate.py`
+**Source:** PRD §License And Status Findings; `energy_physics_pipeline/schemas/envelope.py` (`_class_cde_promotion_gate`); `energy_physics_pipeline/adapters/shared/license_gate.py`
 
 ---
 
@@ -34,8 +34,8 @@ A tool with license_class C, D, or E **cannot** be used in `mode=scientific` ins
 
 This gate is enforced at two layers:
 
-1. **Schema layer** — `UniversalLayerEnvelope._class_cde_promotion_gate()` model validator (energy_pipeline/schemas/envelope.py).
-2. **Application layer** — `assert_promotion_allowed()` in energy_pipeline/adapters/shared/license_gate.py.
+1. **Schema layer** — `UniversalLayerEnvelope._class_cde_promotion_gate()` model validator (energy_physics_pipeline/schemas/envelope.py).
+2. **Application layer** — `assert_promotion_allowed()` in energy_physics_pipeline/adapters/shared/license_gate.py.
 
 Both layers raise immediately; neither can be bypassed without a valid evidence URI.
 

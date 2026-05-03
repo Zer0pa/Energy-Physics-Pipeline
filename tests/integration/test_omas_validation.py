@@ -29,9 +29,9 @@ from pathlib import Path
 
 import pytest
 
-from energy_pipeline.boundary import BOUNDARY_BLOCK, BoundaryViolation
-from energy_pipeline.schemas.envelope import GateStatus
-from energy_pipeline.adapters.fusion.l4_omas import OmasRealValidatorAdapter, OmasValidateSpec
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK, BoundaryViolation
+from energy_physics_pipeline.schemas.envelope import GateStatus
+from energy_physics_pipeline.adapters.fusion.l4_omas import OmasRealValidatorAdapter, OmasValidateSpec
 
 
 # ---------------------------------------------------------------------------

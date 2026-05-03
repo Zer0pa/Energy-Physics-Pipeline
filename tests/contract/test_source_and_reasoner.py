@@ -6,9 +6,9 @@ from datetime import datetime, timezone
 import pytest
 from pydantic import ValidationError
 
-from energy_pipeline.schemas import ReasonerTuple, SourceManifest
-from energy_pipeline.schemas.reasoner import OutcomeLabel, RightsLabel
-from energy_pipeline.schemas.source import AllowedUse, RetrievalMethod
+from energy_physics_pipeline.schemas import ReasonerTuple, SourceManifest
+from energy_physics_pipeline.schemas.reasoner import OutcomeLabel, RightsLabel
+from energy_physics_pipeline.schemas.source import AllowedUse, RetrievalMethod
 
 
 def test_source_manifest_construct_ok():

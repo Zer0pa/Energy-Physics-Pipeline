@@ -1,4 +1,4 @@
-# Zer0pa Energy PRD - Overnight CPU-First Execution Mandate
+# Energy Physics Pipeline PRD - Overnight CPU-First Execution Mandate
 
 ## Boundary
 
@@ -29,7 +29,7 @@ The lead must keep docs and handover artifacts frozen until the real gate is met
 
 ## Source Basis
 
-The local folder `/Users/Zer0pa/Energy Portfolio/Energy Pipeline Research` was checked and is byte-identical to:
+The local folder `/Users/Zer0pa/Energy-Physics-Pipeline Portfolio/Energy Pipeline Research` was checked and is byte-identical to:
 
 - `source-briefs/01-electrochemical-m2s-pipeline.md`
 - `source-briefs/02-fusion-sa-llm-data-standards.md`
@@ -238,7 +238,7 @@ No disruption or runaway warning may be accepted from a scalar classifier alone.
 The overnight executor must create or complete this repository shape unless a better equivalent is justified in `DECISIONS.md`:
 
 ```text
-energy_pipeline/
+energy_physics_pipeline/
   schemas/
   adapters/
     electrochem/

@@ -11,7 +11,7 @@ from pathlib import Path
 
 import pytest
 
-from energy_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
 
 
 REPO = Path(__file__).resolve().parents[2]
@@ -50,7 +50,7 @@ def test_sa_fixture_through_pypsa_lcoe_path():
     realism but doesn't change the contract.
     """
     pytest.importorskip("pypsa")
-    from energy_pipeline.adapters.electrochem.l5 import PyPSALcoeAdapter
+    from energy_physics_pipeline.adapters.electrochem.l5 import PyPSALcoeAdapter
 
     data = json.loads(SA_FIXTURE.read_text())
     adapter = PyPSALcoeAdapter()

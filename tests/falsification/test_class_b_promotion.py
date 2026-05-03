@@ -17,11 +17,11 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-from energy_pipeline.l6 import (
+from energy_physics_pipeline.l6 import (
     apply_default_falsifiers,
     gpl_isolation_falsifier,
 )
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.schemas import (
     BackendBlock,
     Domain,
     ExecutionMode,
@@ -32,7 +32,7 @@ from energy_pipeline.schemas import (
     SubVertical,
     UniversalLayerEnvelope,
 )
-from energy_pipeline.schemas.envelope import (
+from energy_physics_pipeline.schemas.envelope import (
     FalsificationBlock,
     IOBlock,
     ProvenanceBlock,

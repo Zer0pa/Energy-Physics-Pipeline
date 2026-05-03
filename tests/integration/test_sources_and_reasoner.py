@@ -6,12 +6,12 @@ from pathlib import Path
 
 import pytest
 
-from energy_pipeline.adapters.shared.license_gate import LicenseGateError, assert_promotion_allowed
-from energy_pipeline.adapters.shared.reasoner_curator import build_tuple_from_run, write_to_kg
-from energy_pipeline.adapters.shared.source_log import SourceLog
-from energy_pipeline.kg.graph import KGStore
-from energy_pipeline.schemas.dro import DeviceResponseObject, DeviceFamily, DroAuditBlock
-from energy_pipeline.schemas.envelope import (
+from energy_physics_pipeline.adapters.shared.license_gate import LicenseGateError, assert_promotion_allowed
+from energy_physics_pipeline.adapters.shared.reasoner_curator import build_tuple_from_run, write_to_kg
+from energy_physics_pipeline.adapters.shared.source_log import SourceLog
+from energy_physics_pipeline.kg.graph import KGStore
+from energy_physics_pipeline.schemas.dro import DeviceResponseObject, DeviceFamily, DroAuditBlock
+from energy_physics_pipeline.schemas.envelope import (
     BackendBlock,
     Domain,
     ExecutionMode,
@@ -24,8 +24,8 @@ from energy_pipeline.schemas.envelope import (
     SubVertical,
     UniversalLayerEnvelope,
 )
-from energy_pipeline.schemas.reasoner import OutcomeLabel
-from energy_pipeline.schemas.source import AllowedUse, RetrievalMethod, SourceManifest
+from energy_physics_pipeline.schemas.reasoner import OutcomeLabel
+from energy_physics_pipeline.schemas.source import AllowedUse, RetrievalMethod, SourceManifest
 
 pytestmark = pytest.mark.integration
 

@@ -25,8 +25,8 @@ from pathlib import Path
 
 import pytest
 
-from energy_pipeline.boundary import BOUNDARY_BLOCK, BoundaryViolation
-from energy_pipeline.schemas.envelope import Mode
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK, BoundaryViolation
+from energy_physics_pipeline.schemas.envelope import Mode
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -42,7 +42,7 @@ _FIXTURE = _REPO_ROOT / "fixtures" / "fusion" / "pyrokinetics_demo.gs2"
 
 def _fresh_adapter():
     """Re-import the adapter module and return a new adapter instance."""
-    import energy_pipeline.adapters.fusion.l2_pyrokinetics as mod
+    import energy_physics_pipeline.adapters.fusion.l2_pyrokinetics as mod
     importlib.reload(mod)
     return mod.PyrokineticsParserAdapter(), mod.PyroParseSpec
 
@@ -63,7 +63,7 @@ def test_pyro_parses_local_fixture():
     - outputs contain expected keys
     - envelope_id is set (sha256:… content-address)
     """
-    from energy_pipeline.adapters.fusion.l2_pyrokinetics import (
+    from energy_physics_pipeline.adapters.fusion.l2_pyrokinetics import (
         PyroParseSpec,
         PyrokineticsParserAdapter,
     )
@@ -112,7 +112,7 @@ def test_pyro_parses_local_fixture():
 
 def test_pyro_forbidden_intent_raises():
     """Boundary gate: weapons-related intent must raise BoundaryViolation."""
-    from energy_pipeline.adapters.fusion.l2_pyrokinetics import (
+    from energy_physics_pipeline.adapters.fusion.l2_pyrokinetics import (
         PyroParseSpec,
         PyrokineticsParserAdapter,
     )
@@ -130,7 +130,7 @@ def test_pyro_forbidden_intent_raises():
 
 def test_pyro_envelope_carries_boundary():
     """Envelope boundary field must be byte-identical to BOUNDARY_BLOCK."""
-    from energy_pipeline.adapters.fusion.l2_pyrokinetics import (
+    from energy_physics_pipeline.adapters.fusion.l2_pyrokinetics import (
         PyroParseSpec,
         PyrokineticsParserAdapter,
     )
@@ -162,7 +162,7 @@ def test_pyro_falls_back_when_pyrokinetics_missing(monkeypatch):
     monkeypatch.setitem(sys.modules, "pyrokinetics", None)
 
     # Reload the adapter so its module-level state picks up the monkeypatched import.
-    import energy_pipeline.adapters.fusion.l2_pyrokinetics as mod
+    import energy_physics_pipeline.adapters.fusion.l2_pyrokinetics as mod
     importlib.reload(mod)
 
     spec = mod.PyroParseSpec(input_path=_FIXTURE)

@@ -5,13 +5,13 @@ Paste the prompt below into the fresh agent session on the other Mac. Recommende
 ---
 
 ```text
-You are the overnight executor for the Zer0pa Energy work stream.
+You are the overnight executor for the Energy Physics Pipeline work stream.
 
 HARD BOUNDARY
 Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy. Every artifact you produce carries this boundary verbatim.
 
 REPOSITORY
-Canonical repo: https://github.com/Zer0pa/Energy
+Canonical repo: https://github.com/Zer0pa/Energy-Physics-Pipeline
 
 Clone or fetch the repo into your dedicated Energy execution folder. Check out the default branch. Use authenticated GitHub access. Commit and push all completed work for handoff.
 
@@ -19,7 +19,7 @@ NO-ENGAGEMENT RULE
 Do not ask the user clarifying questions after this prompt. Proceed immediately. You report only when the full CPU-side pipeline and falsification wave are complete, or when a hard blocker makes completion impossible after fallbacks have been attempted.
 
 FIRST ACTIONS
-1. Clone or fetch https://github.com/Zer0pa/Energy.
+1. Clone or fetch https://github.com/Zer0pa/Energy-Physics-Pipeline.
 2. Read in this order, without skipping:
    - README.md
    - MODUS-OPERANDI.md

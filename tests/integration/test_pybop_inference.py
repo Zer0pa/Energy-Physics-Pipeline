@@ -29,15 +29,15 @@ except (ImportError, AttributeError):
 # ---------------------------------------------------------------------------
 # Imports from the pipeline
 # ---------------------------------------------------------------------------
-from energy_pipeline.adapters.electrochem.l4_pybop import (
+from energy_physics_pipeline.adapters.electrochem.l4_pybop import (
     PyBOPInferenceSpec,
     PyBOPParameterInferenceAdapter,
 )
-from energy_pipeline.audit import AuditWriter
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.kg import KGStore
-from energy_pipeline.schemas.dro import DeviceFamily, DeviceResponseObject
-from energy_pipeline.schemas.envelope import GateStatus, Mode
+from energy_physics_pipeline.audit import AuditWriter
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.kg import KGStore
+from energy_physics_pipeline.schemas.dro import DeviceFamily, DeviceResponseObject
+from energy_physics_pipeline.schemas.envelope import GateStatus, Mode
 
 
 # ---------------------------------------------------------------------------

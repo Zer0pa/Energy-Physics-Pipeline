@@ -2,7 +2,7 @@
 
 **Status:** Active  
 **Date:** 2026-04-30  
-**Source:** PRD §"Part B - Fusion / Plasma Contracts" §L4; `energy_pipeline/adapters/fusion/l4_omas.py`
+**Source:** PRD §"Part B - Fusion / Plasma Contracts" §L4; `energy_physics_pipeline/adapters/fusion/l4_omas.py`
 
 ---
 
@@ -48,7 +48,7 @@ that make genuine path verification possible:
 
 ## Decision
 
-Add `OmasRealValidatorAdapter` (in `energy_pipeline/adapters/fusion/l4_omas.py`)
+Add `OmasRealValidatorAdapter` (in `energy_physics_pipeline/adapters/fusion/l4_omas.py`)
 alongside the existing `OmasConverterAdapter`.  The new adapter:
 
 1. Calls `check_fusion_intent(spec.intent)` on every input and raises
@@ -152,6 +152,6 @@ These four paths are the minimum required by the L4 IMAS contract before a
 * [gafusion/omas](https://github.com/gafusion/omas) — OMAS source (MIT License)
 * [IMAS Data Dictionary 3.41.0](https://github.com/iterorganization/IMAS-Data-Dictionary) — ITER IMAS DD
 * PRD §"Part B - Fusion / Plasma Contracts" §L4 — L4 IMAS validation contract
-* `energy_pipeline/adapters/fusion/l4.py` — existing `OmasConverterAdapter` (path-string stub)
-* `energy_pipeline/adapters/fusion/imas_fixture.py` — netCDF fixture writer/reader
+* `energy_physics_pipeline/adapters/fusion/l4.py` — existing `OmasConverterAdapter` (path-string stub)
+* `energy_physics_pipeline/adapters/fusion/imas_fixture.py` — netCDF fixture writer/reader
 * ADR 001 — License Policy (OMAS: MIT = Class A; no promotion gate required)

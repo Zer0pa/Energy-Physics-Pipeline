@@ -1,4 +1,4 @@
-# Security & Boundary Posture — Zer0pa Energy
+# Security & Boundary Posture — Energy Physics Pipeline
 
 ## Boundary block (authority of last resort)
 
@@ -18,7 +18,7 @@ Forbidden intents (case-insensitive substring match):
 
 Enforcement points:
 
-1. `energy_pipeline.boundary.check_fusion_intent(text)` — used in REST stubs
+1. `energy_physics_pipeline.boundary.check_fusion_intent(text)` — used in REST stubs
    (`/v1/fusion/...`), every fusion adapter L1/L4/L5 input pre-flight, every MCP fusion
    tool call.
 2. Returns the matched forbidden term; raises `BoundaryViolation` or HTTP 403.

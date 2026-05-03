@@ -8,9 +8,9 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-from energy_pipeline.boundary import BOUNDARY_BLOCK, verify_boundary, assert_boundary, BoundaryViolation
-from energy_pipeline.schemas.dro import DeviceResponseObject, DeviceFamily, DroAuditBlock
-from energy_pipeline.schemas.envelope import SubVertical
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK, verify_boundary, assert_boundary, BoundaryViolation
+from energy_physics_pipeline.schemas.dro import DeviceResponseObject, DeviceFamily, DroAuditBlock
+from energy_physics_pipeline.schemas.envelope import SubVertical
 
 
 def _make_dro_audit() -> DroAuditBlock:
@@ -49,8 +49,8 @@ def test_assert_boundary_raises_on_mutation():
 
 def test_envelope_rejects_mutated_boundary():
     """UniversalLayerEnvelope must reject any non-canonical boundary."""
-    from energy_pipeline.schemas import UniversalLayerEnvelope, BackendBlock, ProvenanceBlock
-    from energy_pipeline.schemas.envelope import Mode, Domain, LayerLevel, LicenseClass, ExecutionMode
+    from energy_physics_pipeline.schemas import UniversalLayerEnvelope, BackendBlock, ProvenanceBlock
+    from energy_physics_pipeline.schemas.envelope import Mode, Domain, LayerLevel, LicenseClass, ExecutionMode
 
     mutated = BOUNDARY_BLOCK.replace("Research", "Resarch", 1)
     h = "b" * 64

@@ -14,7 +14,7 @@ The Model Context Protocol (MCP) is an open standard for connecting AI assistant
 
 **MCP is a product surface, not an authority surface.**
 
-MCP tools are thin wrappers. They call registered adapters in `energy_pipeline.l6.default_registry()` (or REST stubs when the real adapter is absent), emit the standard `UniversalLayerEnvelope`, and write audit and KG events. They do not make policy decisions, bypass the boundary block, or short-circuit the falsification pipeline.
+MCP tools are thin wrappers. They call registered adapters in `energy_physics_pipeline.l6.default_registry()` (or REST stubs when the real adapter is absent), emit the standard `UniversalLayerEnvelope`, and write audit and KG events. They do not make policy decisions, bypass the boundary block, or short-circuit the falsification pipeline.
 
 ## Read-Only Default
 
@@ -38,7 +38,7 @@ Every tool description embeds `BOUNDARY_BLOCK` verbatim (via `tool_description()
 
 - MCP specification: <https://modelcontextprotocol.io/>
 - MCP Python SDK: <https://github.com/modelcontextprotocol/python-sdk>
-- `energy_pipeline/boundary.py` — `BOUNDARY_BLOCK`, `FUSION_FORBIDDEN_INTENTS`
-- `energy_pipeline/mcp_servers/_common.py` — shared utilities
-- `energy_pipeline/mcp_servers/registry.py` — server catalogue
+- `energy_physics_pipeline/boundary.py` — `BOUNDARY_BLOCK`, `FUSION_FORBIDDEN_INTENTS`
+- `energy_physics_pipeline/mcp_servers/_common.py` — shared utilities
+- `energy_physics_pipeline/mcp_servers/registry.py` — server catalogue
 - PRD §"MCP Server Suite"

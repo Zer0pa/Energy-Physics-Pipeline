@@ -4,8 +4,8 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.schemas import (
     BackendBlock,
     Domain,
     ExecutionMode,
@@ -16,7 +16,7 @@ from energy_pipeline.schemas import (
     SubVertical,
     UniversalLayerEnvelope,
 )
-from energy_pipeline.schemas.envelope import (
+from energy_physics_pipeline.schemas.envelope import (
     FalsificationBlock,
     ProvenanceBlock,
 )

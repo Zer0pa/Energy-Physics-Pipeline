@@ -4,14 +4,14 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.schemas import (
     CrossModelDisagreementRecord,
     DisagreementMetric,
     DisagreementStatus,
     EarlyWarningSignal,
     EarlyWarningStatus,
 )
-from energy_pipeline.schemas.falsification import EarlyWarningFeatures, WindowSpec
+from energy_physics_pipeline.schemas.falsification import EarlyWarningFeatures, WindowSpec
 
 
 def _disagreement(**overrides):

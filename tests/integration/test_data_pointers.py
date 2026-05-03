@@ -9,15 +9,15 @@ Each pointer adapter must:
 from __future__ import annotations
 
 
-from energy_pipeline.adapters.electrochem.data_pointers import (
+from energy_physics_pipeline.adapters.electrochem.data_pointers import (
     DataPointerAdapter,
     materials_project_pointer,
     nomad_pointer,
     optimade_pointer,
 )
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.l6 import reload as cfg_reload
-from energy_pipeline.schemas import Domain, LayerLevel, Mode, SubVertical
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.l6 import reload as cfg_reload
+from energy_physics_pipeline.schemas import Domain, LayerLevel, Mode, SubVertical
 
 
 def _isolated_runtime(monkeypatch, tmp_path):
@@ -25,7 +25,7 @@ def _isolated_runtime(monkeypatch, tmp_path):
     monkeypatch.setenv("ENERGY_KG_DIR", str(tmp_path / "kg"))
     monkeypatch.setenv("ENERGY_BOUNDARY_GATE", "warn")
     cfg_reload()
-    from energy_pipeline.l6.enforcement import reset_default_audit_kg
+    from energy_physics_pipeline.l6.enforcement import reset_default_audit_kg
 
     reset_default_audit_kg(None, None)
 
@@ -86,9 +86,9 @@ def test_pointer_envelope_carries_manifest_sha(monkeypatch, tmp_path):
 def test_pointer_envelope_writes_audit_when_requested(monkeypatch, tmp_path):
     """When write_audit=True (the default), accept_envelope writes a row."""
     _isolated_runtime(monkeypatch, tmp_path)
-    from energy_pipeline.audit import AuditWriter
-    from energy_pipeline.kg import KGStore
-    from energy_pipeline.l6.enforcement import reset_default_audit_kg
+    from energy_physics_pipeline.audit import AuditWriter
+    from energy_physics_pipeline.kg import KGStore
+    from energy_physics_pipeline.l6.enforcement import reset_default_audit_kg
 
     audit = AuditWriter(jsonl_dir=tmp_path / "a", db_path=tmp_path / "a.duckdb")
     kg = KGStore(kg_dir=tmp_path / "kg2")

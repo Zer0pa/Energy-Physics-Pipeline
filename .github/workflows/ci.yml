@@ -49,7 +49,7 @@ jobs:
 
       - name: Boundary smoke
         run: |
-          python -c "from energy_pipeline.boundary import BOUNDARY_BLOCK; assert len(BOUNDARY_BLOCK) == 386; print('boundary len ok')"
+          python -c "from energy_physics_pipeline.boundary import BOUNDARY_BLOCK; assert len(BOUNDARY_BLOCK) == 386; print('boundary len ok')"
 
       - name: Foundation tests
         run: |
@@ -72,8 +72,8 @@ jobs:
 
       - name: CLI smoke
         run: |
-          python -m energy_pipeline.cli.main health
-          python -m energy_pipeline.cli.main registry
+          python -m energy_physics_pipeline.cli.main health
+          python -m energy_physics_pipeline.cli.main registry
 
       - name: Build summary
         if: always()
@@ -91,5 +91,5 @@ jobs:
           python-version: '3.13'
           cache: 'pip'
       - run: pip install ruff
-      - run: ruff check energy_pipeline tests
+      - run: ruff check energy_physics_pipeline tests
         continue-on-error: true   # Style-only; subagent code has known F841 unused-locals; not a blocker.

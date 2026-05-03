@@ -2,12 +2,12 @@
 from __future__ import annotations
 
 
-from energy_pipeline.adapters.electrochem.l4_tandem_pv import (
+from energy_physics_pipeline.adapters.electrochem.l4_tandem_pv import (
     TandemPvAdapter,
     TandemPvSpec,
 )
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.schemas import DeviceFamily, GateStatus, SubVertical
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.schemas import DeviceFamily, GateStatus, SubVertical
 
 
 def test_tandem_pv_emits_envelope_and_dro():

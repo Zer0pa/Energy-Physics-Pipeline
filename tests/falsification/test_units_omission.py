@@ -6,7 +6,7 @@ are caught by units_required_falsifier.
 from __future__ import annotations
 
 
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.schemas import (
     UniversalLayerEnvelope,
     BackendBlock,
     ProvenanceBlock,
@@ -19,7 +19,7 @@ from energy_pipeline.schemas import (
     SubVertical,
     Domain,
 )
-from energy_pipeline.l6.router import run as router_run, units_required_falsifier
+from energy_physics_pipeline.l6.router import run as router_run, units_required_falsifier
 
 
 def _prov() -> ProvenanceBlock:

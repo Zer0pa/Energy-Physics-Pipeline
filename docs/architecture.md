@@ -59,7 +59,7 @@ This is the unification the synthesis agent surfaced. Both sub-verticals emit th
 
 ## Falsifier router
 
-Every envelope passes through `energy_pipeline.l6.router.run`, which composes:
+Every envelope passes through `energy_physics_pipeline.l6.router.run`, which composes:
 
 1. **Boundary falsifier** — boundary block must be byte-identical (Pydantic-enforced; backstop falsifier).
 2. **Stub validity falsifier** — `mode=engineering_stub` cannot have `scientific_valid=True`.
@@ -104,7 +104,7 @@ Acceptance: same DRO `output_hash` (on the canonical projection) before and afte
 
 ## Cross-cutting capabilities
 
-- **TDA early-warning** — `energy_pipeline.tda` (ripser+persim). Cross-domain detectors for battery thermal runaway, fuel-cell membrane breakdown, electrolyser stack degradation, SOFC delamination, plasma disruption. No-leakage guard. Demonstrated end-to-end on real PyBaMM voltage trajectories.
+- **TDA early-warning** — `energy_physics_pipeline.tda` (ripser+persim). Cross-domain detectors for battery thermal runaway, fuel-cell membrane breakdown, electrolyser stack degradation, SOFC delamination, plasma disruption. No-leakage guard. Demonstrated end-to-end on real PyBaMM voltage trajectories.
 - **MCP product surface** — 9 FastMCP servers, JSON-RPC over stdio. In-process and subprocess-spawn smoke tests both green. Read-only by default; mutation requires a signed plan + audit event.
 - **50-task fusion reasoning benchmark** — rules-based scorer; refusal_recall=1.0 on the 10 forbidden-intent tasks. Wired for `hosted_claude` / `runpod_vllm` reasoner backend swap.
 

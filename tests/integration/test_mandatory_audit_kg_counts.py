@@ -13,10 +13,10 @@ import importlib
 import pytest
 from fastapi.testclient import TestClient
 
-from energy_pipeline.audit import AuditWriter
-from energy_pipeline.kg import KGStore
-from energy_pipeline.l6 import reload as cfg_reload
-from energy_pipeline.l6.enforcement import reset_default_audit_kg
+from energy_physics_pipeline.audit import AuditWriter
+from energy_physics_pipeline.kg import KGStore
+from energy_physics_pipeline.l6 import reload as cfg_reload
+from energy_physics_pipeline.l6.enforcement import reset_default_audit_kg
 
 
 @pytest.fixture()
@@ -46,7 +46,7 @@ def test_rest_endpoint_writes_audit_and_kg(tmp_audit_kg, monkeypatch):
     audit, kg = tmp_audit_kg
     monkeypatch.setenv("ENERGY_L4_BACKEND", "gpu_rest_stub")  # cheap stub path
     cfg_reload()
-    from energy_pipeline.rest import create_app
+    from energy_physics_pipeline.rest import create_app
 
     n0_audit = audit.count()
     n0_kg_nodes = kg.stats()["nodes"]
@@ -80,7 +80,7 @@ def test_parser_writes_audit_and_kg(tmp_audit_kg):
     n0 = audit.count()
     nodes0 = kg.stats()["nodes"]
 
-    from energy_pipeline.adapters.electrochem.parsers import StructureParserAdapter
+    from energy_physics_pipeline.adapters.electrochem.parsers import StructureParserAdapter
 
     StructureParserAdapter().parse_cif(_CIF_SAMPLE)
 
@@ -99,8 +99,8 @@ def test_adapter_via_accept_envelope_writes_audit_kg(tmp_audit_kg):
     n0 = audit.count()
     nodes0 = kg.stats()["nodes"]
 
-    from energy_pipeline.adapters.electrochem.l4 import PyBaMMBatteryAdapter
-    from energy_pipeline.l6 import accept_envelope_and_dro
+    from energy_physics_pipeline.adapters.electrochem.l4 import PyBaMMBatteryAdapter
+    from energy_physics_pipeline.l6 import accept_envelope_and_dro
 
     env, dro = PyBaMMBatteryAdapter().run({"campaign_id": "adapter-audit-test"})
     accept_envelope_and_dro(env, dro)
@@ -122,7 +122,7 @@ def test_mcp_pybamm_writes_audit_kg(tmp_audit_kg):
     nodes0 = kg.stats()["nodes"]
 
     importlib.invalidate_caches()
-    from energy_pipeline.mcp_servers import pybamm_mcp
+    from energy_physics_pipeline.mcp_servers import pybamm_mcp
 
     server = pybamm_mcp.build_server()
     tool = server._tool_manager._tools["simulate_discharge"]

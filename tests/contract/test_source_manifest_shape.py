@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from energy_pipeline.schemas.source import SourceManifest
+from energy_physics_pipeline.schemas.source import SourceManifest
 
 pytestmark = pytest.mark.contract
 

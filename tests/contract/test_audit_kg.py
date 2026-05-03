@@ -5,9 +5,9 @@ from pathlib import Path
 
 import pytest
 
-from energy_pipeline.audit import AuditWriter
-from energy_pipeline.boundary import BOUNDARY_BLOCK, BoundaryViolation
-from energy_pipeline.kg import NODE_TYPES, KGStore
+from energy_physics_pipeline.audit import AuditWriter
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK, BoundaryViolation
+from energy_physics_pipeline.kg import NODE_TYPES, KGStore
 
 
 def _good_payload(**overrides):

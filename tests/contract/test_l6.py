@@ -4,14 +4,14 @@ from __future__ import annotations
 
 import pytest
 
-from energy_pipeline.l6 import (
+from energy_physics_pipeline.l6 import (
     default_registry,
     license_promotion_falsifier,
     reload as cfg_reload,
     run_falsifiers,
     units_required_falsifier,
 )
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.schemas import (
     BackendBlock,
     Domain,
     ExecutionMode,
@@ -22,7 +22,7 @@ from energy_pipeline.schemas import (
     SubVertical,
     UniversalLayerEnvelope,
 )
-from energy_pipeline.schemas.envelope import (
+from energy_physics_pipeline.schemas.envelope import (
     FailureRecord,
     FalsificationBlock,
     IOBlock,

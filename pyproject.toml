@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "energy_pipeline"
+name = "energy-physics-pipeline"
 version = "0.1.0"
-description = "Zer0pa Energy — CPU-first in silico research infrastructure for electrochemistry and fusion / plasma physics."
+description = "Energy Physics Pipeline - CPU-first in silico research infrastructure for electrochemistry and fusion / plasma physics."
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "Proprietary — Zer0pa internal research artifact"}
@@ -79,11 +79,11 @@ runpod-only = [
 ]
 
 [project.scripts]
-energy = "energy_pipeline.cli.main:app"
+energy-physics = "energy_physics_pipeline.cli.main:app"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["energy_pipeline*"]
+include = ["energy_physics_pipeline*"]
 exclude = ["tests*", "fixtures*"]
 
 [tool.ruff]
@@ -102,9 +102,9 @@ markers = [
 
 [tool.coverage.run]
 branch = true
-source = ["energy_pipeline"]
+source = ["energy_physics_pipeline"]
 omit = [
-  "energy_pipeline/mcp_servers/__main__*",
+  "energy_physics_pipeline/mcp_servers/__main__*",
   "*/__init__.py",
 ]
 

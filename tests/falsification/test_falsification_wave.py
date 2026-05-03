@@ -12,8 +12,8 @@ import pathlib
 import pytest
 from pydantic import ValidationError
 
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.schemas import (
     UniversalLayerEnvelope,
     BackendBlock,
     FalsificationBlock,
@@ -28,13 +28,13 @@ from energy_pipeline.schemas import (
     SubVertical,
     Domain,
 )
-from energy_pipeline.schemas.dro import DeviceResponseObject, DeviceFamily, ScalarMetrics, DroAuditBlock, OperatingConditions
-from energy_pipeline.schemas.falsification import (
+from energy_physics_pipeline.schemas.dro import DeviceResponseObject, DeviceFamily, ScalarMetrics, DroAuditBlock, OperatingConditions
+from energy_physics_pipeline.schemas.falsification import (
     CrossModelDisagreementRecord,
     DisagreementMetric,
     DisagreementStatus,
 )
-from energy_pipeline.l6.router import (
+from energy_physics_pipeline.l6.router import (
     run as router_run,
     units_required_falsifier,
 )
@@ -209,7 +209,7 @@ def test_t5_bad_coordinate_convention():
 
     Enforced by: _cocos_unit_falsifier (inline falsifier; gate_id='cocos_unit_required').
     """
-    from energy_pipeline.schemas.dro import Axis
+    from energy_physics_pipeline.schemas.dro import Axis
 
     dro = DeviceResponseObject(
         sub_vertical=SubVertical.fusion,

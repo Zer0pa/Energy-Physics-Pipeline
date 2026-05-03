@@ -11,7 +11,7 @@
 - Foundation locked: schemas, audit, KG, REST stubs, L6 control plane, CLI all green (61 contract tests passing).
 - Five parallel subagents launched on disjoint file scopes (electrochem L1-L5, fusion L1-L5 + reasoning bench, MCP server suite, TDA + 12-test falsification wave, source manifests + reasoner curator + decision log).
 - Heavy CPU libraries pre-installed: PyBaMM 26.4.1, PyPSA 1.2.0, pvlib 0.15.1, netCDF4 1.7.4, freegs 0.8.2.
-- Package installed editable; subagents can `import energy_pipeline` cleanly.
+- Package installed editable; subagents can `import energy_physics_pipeline` cleanly.
 
 ## Subagent ledger (final)
 

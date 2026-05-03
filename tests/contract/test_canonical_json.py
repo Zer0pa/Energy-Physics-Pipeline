@@ -5,7 +5,7 @@ import math
 
 import pytest
 
-from energy_pipeline.schemas import canonical_json, content_id, sha256_of
+from energy_physics_pipeline.schemas import canonical_json, content_id, sha256_of
 
 
 def test_canonical_json_sorts_keys():

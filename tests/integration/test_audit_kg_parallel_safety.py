@@ -17,9 +17,9 @@ from pathlib import Path
 
 import pytest
 
-from energy_pipeline.audit import AuditWriter, default_audit_dir, default_db_path
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.kg import KGStore, default_kg_dir
+from energy_physics_pipeline.audit import AuditWriter, default_audit_dir, default_db_path
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.kg import KGStore, default_kg_dir
 
 
 # ---------------------------------------------------------------------------
@@ -32,8 +32,8 @@ def _worker_write(audit_dir: str, kg_dir: str, n_writes: int) -> int:
     os.environ["ENERGY_KG_DIR"] = kg_dir
     os.environ["ENERGY_AUDIT_DB_PATH"] = str(Path(audit_dir) / "audit.duckdb")
     # Re-import so default_*_dir() pick up the new env in this fresh process.
-    from energy_pipeline.audit.writer import default_audit_dir as _aud
-    from energy_pipeline.kg.graph import default_kg_dir as _kg
+    from energy_physics_pipeline.audit.writer import default_audit_dir as _aud
+    from energy_physics_pipeline.kg.graph import default_kg_dir as _kg
 
     aud = AuditWriter(jsonl_dir=_aud(), db_path=Path(audit_dir) / "audit.duckdb")
     kg = KGStore(kg_dir=_kg())

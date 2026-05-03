@@ -10,8 +10,8 @@ from __future__ import annotations
 import pytest
 from uuid import uuid4
 
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.schemas.dro import (
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.schemas.dro import (
     Curve,
     CurveAxis,
     CurveType,
@@ -23,7 +23,7 @@ from energy_pipeline.schemas.dro import (
     ResponseBlock,
     ScalarMetrics,
 )
-from energy_pipeline.schemas.envelope import (
+from energy_physics_pipeline.schemas.envelope import (
     BackendBlock,
     ExecutionMode,
     FalsificationBlock,
@@ -236,9 +236,9 @@ def test_stub_scientific_valid_true_raises():
 
 def test_adapter_stubs_not_scientific_valid():
     """All fixture-mode adapters must have scientific_valid=False."""
-    from energy_pipeline.adapters.electrochem.l1 import ElectronicStructureAdapter
-    from energy_pipeline.adapters.electrochem.l3 import phasefield_stub
-    from energy_pipeline.adapters.electrochem.l2 import trajectory_msd
+    from energy_physics_pipeline.adapters.electrochem.l1 import ElectronicStructureAdapter
+    from energy_physics_pipeline.adapters.electrochem.l3 import phasefield_stub
+    from energy_physics_pipeline.adapters.electrochem.l2 import trajectory_msd
 
     l1 = ElectronicStructureAdapter()
     # marcus is always stub

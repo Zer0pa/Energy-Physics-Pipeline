@@ -17,17 +17,17 @@ from typing import Any
 import httpx
 import pytest
 
-from energy_pipeline.adapters.shared.runpod_dispatch import RunpodRestAdapter
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.l6 import reload as cfg_reload
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.adapters.shared.runpod_dispatch import RunpodRestAdapter
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.l6 import reload as cfg_reload
+from energy_physics_pipeline.schemas import (
     Domain,
     ExecutionMode,
     GateStatus,
     LayerLevel,
     SubVertical,
 )
-from energy_pipeline.schemas.canonical import sha256_of
+from energy_physics_pipeline.schemas.canonical import sha256_of
 
 
 def _canonical_outputs_projection(env_dump: dict[str, Any]) -> str:
@@ -82,7 +82,7 @@ def _golden_envelope_from_local_cpu() -> dict[str, Any]:
     envelope dump. Used as the golden fixture for the runpod-parity test.
     """
     pytest.importorskip("pybamm")
-    from energy_pipeline.adapters.electrochem.l4 import PyBaMMBatteryAdapter
+    from energy_physics_pipeline.adapters.electrochem.l4 import PyBaMMBatteryAdapter
 
     adapter = PyBaMMBatteryAdapter()
     out = adapter.run({"campaign_id": "rp-golden"})

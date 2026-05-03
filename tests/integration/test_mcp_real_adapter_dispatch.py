@@ -45,7 +45,7 @@ def _build_and_call(server_module: str, tool_name: str, **kwargs):
 def test_pybamm_mcp_uses_real_adapter():
     pytest.importorskip("pybamm")
     out = _build_and_call(
-        "energy_pipeline.mcp_servers.pybamm_mcp",
+        "energy_physics_pipeline.mcp_servers.pybamm_mcp",
         "simulate_discharge",
         rate_C=1.0,
         duration_s=300.0,
@@ -58,7 +58,7 @@ def test_pybamm_mcp_uses_real_adapter():
 def test_pvlib_mcp_uses_real_adapter():
     pytest.importorskip("pvlib")
     out = _build_and_call(
-        "energy_pipeline.mcp_servers.pvlib_mcp",
+        "energy_physics_pipeline.mcp_servers.pvlib_mcp",
         "compute_clearsky",
         lat=-26.10,
         lon=28.05,
@@ -71,7 +71,7 @@ def test_pvlib_mcp_uses_real_adapter():
 def test_cantera_mcp_uses_real_adapter():
     pytest.importorskip("cantera")
     out = _build_and_call(
-        "energy_pipeline.mcp_servers.cantera_mcp",
+        "energy_physics_pipeline.mcp_servers.cantera_mcp",
         "kinetics_smoke",
         mech="gri30.yaml",
     )
@@ -81,7 +81,7 @@ def test_cantera_mcp_uses_real_adapter():
 def test_pypsa_mcp_uses_real_adapter():
     pytest.importorskip("pypsa")
     out = _build_and_call(
-        "energy_pipeline.mcp_servers.pypsa_mcp",
+        "energy_physics_pipeline.mcp_servers.pypsa_mcp",
         "lcoe",
         system_spec={"capex_USD_per_kW": 800.0, "capacity_factor": 0.25},
     )
@@ -92,7 +92,7 @@ def test_openmc_mcp_uses_real_adapter_or_falls_back_explicitly():
     """OpenMC may or may not be installed; either way the dispatch field must
     be set and the response carries the boundary block."""
     out = _build_and_call(
-        "energy_pipeline.mcp_servers.openmc_mcp",
+        "energy_physics_pipeline.mcp_servers.openmc_mcp",
         "tiny_transport",
         geometry_spec={"intent": "blanket TBR research", "particles": 50},
     )
@@ -106,7 +106,7 @@ def test_imas_codex_mcp_uses_real_adapter():
     if not fixture.exists():
         pytest.skip("imas_demo.nc fixture not yet generated")
     out = _build_and_call(
-        "energy_pipeline.mcp_servers.imas_codex_mcp",
+        "energy_physics_pipeline.mcp_servers.imas_codex_mcp",
         "read_ids",
         uri=f"file://{fixture.resolve()}",
         ids_path="equilibrium/profiles_1d/q",
@@ -121,7 +121,7 @@ def test_imas_codex_mcp_uses_real_adapter():
 
 def test_pybamm_mcp_falls_back_when_pybamm_missing(monkeypatch: pytest.MonkeyPatch):
     """Simulate adapter import failure by stubbing the ec_l4 module."""
-    import energy_pipeline.adapters.electrochem.l4 as ec_l4_mod
+    import energy_physics_pipeline.adapters.electrochem.l4 as ec_l4_mod
 
     original_run = ec_l4_mod.PyBaMMBatteryAdapter.run
 
@@ -131,7 +131,7 @@ def test_pybamm_mcp_falls_back_when_pybamm_missing(monkeypatch: pytest.MonkeyPat
     monkeypatch.setattr(ec_l4_mod.PyBaMMBatteryAdapter, "run", boom)
 
     out = _build_and_call(
-        "energy_pipeline.mcp_servers.pybamm_mcp",
+        "energy_physics_pipeline.mcp_servers.pybamm_mcp",
         "simulate_discharge",
         rate_C=1.0,
         duration_s=60.0,
@@ -154,7 +154,7 @@ def test_imas_mcp_refuses_forbidden_intent_in_path():
     adapter call (no envelope, no audit row)."""
     with pytest.raises(Exception):  # MCP-side exception or BoundaryViolation
         _build_and_call(
-            "energy_pipeline.mcp_servers.imas_codex_mcp",
+            "energy_physics_pipeline.mcp_servers.imas_codex_mcp",
             "read_ids",
             uri="file:///tmp/none.nc",
             ids_path="weapons-grade tritium/extraction/optimisation",
@@ -164,7 +164,7 @@ def test_imas_mcp_refuses_forbidden_intent_in_path():
 def test_openmc_mcp_refuses_forbidden_intent():
     with pytest.raises(Exception):
         _build_and_call(
-            "energy_pipeline.mcp_servers.openmc_mcp",
+            "energy_physics_pipeline.mcp_servers.openmc_mcp",
             "tiny_transport",
             geometry_spec={"intent": "tritium stockpile capacity sweep", "particles": 1},
         )

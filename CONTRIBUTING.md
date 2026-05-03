@@ -1,4 +1,4 @@
-# Contributing — Zer0pa Energy
+# Contributing — Energy Physics Pipeline
 
 Boundary: research infrastructure for in silico energy science. No regulatory, clinical,
 human-subject, defence, or weapons applications. See `BOUNDARY.md`.
@@ -49,10 +49,10 @@ Or piecewise:
 
 ## File ownership during overnight build
 
-- `energy_pipeline/{schemas,audit,kg,rest,l6,boundary.py,cli}` — chief engineer.
-- `energy_pipeline/adapters/electrochem/*` — electrochem subagent.
-- `energy_pipeline/adapters/fusion/*` — fusion subagent.
-- `energy_pipeline/adapters/shared/*` — sources/reasoner subagent.
-- `energy_pipeline/mcp_servers/*` — MCP subagent.
-- `energy_pipeline/tda/*` — TDA subagent.
+- `energy_physics_pipeline/{schemas,audit,kg,rest,l6,boundary.py,cli}` — chief engineer.
+- `energy_physics_pipeline/adapters/electrochem/*` — electrochem subagent.
+- `energy_physics_pipeline/adapters/fusion/*` — fusion subagent.
+- `energy_physics_pipeline/adapters/shared/*` — sources/reasoner subagent.
+- `energy_physics_pipeline/mcp_servers/*` — MCP subagent.
+- `energy_physics_pipeline/tda/*` — TDA subagent.
 - Tests partitioned by directory; each subagent owns its named files.

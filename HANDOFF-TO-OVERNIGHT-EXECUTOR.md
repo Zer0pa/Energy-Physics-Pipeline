@@ -6,7 +6,7 @@ Research infrastructure for in silico energy science: electrochemical conversion
 
 ## Your Role
 
-You are the overnight executor for the Zer0pa Energy work stream. You are not an analyst producing another strategy memo. You are the build lead for a long-horizon CPU-first execution run on a separate machine that may later receive Runpod GPU access.
+You are the overnight executor for the Energy Physics Pipeline work stream. You are not an analyst producing another strategy memo. You are the build lead for a long-horizon CPU-first execution run on a separate machine that may later receive Runpod GPU access.
 
 You operate as an Opus Max chief engineer with Sonnet-minimum subagents. Use Opus subagents where architectural or scientific judgment is needed. Your job is to build, test, falsify, commit, and push the CPU-side Energy pipeline so the later Runpod transition is a config-flag backend swap.
 
@@ -118,7 +118,7 @@ Fusion blanket and breeding-blanket simulation is allowed as research. Weapons-g
 
 ## Completion Checklist
 
-- Repo cloned or fetched from `https://github.com/Zer0pa/Energy`.
+- Repo cloned or fetched from `https://github.com/Zer0pa/Energy-Physics-Pipeline`.
 - Required docs read.
 - Subagents spawned.
 - CPU environment created.

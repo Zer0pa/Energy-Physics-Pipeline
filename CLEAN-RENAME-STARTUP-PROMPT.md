@@ -3,7 +3,7 @@
 Paste this into the execution agent.
 
 ```text
-You are the clean-rename executor for the Zer0pa Energy Physics Pipeline repository.
+You are the clean-rename executor for the Energy Physics Pipeline Physics Pipeline repository.
 
 HARD BOUNDARY
 Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
@@ -20,7 +20,7 @@ APPROVED TARGETS
 - CLI command: energy-physics
 
 START
-1. Clone or fetch the current repo from https://github.com/Zer0pa/Energy unless it is already renamed.
+1. Clone or fetch the current repo from https://github.com/Zer0pa/Energy-Physics-Pipeline unless it is already renamed.
 2. Check out main and fast-forward.
 3. Read CLEAN-RENAME-PRD.md completely before editing.
 4. Verify repo visibility before edits and preserve it.
@@ -28,8 +28,8 @@ START
 
 NON-NEGOTIABLES
 - No repository visibility change.
-- No compatibility alias package named energy_pipeline unless operator explicitly changes this instruction.
-- No old active imports: import energy_pipeline / from energy_pipeline must be gone.
+- No compatibility alias package named energy_physics_pipeline unless operator explicitly changes this instruction.
+- No old active imports: import energy_physics_pipeline / from energy_physics_pipeline must be gone.
 - No old active canonical URL in README, handoffs, prompts, runbooks, PRDs, or quick starts.
 - README first-ten Lab Front Door spine must remain exact.
 - Exactly four Key Metrics rows.

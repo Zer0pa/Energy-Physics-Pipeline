@@ -8,7 +8,7 @@
 
 ## Status
 
-Accepted — implemented in `energy_pipeline/adapters/electrochem/l1_quantum.py`.
+Accepted — implemented in `energy_physics_pipeline/adapters/electrochem/l1_quantum.py`.
 
 ---
 

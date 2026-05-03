@@ -8,7 +8,7 @@ Research infrastructure for in silico energy science: electrochemical conversion
 
 | Field | Value |
 | --- | --- |
-| Repository | `https://github.com/Zer0pa/Energy` |
+| Repository | `https://github.com/Zer0pa/Energy-Physics-Pipeline` |
 | Branch | `main` |
 | Alignment commit | `3730d2122f8bec46b71166e9bed9de27600f51ef` |
 | README blob | `0f2b069a5624fadbee6275c59315ee2a779103af` |

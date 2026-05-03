@@ -7,10 +7,9 @@ expected falsifier IDs.
 from __future__ import annotations
 
 import sys
-from pathlib import Path
 
-from energy_pipeline.l6 import default_registry, get_config
-from energy_pipeline.l6.registry import AdapterCapability
+from energy_physics_pipeline.l6 import default_registry, get_config
+from energy_physics_pipeline.l6.registry import AdapterCapability
 
 
 PARKED = {

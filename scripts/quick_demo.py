@@ -7,9 +7,9 @@ from __future__ import annotations
 
 import sys
 
-from energy_pipeline.audit import AuditWriter
-from energy_pipeline.kg import KGStore
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.audit import AuditWriter
+from energy_physics_pipeline.kg import KGStore
+from energy_physics_pipeline.schemas import (
     BackendBlock,
     Curve,
     CurveType,
@@ -25,14 +25,14 @@ from energy_pipeline.schemas import (
     SubVertical,
     UniversalLayerEnvelope,
 )
-from energy_pipeline.schemas.dro import (
+from energy_physics_pipeline.schemas.dro import (
     Axis,
     CurveAxis,
     DroAuditBlock,
     OperatingConditions,
     ResponseBlock,
 )
-from energy_pipeline.schemas.envelope import (
+from energy_physics_pipeline.schemas.envelope import (
     FalsificationBlock,
     IOBlock,
     ProvenanceBlock,

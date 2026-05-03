@@ -24,10 +24,10 @@ echo "==> Python version"
 "$PY" --version
 
 echo "==> Boundary smoke"
-"$PY" -c "from energy_pipeline.boundary import BOUNDARY_BLOCK; assert len(BOUNDARY_BLOCK) == 386, f'BOUNDARY_BLOCK length drift: {len(BOUNDARY_BLOCK)}'; print('boundary OK,', len(BOUNDARY_BLOCK), 'bytes')"
+"$PY" -c "from energy_physics_pipeline.boundary import BOUNDARY_BLOCK; assert len(BOUNDARY_BLOCK) == 386, f'BOUNDARY_BLOCK length drift: {len(BOUNDARY_BLOCK)}'; print('boundary OK,', len(BOUNDARY_BLOCK), 'bytes')"
 
 echo "==> Ruff (strict)"
-"$PY" -m ruff check energy_pipeline tests
+"$PY" -m ruff check energy_physics_pipeline tests
 
 echo "==> Contract tests"
 "$PY" -m pytest tests/contract -q
@@ -42,16 +42,16 @@ echo "==> Integration"
 "$PY" -m pytest tests/integration -q
 
 echo "==> CLI smoke"
-"$PY" -m energy_pipeline.cli.main health > /dev/null
-"$PY" -m energy_pipeline.cli.main registry > /dev/null
-"$PY" -m energy_pipeline.cli.main smoke --no-write-audit > /dev/null
+"$PY" -m energy_physics_pipeline.cli.main health > /dev/null
+"$PY" -m energy_physics_pipeline.cli.main registry > /dev/null
+"$PY" -m energy_physics_pipeline.cli.main smoke --no-write-audit > /dev/null
 
 echo "==> Source-manifest schema check (offline)"
 "$PY" -m pytest tests/contract/test_source_manifest_shape.py -q
 
 echo "==> Coverage (warn-only at 80% soft gate)"
 bash scripts/clean_runtime.sh > /dev/null
-"$PY" -m pytest tests --cov=energy_pipeline --cov-report=term --cov-fail-under=70 -q
+"$PY" -m pytest tests --cov=energy_physics_pipeline --cov-report=term --cov-fail-under=70 -q
 
 echo
 echo "STRICT FULL CHECK OK"

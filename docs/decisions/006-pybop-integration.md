@@ -9,7 +9,7 @@
 
 ## Status
 
-Accepted — implemented in `energy_pipeline/adapters/electrochem/l4_pybop.py`.
+Accepted — implemented in `energy_physics_pipeline/adapters/electrochem/l4_pybop.py`.
 
 ## Context
 
@@ -57,7 +57,7 @@ would improve identifiability; the spec parameters are intentionally conservativ
 
 ## Consequences
 
-- `energy_pipeline/adapters/electrochem/l4_pybop.py` — new file (owned by this decision).
+- `energy_physics_pipeline/adapters/electrochem/l4_pybop.py` — new file (owned by this decision).
 - `tests/integration/test_pybop_inference.py` — new file (owned by this decision).
 - No modifications to frozen foundation files (`l4.py`, `l5.py`, `boundary.py`, schemas, audit, kg).
 - The `write_l4_artifacts` helper from `l4.py` is reused for KG and audit writes.

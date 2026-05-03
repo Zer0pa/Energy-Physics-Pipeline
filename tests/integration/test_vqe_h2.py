@@ -15,8 +15,8 @@ import sys
 
 import pytest
 
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.adapters.electrochem.l1_quantum import VqeH2Adapter, VqeH2Spec
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.adapters.electrochem.l1_quantum import VqeH2Adapter, VqeH2Spec
 
 
 # ---------------------------------------------------------------------------
@@ -69,7 +69,7 @@ def test_vqe_h2_converges(default_env):
     )
 
     # Mode must be scientific iff converged
-    from energy_pipeline.schemas.envelope import Mode
+    from energy_physics_pipeline.schemas.envelope import Mode
     assert env.mode == Mode.scientific, (
         f"mode={env.mode!r} but delta_E={delta*1000:.2f} mHa < 50 mHa — "
         f"should be Mode.scientific"
@@ -136,7 +136,7 @@ def test_vqe_h2_falls_back_when_qiskit_missing(monkeypatch):
     This guards the fallback discipline: the adapter must not crash and must
     emit a valid envelope even in degraded environments.
     """
-    from energy_pipeline.schemas.envelope import Mode
+    from energy_physics_pipeline.schemas.envelope import Mode
 
     # Block qiskit imports
     monkeypatch.setitem(sys.modules, "qiskit", None)
@@ -184,7 +184,7 @@ def test_vqe_h2_reports_four_qubits(default_env):
 
 def test_vqe_h2_layer_and_subvertical(default_env):
     """Envelope must be L1 in electrochemistry sub-vertical."""
-    from energy_pipeline.schemas.envelope import LayerLevel, SubVertical
+    from energy_physics_pipeline.schemas.envelope import LayerLevel, SubVertical
 
     assert default_env.layer == LayerLevel.L1
     assert default_env.sub_vertical == SubVertical.electrochemistry

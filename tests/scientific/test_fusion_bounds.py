@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from energy_pipeline.adapters.fusion import (
+from energy_physics_pipeline.adapters.fusion import (
     FreeGS4eAdapter,
     ImasPythonAdapter,
     OpenMcManifestAdapter,
@@ -19,14 +19,14 @@ from energy_pipeline.adapters.fusion import (
     read_imas_fixture,
     write_imas_fixture,
 )
-from energy_pipeline.adapters.fusion.l1 import OpenMcSpec
-from energy_pipeline.adapters.fusion.l3 import EquilibriumSpec
-from energy_pipeline.adapters.fusion.l4 import (
+from energy_physics_pipeline.adapters.fusion.l1 import OpenMcSpec
+from energy_physics_pipeline.adapters.fusion.l3 import EquilibriumSpec
+from energy_physics_pipeline.adapters.fusion.l4 import (
     ImasReadSpec,
     TokamakScenarioSpec,
 )
-from energy_pipeline.adapters.fusion.l5 import BlanketGeomSpec
-from energy_pipeline.boundary import BoundaryViolation
+from energy_physics_pipeline.adapters.fusion.l5 import BlanketGeomSpec
+from energy_physics_pipeline.boundary import BoundaryViolation
 
 
 @pytest.fixture()

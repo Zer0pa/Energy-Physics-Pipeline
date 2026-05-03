@@ -1,6 +1,6 @@
 ! Research fixture — NOT a real GS2 simulation reference case.
 ! This is a synthetic gyrokinetic input deck for integration testing of the
-! Pyrokinetics universal-parser adapter (energy_pipeline/adapters/fusion/l2_pyrokinetics.py).
+! Pyrokinetics universal-parser adapter (energy_physics_pipeline/adapters/fusion/l2_pyrokinetics.py).
 ! Values are physically plausible (ITG-regime tokamak core, low-beta) but are NOT
 ! derived from any specific experiment or validated simulation.
 !

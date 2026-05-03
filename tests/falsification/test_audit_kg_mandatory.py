@@ -13,16 +13,16 @@ from __future__ import annotations
 
 import pytest
 
-from energy_pipeline.audit import AuditWriter
-from energy_pipeline.kg import KGStore
-from energy_pipeline.l6 import (
+from energy_physics_pipeline.audit import AuditWriter
+from energy_physics_pipeline.kg import KGStore
+from energy_physics_pipeline.l6 import (
     EnvelopeRejected,
     accept_envelope,
     accept_envelope_and_dro,
     reload as cfg_reload,
 )
-from energy_pipeline.l6.enforcement import reset_default_audit_kg
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.l6.enforcement import reset_default_audit_kg
+from energy_physics_pipeline.schemas import (
     BackendBlock,
     DeviceFamily,
     DeviceResponseObject,
@@ -35,8 +35,8 @@ from energy_pipeline.schemas import (
     SubVertical,
     UniversalLayerEnvelope,
 )
-from energy_pipeline.schemas.dro import DroAuditBlock, OperatingConditions, ResponseBlock
-from energy_pipeline.schemas.envelope import (
+from energy_physics_pipeline.schemas.dro import DroAuditBlock, OperatingConditions, ResponseBlock
+from energy_physics_pipeline.schemas.envelope import (
     FalsificationBlock,
     IOBlock,
     ProvenanceBlock,
@@ -178,7 +178,7 @@ def test_dro_cocos_failures_attached_to_envelope(monkeypatch: pytest.MonkeyPatch
     env = _good_envelope(domain=Domain.fusion).model_copy(
         update={"sub_vertical": SubVertical.fusion}
     )
-    from energy_pipeline.schemas.dro import Axis
+    from energy_physics_pipeline.schemas.dro import Axis
 
     dro = DeviceResponseObject(
         sub_vertical=SubVertical.fusion,

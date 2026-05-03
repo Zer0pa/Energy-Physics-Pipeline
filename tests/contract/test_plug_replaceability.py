@@ -11,7 +11,7 @@ backend.execution_mode, backend.license_evidence_uri.
 """
 from __future__ import annotations
 
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.schemas import (
     BackendBlock,
     Domain,
     ExecutionMode,
@@ -22,7 +22,7 @@ from energy_pipeline.schemas import (
     SubVertical,
     UniversalLayerEnvelope,
 )
-from energy_pipeline.schemas.envelope import (
+from energy_physics_pipeline.schemas.envelope import (
     FalsificationBlock,
     IOBlock,
     ProvenanceBlock,

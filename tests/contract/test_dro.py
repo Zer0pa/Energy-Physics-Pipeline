@@ -4,8 +4,8 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.schemas import (
     Curve,
     CurveType,
     DeviceFamily,
@@ -13,7 +13,7 @@ from energy_pipeline.schemas import (
     ScalarMetrics,
     SubVertical,
 )
-from energy_pipeline.schemas.dro import (
+from energy_physics_pipeline.schemas.dro import (
     Axis,
     CurveAxis,
     DroAuditBlock,

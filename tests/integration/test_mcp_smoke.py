@@ -20,9 +20,9 @@ import json
 
 import pytest
 
-from energy_pipeline.audit.writer import AuditWriter
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.mcp_servers.registry import get_server, list_servers
+from energy_physics_pipeline.audit.writer import AuditWriter
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.mcp_servers.registry import get_server, list_servers
 
 # FastMCP wraps any tool exception (including McpError) as ToolError.
 from mcp.server.fastmcp.exceptions import ToolError

@@ -1,4 +1,4 @@
-# Runbook — Zer0pa Energy Pipeline
+# Runbook — Energy Physics Pipeline
 
 **Boundary:** Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
 
@@ -6,7 +6,7 @@
 
 ```bash
 git clone https://github.com/Zer0pa/Energy
-cd Energy
+cd Energy-Physics-Pipeline
 python3.13 -m venv .venv
 .venv/bin/pip install -e '.[test,electrochem,fusion,tda,mcp,advanced-cpu]'
 make full          # runs: clean + lint + 277+ tests + cli health
@@ -14,7 +14,7 @@ make full          # runs: clean + lint + 277+ tests + cli health
 
 ## Environment configuration
 
-All backend selection is via `ENERGY_*` env flags. Per `energy_pipeline.l6.config.EnergyConfig`:
+All backend selection is via `ENERGY_*` env flags. Per `energy_physics_pipeline.l6.config.EnergyConfig`:
 
 ```bash
 ENERGY_EXECUTION_PROFILE=local_cpu_first   # local_cpu_first | runpod_first | hybrid
@@ -41,7 +41,7 @@ ENERGY_RUNPOD_TIMEOUT_S=30                 # httpx timeout per dispatch
 Read current config:
 
 ```bash
-.venv/bin/python -m energy_pipeline.cli.main health
+.venv/bin/python -m energy_physics_pipeline.cli.main health
 ```
 
 ## Common operations
@@ -49,7 +49,7 @@ Read current config:
 ### Spin a one-shot smoke envelope
 
 ```bash
-.venv/bin/python -m energy_pipeline.cli.main smoke --campaign demo
+.venv/bin/python -m energy_physics_pipeline.cli.main smoke --campaign demo
 ```
 
 Writes audit + KG side effects to `audit_log/audit.duckdb` and `kg_store/{nodes,edges}.jsonl`.
@@ -57,7 +57,7 @@ Writes audit + KG side effects to `audit_log/audit.duckdb` and `kg_store/{nodes,
 ### Run the falsification wave
 
 ```bash
-.venv/bin/python -m energy_pipeline.cli.main falsification-wave
+.venv/bin/python -m energy_physics_pipeline.cli.main falsification-wave
 ```
 
 12-of-12 pass is the sovereign gate.
@@ -65,7 +65,7 @@ Writes audit + KG side effects to `audit_log/audit.duckdb` and `kg_store/{nodes,
 ### Run the electrochem end-to-end path
 
 ```bash
-.venv/bin/python -m energy_pipeline.cli.main electrochem-e2e
+.venv/bin/python -m energy_physics_pipeline.cli.main electrochem-e2e
 ```
 
 Real CPU on PyBaMM/Cantera/PySCF/PyPSA/pvlib (when installed); analytic fallback otherwise.
@@ -73,7 +73,7 @@ Real CPU on PyBaMM/Cantera/PySCF/PyPSA/pvlib (when installed); analytic fallback
 ### Run the fusion Phase-0 path + 50-task reasoning bench
 
 ```bash
-.venv/bin/python -m energy_pipeline.cli.main fusion-phase0
+.venv/bin/python -m energy_physics_pipeline.cli.main fusion-phase0
 ```
 
 Uses FreeGS4E + netCDF4 IMAS fixture + 0D ITER H98(y,2) scenario solver; reasoning bench is rules-based by default.
@@ -81,7 +81,7 @@ Uses FreeGS4E + netCDF4 IMAS fixture + 0D ITER H98(y,2) scenario solver; reasoni
 ### Serve the FastAPI REST stub layer
 
 ```bash
-.venv/bin/python -m energy_pipeline.cli.main serve-rest --host 0.0.0.0 --port 8001
+.venv/bin/python -m energy_physics_pipeline.cli.main serve-rest --host 0.0.0.0 --port 8001
 ```
 
 Endpoints:
@@ -94,7 +94,7 @@ Endpoints:
 ### Run an MCP server over stdio
 
 ```bash
-.venv/bin/python -m energy_pipeline.mcp_servers.pybamm_mcp
+.venv/bin/python -m energy_physics_pipeline.mcp_servers.pybamm_mcp
 ```
 
 Subprocess hosts a FastMCP server; clients connect via JSON-RPC over stdio. Confirmed by `tests/integration/test_mcp_stdio.py`.
@@ -139,7 +139,7 @@ DuckDB query example:
 
 ```bash
 .venv/bin/python -c "
-from energy_pipeline.audit import AuditWriter
+from energy_physics_pipeline.audit import AuditWriter
 aw = AuditWriter()
 print(aw.query('SELECT layer, sub_vertical, gate_status, COUNT(*) FROM audit_events GROUP BY 1,2,3'))
 aw.close()
@@ -153,7 +153,7 @@ Adapter registry seeds 17 adapters with class A-E. Promotion to `mode=scientific
 To register a new license grant:
 
 ```python
-from energy_pipeline.kg import KGStore
+from energy_physics_pipeline.kg import KGStore
 kg = KGStore()
 kg.add_node(
     "LicenseFinding",
@@ -177,7 +177,7 @@ Boundary failure is **fail-closed**. The pipeline refuses to emit, audit, or KG-
 If you see `BoundaryViolation`:
 
 1. Inspect the offending artifact — `git diff` the file, grep for `boundary`.
-2. Restore the verbatim block from `energy_pipeline.boundary.BOUNDARY_BLOCK`.
+2. Restore the verbatim block from `energy_physics_pipeline.boundary.BOUNDARY_BLOCK`.
 3. If the artifact came from an upstream tool that mutated the block, file an issue tagged `boundary` and isolate the adapter.
 
 If you see `boundary blocked: matched forbidden intent '<term>'`:

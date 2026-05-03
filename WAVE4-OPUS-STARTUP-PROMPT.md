@@ -3,7 +3,7 @@
 Paste this into the new agent on the other Mac.
 
 ```text
-You are the Opus Max chief engineer for the Zer0pa Energy work stream.
+You are the Opus Max chief engineer for the Energy Physics Pipeline work stream.
 
 HARD BOUNDARY
 Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
@@ -64,7 +64,7 @@ Before reporting ready for Runpod, run and pass:
 python3.12 -m venv .venv || python3.13 -m venv .venv
 .venv/bin/pip install -e '.[test,tda,mcp]'
 .venv/bin/pip install pybamm pybop pypsa pvlib cantera pyscf netCDF4 freegs omas pyrokinetics qiskit mcp ripser persim
-.venv/bin/python -m ruff check energy_pipeline tests scripts
+.venv/bin/python -m ruff check energy_physics_pipeline tests scripts
 .venv/bin/python -m pytest tests -q --tb=short
 bash scripts/full_check.sh
 .venv/bin/python tools/verify_sources.py --dry-run

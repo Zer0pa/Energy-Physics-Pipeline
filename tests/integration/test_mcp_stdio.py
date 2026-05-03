@@ -92,10 +92,10 @@ async def _mcp_handshake_and_list_tools(server_module: str) -> dict:
 @pytest.mark.parametrize(
     "module",
     [
-        "energy_pipeline.mcp_servers.pybamm_mcp",
-        "energy_pipeline.mcp_servers.pvlib_mcp",
-        "energy_pipeline.mcp_servers.openmc_mcp",
-        "energy_pipeline.mcp_servers.imas_codex_mcp",
+        "energy_physics_pipeline.mcp_servers.pybamm_mcp",
+        "energy_physics_pipeline.mcp_servers.pvlib_mcp",
+        "energy_physics_pipeline.mcp_servers.openmc_mcp",
+        "energy_physics_pipeline.mcp_servers.imas_codex_mcp",
     ],
 )
 def test_mcp_server_responds_to_stdio_tools_list(module: str):
@@ -129,7 +129,7 @@ def test_mcp_pybamm_via_stdio_returns_tool_with_simulate_discharge():
     pytest.importorskip("mcp")
     result = asyncio.run(
         asyncio.wait_for(
-            _mcp_handshake_and_list_tools("energy_pipeline.mcp_servers.pybamm_mcp"),
+            _mcp_handshake_and_list_tools("energy_physics_pipeline.mcp_servers.pybamm_mcp"),
             timeout=30,
         )
     )

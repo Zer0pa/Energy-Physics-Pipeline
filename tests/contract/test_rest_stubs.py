@@ -4,8 +4,8 @@ from __future__ import annotations
 import pytest
 from fastapi.testclient import TestClient
 
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.rest import create_app
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.rest import create_app
 
 
 @pytest.fixture()
@@ -15,7 +15,7 @@ def client(monkeypatch: pytest.MonkeyPatch) -> TestClient:
     would otherwise route to under `ENERGY_L?_BACKEND`. Wave 4 adds same-shape
     cutover; the local_cpu / runpod_rest branches are covered in dedicated
     test files (`test_runpod_dispatch.py`, `test_runpod_same_endpoint.py`)."""
-    from energy_pipeline.l6 import reload as cfg_reload
+    from energy_physics_pipeline.l6 import reload as cfg_reload
 
     for k in ("L1", "L2", "L3", "L4", "L5", "L6"):
         monkeypatch.setenv(f"ENERGY_{k}_BACKEND", "gpu_rest_stub")
@@ -98,7 +98,7 @@ def test_fusion_blocks_forbidden_intent(client: TestClient, path: str) -> None:
 def test_runpod_passthrough_503_when_unconfigured(client: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
     """Without ENERGY_RUNPOD_BASE_URL set, the dispatch surface must return 503 with
     a structured + audited failure envelope, NOT an opaque error string."""
-    from energy_pipeline.l6 import reload as cfg_reload
+    from energy_physics_pipeline.l6 import reload as cfg_reload
 
     monkeypatch.delenv("ENERGY_RUNPOD_BASE_URL", raising=False)
     cfg_reload()

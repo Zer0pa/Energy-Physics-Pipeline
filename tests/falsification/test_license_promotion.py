@@ -11,7 +11,7 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.schemas import (
     UniversalLayerEnvelope,
     BackendBlock,
     ProvenanceBlock,
@@ -23,7 +23,7 @@ from energy_pipeline.schemas import (
     SubVertical,
     Domain,
 )
-from energy_pipeline.l6.router import run as router_run, license_promotion_falsifier
+from energy_physics_pipeline.l6.router import run as router_run, license_promotion_falsifier
 
 
 def _prov() -> ProvenanceBlock:
@@ -91,7 +91,7 @@ def test_license_promotion_falsifier_blocks():
 
 def test_license_promotion_falsifier_with_bad_uri():
     """Construct scenario where falsifier can catch the case (bypasses Pydantic via stub mode)."""
-    from energy_pipeline.schemas.envelope import FalsificationBlock
+    from energy_physics_pipeline.schemas.envelope import FalsificationBlock
     # engineering_stub mode passes Pydantic validation even without URI; build it to
     # confirm the construct-level allowance, then test the falsifier directly with a
     # synthetic scientific-mode env via the _FakeBackend below.

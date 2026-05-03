@@ -20,9 +20,9 @@ import time
 import numpy as np
 import pytest
 
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.tda import TdaEarlyWarning  # type: ignore[attr-defined]
-from energy_pipeline.tda.cross_domain import detector_for, available_domains
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.tda import TdaEarlyWarning  # type: ignore[attr-defined]
+from energy_physics_pipeline.tda.cross_domain import detector_for, available_domains
 
 
 # ---------------------------------------------------------------------------
@@ -112,7 +112,7 @@ def test_tda_detects_runaway_h1_growth():
 
 def test_tda_classifies_runaway_as_above_normal():
     """Detector.classify on the runaway window must escalate to watch/warn/fail."""
-    from energy_pipeline.schemas import EarlyWarningStatus
+    from energy_physics_pipeline.schemas import EarlyWarningStatus
 
     _, runaway, _ = _engineered_battery_voltage_runaway()
     detector = detector_for("battery_thermal_runaway")
@@ -148,7 +148,7 @@ def test_cross_vertical_plasma_disruption_detector_works():
     magnetic-fluctuation series into the plasma_disruption detector, assert it
     classifies above normal.
     """
-    from energy_pipeline.schemas import EarlyWarningStatus
+    from energy_physics_pipeline.schemas import EarlyWarningStatus
 
     rng = np.random.default_rng(7)
     n = 400
@@ -181,7 +181,7 @@ def test_real_pybamm_voltage_runs_through_tda(tmp_path):
     then runs TDA on the result. If PyBaMM is not importable the test skips.
     """
     pytest.importorskip("pybamm")
-    from energy_pipeline.adapters.electrochem.l4 import PyBaMMBatteryAdapter
+    from energy_physics_pipeline.adapters.electrochem.l4 import PyBaMMBatteryAdapter
 
     adapter = PyBaMMBatteryAdapter()
     if not adapter._has_pybamm:  # type: ignore[attr-defined]
@@ -200,8 +200,8 @@ def test_real_pybamm_voltage_runs_through_tda(tmp_path):
     assert len(voltage) >= 30, "need at least 30 samples for TDA scoring"
 
     # Score with a smaller window-spec since the PyBaMM trajectory is short.
-    from energy_pipeline.tda.early_warning import TdaEarlyWarning
-    from energy_pipeline.schemas.falsification import WindowSpec
+    from energy_physics_pipeline.tda.early_warning import TdaEarlyWarning
+    from energy_physics_pipeline.schemas.falsification import WindowSpec
 
     detector = TdaEarlyWarning(
         window_spec=WindowSpec(length_s=30.0, stride_s=5.0, embedding_dim=3, delay_s=1.0)

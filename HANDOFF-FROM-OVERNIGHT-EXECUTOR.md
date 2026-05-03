@@ -1,4 +1,4 @@
-# Handoff from Overnight Executor — Zer0pa Energy
+# Handoff from Overnight Executor — Energy Physics Pipeline
 
 > **Wave 4 closes the readiness gate.** Same-shape `/v1/<sub>/<layer>/<op>`
 > endpoints honor `ENERGY_L?_BACKEND` end-to-end (live test:
@@ -48,9 +48,9 @@ The architectural invariant is: changing `ENERGY_L?_BACKEND` from `gpu_rest_stub
 
 1. Same `UniversalLayerEnvelope` schema version.
 2. Same `DeviceResponseObject` schema version.
-3. Same REST endpoint shape — stubs at `energy_pipeline/rest/app.py` are the contract.
+3. Same REST endpoint shape — stubs at `energy_physics_pipeline/rest/app.py` are the contract.
 4. Same audit/KG writes (every Runpod call must emit the same envelope shape).
-5. Same falsifier IDs (re-route to `energy_pipeline.l6.router.run` in the Runpod handler).
+5. Same falsifier IDs (re-route to `energy_physics_pipeline.l6.router.run` in the Runpod handler).
 6. Cross-model disagreement records emitted with the same metric and thresholds.
 
 The `/v1/runpod/{layer}/{domain}` endpoint is the placeholder you replace. It currently returns 503. Wire your Runpod-side function under that route and remove the `raise HTTPException(503)`.
@@ -95,7 +95,7 @@ Customer can audit its campaign; Zer0pa retains redacted operational provenance 
 
 ```bash
 git clone https://github.com/Zer0pa/Energy
-cd Energy
+cd Energy-Physics-Pipeline
 python3.13 -m venv .venv
 .venv/bin/pip install -e '.[test,electrochem,fusion,tda,mcp]'
 ./scripts/full_check.sh

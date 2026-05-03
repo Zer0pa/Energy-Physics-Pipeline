@@ -35,7 +35,7 @@ The PRD §L2 handover note ranks **Pyrokinetics** as "the universal adapter" pre
 
 We integrate Pyrokinetics 0.8.0 as a **dynamically imported CPU-side adapter**:
 
-- File: `energy_pipeline/adapters/fusion/l2_pyrokinetics.py`
+- File: `energy_physics_pipeline/adapters/fusion/l2_pyrokinetics.py`
 - Class: `PyrokineticsParserAdapter` (emits `UniversalLayerEnvelope`)
 - Fixture: `fixtures/fusion/pyrokinetics_demo.gs2` (synthetic GS2 deck; q=1.5, shat=0.8, beta=0.005)
 - Tests: `tests/integration/test_pyrokinetics_parser.py` (4 tests, all green in < 30 s)
@@ -104,5 +104,5 @@ Only `mode=scientific` is emitted when max\_residual < 1e-3 **and** Pyrokinetics
 - Pyrokinetics GitHub: <https://github.com/pyro-kinetics/pyrokinetics>
 - Pyrokinetics JOSS paper: <https://doi.org/10.21105/joss.05866>
 - PRD §"Part B - Fusion / Plasma Contracts" §L2
-- `energy_pipeline/adapters/fusion/l2.py` (existing L2 adapters, frozen)
-- `energy_pipeline/boundary.py` (BOUNDARY_BLOCK definition)
+- `energy_physics_pipeline/adapters/fusion/l2.py` (existing L2 adapters, frozen)
+- `energy_physics_pipeline/boundary.py` (BOUNDARY_BLOCK definition)

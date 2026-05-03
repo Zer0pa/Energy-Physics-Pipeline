@@ -3,12 +3,12 @@ from __future__ import annotations
 
 import pytest
 
-from energy_pipeline.adapters.fusion.l5_r2s import (
+from energy_physics_pipeline.adapters.fusion.l5_r2s import (
     R2sActivationSpec,
     R2sAnalyticActivationAdapter,
 )
-from energy_pipeline.boundary import BOUNDARY_BLOCK, BoundaryViolation
-from energy_pipeline.schemas import GateStatus, Mode
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK, BoundaryViolation
+from energy_physics_pipeline.schemas import GateStatus, Mode
 
 
 def test_r2s_emits_envelope_with_decay_heat_decreasing():

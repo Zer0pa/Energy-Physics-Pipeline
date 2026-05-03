@@ -15,7 +15,7 @@ The overnight executor proceeds under PRD defaults and does not wait for open-qu
 
 ## Deviation Log
 
-_No deviations recorded at 2026-04-30T00:00:00Z. All files produced by the seed-log executor conform to the PRD's License And Status Findings section and the schema contracts defined in energy_pipeline/schemas/._
+_No deviations recorded at 2026-04-30T00:00:00Z. All files produced by the seed-log executor conform to the PRD's License And Status Findings section and the schema contracts defined in energy_physics_pipeline/schemas/._
 
 ---
 

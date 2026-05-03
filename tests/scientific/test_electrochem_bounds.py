@@ -6,11 +6,11 @@ from __future__ import annotations
 
 import pytest
 
-from energy_pipeline.adapters.electrochem.l1 import ElectronicStructureAdapter
-from energy_pipeline.adapters.electrochem.l4 import (
+from energy_physics_pipeline.adapters.electrochem.l1 import ElectronicStructureAdapter
+from energy_physics_pipeline.adapters.electrochem.l4 import (
     ThermoelectricAdapter,
 )
-from energy_pipeline.schemas.dro import ScalarMetrics
+from energy_physics_pipeline.schemas.dro import ScalarMetrics
 
 
 # ---------------------------------------------------------------------------
@@ -47,7 +47,7 @@ def test_fill_factor_lt_0_raises():
 
 def test_soc_out_of_range_raises():
     """Verify that SoC < 0 or > 1 triggers a ValueError."""
-    from energy_pipeline.adapters.electrochem.l4 import PyBaMMBatteryAdapter
+    from energy_physics_pipeline.adapters.electrochem.l4 import PyBaMMBatteryAdapter
     PyBaMMBatteryAdapter()  # smoke-construct; we test the guard logic directly below
     bad_soc = [-0.1, 1.5]  # out of range
     for s in bad_soc:
@@ -65,7 +65,7 @@ def test_marcus_lambda_negative_marks_fail():
     ElectronicStructureAdapter()  # smoke-construct; falsifier tested directly below
     # We cannot easily inject a negative lambda through the public interface
     # (the fixture is hardcoded positive) so we test the falsifier function directly.
-    from energy_pipeline.schemas.envelope import FailureRecord
+    from energy_physics_pipeline.schemas.envelope import FailureRecord
 
     # Simulate the falsifier logic
     lambda_eV = -0.1
@@ -115,7 +115,7 @@ def test_thermoelectric_above_carnot_raises():
     below Carnot. We verify the falsifier code path by triggering it directly with a
     constructed impossible condition where eta_device is artificially set above Carnot.
     """
-    from energy_pipeline.schemas.envelope import FailureRecord
+    from energy_physics_pipeline.schemas.envelope import FailureRecord
 
     T_hot = 800.0
     T_cold = 300.0

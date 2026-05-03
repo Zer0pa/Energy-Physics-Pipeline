@@ -4,17 +4,17 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-from energy_pipeline.adapters.fusion import (
+from energy_physics_pipeline.adapters.fusion import (
     ReducedTransportCpuAdapter,
 )
-from energy_pipeline.adapters.fusion.l4 import TokamakScenarioSpec
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.adapters.fusion.l4 import TokamakScenarioSpec
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.schemas import (
     DeviceFamily,
     DeviceResponseObject,
     SubVertical,
 )
-from energy_pipeline.schemas.dro import DroAuditBlock, OperatingConditions, ResponseBlock
+from energy_physics_pipeline.schemas.dro import DroAuditBlock, OperatingConditions, ResponseBlock
 
 
 def test_fusion_dro_with_tokamak_passes():

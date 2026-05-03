@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import pytest
 
-from energy_pipeline.boundary import check_fusion_intent
+from energy_physics_pipeline.boundary import check_fusion_intent
 
 
 BLOCKED_PHRASES: list[str] = [

@@ -1,4 +1,4 @@
-# Boundary Block — Zer0pa Energy
+# Boundary Block — Energy Physics Pipeline
 
 **Verbatim block (must appear in every artifact):**
 
@@ -8,4 +8,4 @@
 
 **Fusion specialisation rule:** Fusion blanket and breeding-blanket simulation is allowed as research. Weapons-grade tritium simulation, stockpile optimization, extraction/purification optimization, diversion, military use, and defence applications are blocked. The pipeline must emit no technical optimization output for blocked intents.
 
-**Implementation:** see `energy_pipeline/boundary.py` — `BOUNDARY_BLOCK`, `verify_boundary(payload)`, and `FUSION_FORBIDDEN_INTENTS`.
+**Implementation:** see `energy_physics_pipeline/boundary.py` — `BOUNDARY_BLOCK`, `verify_boundary(payload)`, and `FUSION_FORBIDDEN_INTENTS`.

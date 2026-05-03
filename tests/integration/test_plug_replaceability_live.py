@@ -28,10 +28,10 @@ from __future__ import annotations
 import pytest
 from fastapi.testclient import TestClient
 
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.l6 import reload as cfg_reload
-from energy_pipeline.rest import create_app
-from energy_pipeline.schemas import (
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.l6 import reload as cfg_reload
+from energy_physics_pipeline.rest import create_app
+from energy_physics_pipeline.schemas import (
     ExecutionMode,
     Mode,
 )
@@ -78,7 +78,7 @@ def test_pybamm_local_cpu_vs_rest_stub_contract(monkeypatch: pytest.MonkeyPatch)
 
     # 2) local_cpu envelope (uses the real PyBaMM adapter where available; falls
     # back to its own internal stub if not).
-    from energy_pipeline.adapters.electrochem.l4 import PyBaMMBatteryAdapter
+    from energy_physics_pipeline.adapters.electrochem.l4 import PyBaMMBatteryAdapter
 
     adapter = PyBaMMBatteryAdapter()
     real = adapter.run({"campaign_id": "live-cutover"})

@@ -14,9 +14,9 @@ import time
 import numpy as np
 import pytest
 
-from energy_pipeline.schemas.falsification import WindowSpec
-from energy_pipeline.tda.early_warning import TdaEarlyWarning
-from energy_pipeline.tda.no_leakage import NoLeakageGuard
+from energy_physics_pipeline.schemas.falsification import WindowSpec
+from energy_physics_pipeline.tda.early_warning import TdaEarlyWarning
+from energy_physics_pipeline.tda.no_leakage import NoLeakageGuard
 
 
 # ---------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-# Runpod Readiness — Zer0pa Energy (Wave 4)
+# Runpod Readiness — Energy Physics Pipeline (Wave 4)
 
 **Status:** READY for Runpod migration at the Wave 4 commit.
 
@@ -15,7 +15,7 @@ A complete CPU-first Energy pipeline:
 
   * **Same-shape REST surface** — every public layer endpoint
     (`/v1/<sub>/<layer>/<op>`) routes through
-    `energy_pipeline.l6.backend_resolver.resolve_and_dispatch`. Setting
+    `energy_physics_pipeline.l6.backend_resolver.resolve_and_dispatch`. Setting
     `ENERGY_L?_BACKEND=runpod_rest` flips that endpoint to forward through
     `RunpodRestAdapter`; clients never need to call `/v1/runpod/...` directly.
   * **Mandatory audit/KG** — every accepted envelope (REST, parser, adapter,
@@ -100,7 +100,7 @@ Process:
 ```bash
 # Reproduce on a fresh clone
 git clone https://github.com/Zer0pa/Energy
-cd Energy
+cd Energy-Physics-Pipeline
 git checkout wave4-cpu-hardening
 python3.13 -m venv .venv
 .venv/bin/pip install -e '.[test,tda,mcp]'
@@ -113,7 +113,7 @@ ENERGY_AUDIT_DIR=$(mktemp -d) ENERGY_KG_DIR=$(mktemp -d) bash scripts/full_check
 
 Expected:
 
-  * `ruff check energy_pipeline tests scripts` — passes.
+  * `ruff check energy_physics_pipeline tests scripts` — passes.
   * `pytest tests` — 475 passed, 0 failed.
   * `bash scripts/full_check.sh` — STRICT FULL CHECK OK.
   * `verify_sources.py --dry-run` — 39 ok / 0 fail / 2 skipped (non-authority).

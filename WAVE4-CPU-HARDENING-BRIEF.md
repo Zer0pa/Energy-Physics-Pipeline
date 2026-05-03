@@ -21,13 +21,13 @@ Canonical repo state reviewed:
 - Branch: `main`
 - Commit: `58ab030`
 - Tag: `wave3-cpu-hardening`
-- GitHub: `https://github.com/Zer0pa/Energy`
+- GitHub: `https://github.com/Zer0pa/Energy-Physics-Pipeline`
 
 Local checks:
 
 - `bash scripts/full_check.sh`: passes when run in isolation; reports total coverage 79.62 percent.
-- `.venv/bin/python -m ruff check energy_pipeline tests`: passes.
-- `.venv/bin/python -m ruff check energy_pipeline tests scripts`: fails on unused imports in `scripts/quick_demo.py`.
+- `.venv/bin/python -m ruff check energy_physics_pipeline tests`: passes.
+- `.venv/bin/python -m ruff check energy_physics_pipeline tests scripts`: fails on unused imports in `scripts/quick_demo.py`.
 - `ENERGY_L4_BACKEND=runpod_rest` probe against `/v1/electrochem/l4/pybamm`: returns `200` with `execution_mode=gpu_rest_stub`, proving the normal route ignores the backend flag.
 - `.venv/bin/python tools/verify_sources.py --dry-run`: 39 OK, 1 failed (`jorek`, SSL verification), 1 skipped non-authority (`gyroswin`).
 
@@ -101,7 +101,7 @@ Acceptance tests:
 - Under `ENERGY_AUDIT_REQUIRED=true`, accepted REST calls increase audit and KG counts.
 - Parser outputs with `scientific_valid=True` emit audit/KG.
 - A deliberately missing audit/KG path fails in strict mode.
-- `energy_pipeline/rest/app.py`, parser adapters, real L4/L5 adapters, and MCP wrappers have direct tests proving central acceptance.
+- `energy_physics_pipeline/rest/app.py`, parser adapters, real L4/L5 adapters, and MCP wrappers have direct tests proving central acceptance.
 
 ### 3. Audit/KG runtime is not parallel-safe enough for overnight work
 
@@ -236,7 +236,7 @@ Required implementation:
 
 Acceptance tests:
 
-- `.venv/bin/python -m ruff check energy_pipeline tests scripts` passes.
+- `.venv/bin/python -m ruff check energy_physics_pipeline tests scripts` passes.
 - `bash scripts/full_check.sh` passes and leaves `git status --short` clean.
 
 ## Required Agent Topology
@@ -262,7 +262,7 @@ The Wave 4 agent may report "ready for Runpod" only after all commands pass from
 python3.12 -m venv .venv || python3.13 -m venv .venv
 .venv/bin/pip install -e '.[test,tda,mcp]'
 .venv/bin/pip install pybamm pybop pypsa pvlib cantera pyscf netCDF4 freegs omas pyrokinetics qiskit mcp ripser persim
-.venv/bin/python -m ruff check energy_pipeline tests scripts
+.venv/bin/python -m ruff check energy_physics_pipeline tests scripts
 .venv/bin/python -m pytest tests -q --tb=short
 bash scripts/full_check.sh
 .venv/bin/python tools/verify_sources.py --dry-run

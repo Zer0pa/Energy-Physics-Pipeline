@@ -12,16 +12,16 @@ from pathlib import Path
 
 import pytest
 
-from energy_pipeline.adapters.fusion import (
+from energy_physics_pipeline.adapters.fusion import (
     CgyroNonlinearAdapter,
     TglfReducedAdapter,
     cross_model_disagreement,
 )
-from energy_pipeline.adapters.fusion.l2 import GyroSpec
-from energy_pipeline.audit import AuditWriter
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.kg import KGStore
-from energy_pipeline.schemas import DisagreementStatus
+from energy_physics_pipeline.adapters.fusion.l2 import GyroSpec
+from energy_physics_pipeline.audit import AuditWriter
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.kg import KGStore
+from energy_physics_pipeline.schemas import DisagreementStatus
 
 
 @pytest.mark.parametrize(

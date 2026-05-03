@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import pytest
 
-from energy_pipeline.adapters.electrochem.parsers import (
+from energy_physics_pipeline.adapters.electrochem.parsers import (
     StructureParserAdapter,
     ToolManifestAdapter,
     known_manifests,
@@ -17,9 +17,9 @@ from energy_pipeline.adapters.electrochem.parsers import (
     parse_smiles,
     parse_xyz,
 )
-from energy_pipeline.boundary import BOUNDARY_BLOCK
-from energy_pipeline.l6 import reload as cfg_reload
-from energy_pipeline.schemas import Mode
+from energy_physics_pipeline.boundary import BOUNDARY_BLOCK
+from energy_physics_pipeline.l6 import reload as cfg_reload
+from energy_physics_pipeline.schemas import Mode
 
 
 # ---------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 # Handoff to the Energy Orchestrator — Energy Work Stream
 
-You are the energy orchestrator for the Zer0pa Energy work stream. This document briefs you on what you inherit, what is expected of you, and what you produce. It does not pre-bake the structure of your PRD — that is your job. The substrate is on the table; shape it with your fresh eyes.
+You are the energy orchestrator for the Energy Physics Pipeline work stream. This document briefs you on what you inherit, what is expected of you, and what you produce. It does not pre-bake the structure of your PRD — that is your job. The substrate is on the table; shape it with your fresh eyes.
 
 ## Boundary
 
@@ -78,7 +78,7 @@ Be granular. The overnight executor is a separate agent on a separate machine wi
 - eSEN-M / fairchem geographic restrictions must be verified from South Africa before production deploy (handover license risk flag).
 - No Docker on the originating Mac. Overnight executor on Runpod may use Docker.
 - No bulk local datasets — manifests + metadata + small slices only. OPTIMADE / Materials Project API / IMAS-Python / DIII-D open-access platform are sufficient CPU-side.
-- GitHub canonical. All sub-agent work commits back to `Zer0pa/Energy` before PRD finalisation.
+- GitHub canonical. All sub-agent work commits back to `Zer0pa/Energy-Physics-Pipeline` before PRD finalisation.
 - No regulatory or clinical claims. No human-subject inference.
 - Defence / weapons applications excluded. Fusion blanket / breeding-blanket simulation is permitted as research; weapons-grade tritium simulation is not.
 - **No cross-workstream substrate sharing.** See § Operator override. Within Energy, the two sub-verticals may share L6 and the L4 device-response object schema.
@@ -97,7 +97,7 @@ Be granular. The overnight executor is a separate agent on a separate machine wi
 
 ## Where the PRD lands and what comes next
 
-Commit `PRD.md` to the top level of `Zer0pa/Energy`. Push to GitHub. After the PRD is final, write `HANDOFF-TO-OVERNIGHT-EXECUTOR.md` describing what the next role inherits, what they produce, and the constraints / authorities they operate under. Mirror the structure of this document.
+Commit `PRD.md` to the top level of `Zer0pa/Energy-Physics-Pipeline`. Push to GitHub. After the PRD is final, write `HANDOFF-TO-OVERNIGHT-EXECUTOR.md` describing what the next role inherits, what they produce, and the constraints / authorities they operate under. Mirror the structure of this document.
 
 The user will then trigger the overnight execution on a separate Runpod-bound machine using a startup prompt analogous to `ORCHESTRATOR-STARTUP-PROMPT.md`.
 

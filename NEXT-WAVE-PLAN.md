@@ -35,7 +35,7 @@ These were installed during the audit just before the pause; they are present in
 ### Wave A — Real adapter wiring on installed packages
 
 A1. **PyBOP integration** (electrochem L4, real CPU)
-   - New module `energy_pipeline/adapters/electrochem/l4_pybop.py`.
+   - New module `energy_physics_pipeline/adapters/electrochem/l4_pybop.py`.
    - Class `PyBOPParameterInferenceAdapter` wrapping the PyBaMM Chen2020 cell.
    - Inference target: a small subset of SPM parameters (positive-electrode-diffusivity, electrolyte-conductivity, etc.) given a synthetic CC discharge trajectory plus added Gaussian noise.
    - Emit envelope + DRO with the recovered posterior P5/P50/P95 in `scalar_metrics`.
@@ -47,12 +47,12 @@ A2. **OMAS adapter** (fusion L4, real CPU)
    - Add `tests/integration/test_omas_validation.py` against our IMAS netCDF fixture.
 
 A3. **Pyrokinetics adapter** (fusion L2, real CPU parser)
-   - New module `energy_pipeline/adapters/fusion/l2_pyrokinetics.py`.
+   - New module `energy_physics_pipeline/adapters/fusion/l2_pyrokinetics.py`.
    - Class `PyrokineticsParserAdapter` that round-trips a tiny GS2 / TGLF input deck through Pyrokinetics' `Pyro` object and emits an envelope.
    - Test: round-trip preserves reference values within numerical noise.
 
 A4. **Quantum slot** (electrochem L1, real CPU)
-   - New module `energy_pipeline/adapters/electrochem/l1_quantum.py`.
+   - New module `energy_physics_pipeline/adapters/electrochem/l1_quantum.py`.
    - Class `VqeH2Adapter` that builds the H2 Hamiltonian via PySCF integrals (already installed), maps to qubits via Jordan-Wigner, and runs a 4-qubit VQE with `qiskit.primitives` and `scipy.optimize.minimize`.
    - Acceptance: bond energy within 5% of FCI reference (-1.137 Ha at d=0.74 Å). Mark `mode=scientific` only if reference matched; PRD note says "no quantum advantage claims" — that constraint is honored, this is a smoke test.
    - Test in `tests/integration/test_vqe_h2.py`.
@@ -81,7 +81,7 @@ B9. **Tandem PV analytic** — Si + perovskite tandem; more ambitious than singl
 
 C1. **CI workflow** — `.github/workflows/ci.yml` running `pytest -q tests/contract tests/falsification tests/scientific tests/integration` on push and PR. Use Python 3.13 on ubuntu-latest. Pin no heavy deps; install only `[test]` extras + the small `[tda]` extras.
 
-C2. **Coverage report** — pytest-cov is already installed. Add `pytest --cov=energy_pipeline --cov-report=xml` to a `make coverage` target. Don't enforce a threshold yet.
+C2. **Coverage report** — pytest-cov is already installed. Add `pytest --cov=energy_physics_pipeline --cov-report=xml` to a `make coverage` target. Don't enforce a threshold yet.
 
 C3. **Architecture diagram** — `docs/architecture.md` with an ASCII / mermaid diagram of L1→L6 + the L4 DRO bridge between sub-verticals + the L6 falsifier router.
 

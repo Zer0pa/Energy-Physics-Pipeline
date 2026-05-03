@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import argparse
 
-from energy_pipeline.audit import AuditWriter
+from energy_physics_pipeline.audit import AuditWriter
 
 
 def main() -> int:

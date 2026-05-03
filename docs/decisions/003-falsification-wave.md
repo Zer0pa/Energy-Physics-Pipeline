@@ -81,5 +81,5 @@ Implement a 12-test falsification wave.  The wave PASSES only if every bad case 
 ## Consequences
 
 - The 12 tests in `tests/falsification/test_falsification_wave.py` are the acceptance gate for every pipeline release.
-- Inline falsifiers (T5–T12) are test-local; production equivalents will be promoted to `energy_pipeline/l6/falsifiers/` when the corresponding domain adapter is built.
+- Inline falsifiers (T5–T12) are test-local; production equivalents will be promoted to `energy_physics_pipeline/l6/falsifiers/` when the corresponding domain adapter is built.
 - `EarlyWarningSignal` (from `schemas/falsification.py`) is the canonical TDA output; no scalar classifier alone may substitute it.

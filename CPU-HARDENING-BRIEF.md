@@ -14,7 +14,7 @@ The latest implementation is substantial and the full test suite can pass in a f
 
 Local review on 2026-04-30 after syncing `origin/main` at `13a99d5` / tag `wave2-cpu-complete`:
 
-- `ruff check energy_pipeline tests`: passed.
+- `ruff check energy_physics_pipeline tests`: passed.
 - `pytest tests -q --tb=short`: 333 passed after installing optional CPU dependencies (`pybamm`, `pybop`, `pypsa`, `pvlib`, `cantera`, `pyscf`, `netCDF4`, `freegs`, `omas`, `pyrokinetics`, `qiskit`, `mcp`, `ripser`, `persim`).
 - Coverage run: 333 passed, 77.1 percent total coverage.
 - Falsification wave: passes in tests.
@@ -26,7 +26,7 @@ Independent xhigh falsification agents found that a minimally provisioned enviro
 
 ### 1. Runpod cutover is not yet a config-flag swap
 
-`energy_pipeline/rest/app.py` still has `/v1/runpod/{layer}/{domain}` returning 503. Normal layer routes do not dispatch by `ENERGY_L?_BACKEND`, and tests explicitly state `runpod_rest` is not live-tested. The next wave must implement a backend resolver and a mockable Runpod REST adapter so the same request can flow through `local_cpu`, `gpu_rest_stub`, and `runpod_rest` without changing endpoint shape.
+`energy_physics_pipeline/rest/app.py` still has `/v1/runpod/{layer}/{domain}` returning 503. Normal layer routes do not dispatch by `ENERGY_L?_BACKEND`, and tests explicitly state `runpod_rest` is not live-tested. The next wave must implement a backend resolver and a mockable Runpod REST adapter so the same request can flow through `local_cpu`, `gpu_rest_stub`, and `runpod_rest` without changing endpoint shape.
 
 Acceptance:
 
@@ -47,7 +47,7 @@ Acceptance:
 
 ### 3. Falsification wave is partly test-local
 
-Several falsifiers are defined inline in `tests/falsification/test_falsification_wave.py` instead of production `energy_pipeline/l6/router.py` or a production falsifier module. The tests prove helper logic, not that live adapters and REST outputs are centrally blocked.
+Several falsifiers are defined inline in `tests/falsification/test_falsification_wave.py` instead of production `energy_physics_pipeline/l6/router.py` or a production falsifier module. The tests prove helper logic, not that live adapters and REST outputs are centrally blocked.
 
 Acceptance:
 
