@@ -196,3 +196,51 @@ energy-physics --help
 ```
 
 Runpod migration starts by setting `ENERGY_RUNPOD_BASE_URL` and flipping the target layer with `ENERGY_L?_BACKEND=runpod_rest`. The enterprise completion standard is in [`H100-ENTERPRISE-COMPLETION-PLAN.md`](./H100-ENTERPRISE-COMPLETION-PLAN.md).
+
+## What's Next
+
+The CPU substrate is complete. The enterprise completion wave is GPU-backed scientific execution on H100 via Runpod.
+
+### First mandate
+
+Minimum enterprise completion requires one serious electrochem GPU lane, one fusion or reasoner lane, live same-endpoint cutover, audit/KG provenance, full falsification/regression, and a committed handoff. A smoke test or single shaped envelope is not completion.
+
+### H100 work plan
+
+| Phase | Instances | Approx H100-hours | Wall clock | Notes |
+| --- | --- | ---: | --- | --- |
+| Runpod service bootstrap + cutover proof | 1× H100 SXM5 | 8–20 h | Day 1 | Container, CUDA stack, `UniversalLayerEnvelope` return shape, golden fixture pass |
+| Electrochem GPU lane | 1× H100 SXM5 | 40–120 h | Days 2–7 | MACE-MP-0 or fairchem eSEN inference; material-manifest ingestion; audit/KG outputs |
+| Fusion / reasoner lane | 1× H100 SXM5 | 60–180 h | Days 2–7 (parallel) | GyroSwin/CGYRO-facing surrogate against public DIII-D/KSTAR/IMAS scenarios; vLLM domain reasoner |
+| Falsification + regression + handoff | 1× H100 SXM5 | 22–54 h | Days 8–10 | CPU vs GPU golden fixture regression, cross-model disagreement, TDA where applicable, final strict gate |
+| **First wave total** | **2× H100 SXM5 (parallel)** | **180–500 H100-hours** | **~4–10 days** | **Budget cap: $2,500 at ~$4.50/hr per H100** |
+
+Full multi-lane completion (multiple electrochem + fusion lanes, calibrated dataful campaigns): 600–1,500 H100-hours.
+
+### Model and data dependencies
+
+| Dependency | Source | Lane |
+| --- | --- | --- |
+| MACE-MP-0 universal potential | [HuggingFace `mace-mp`](https://huggingface.co/mace-community/mace-mp-0) | Electrochem L2 |
+| fairchem eSEN / EquiformerV2 | [HuggingFace `fairchem`](https://huggingface.co/fairchem) | Electrochem L2 alternative |
+| Domain reasoner (≥70B) | HuggingFace private pointer or vLLM-served | L4/L6 reasoner lane |
+| DIII-D / KSTAR equilibrium scenarios | Public IMAS-shaped datasets; see `sources_log/` | Fusion L3–L4 |
+| OQMD / Materials Project slices | Manifest-only; `energy_physics_pipeline/adapters/electrochem/data_pointers.py` | Electrochem L1 |
+
+No bulk datasets commit to git. All data artifacts need a `SourceManifest`, checksum, and audit/KG provenance before entering the pipeline.
+
+### Three decisions before provisioning
+
+1. **Electrochem model:** MACE-MP-0 (faster, broad materials coverage) vs fairchem eSEN (heavier, battery-specific). MACE is faster to bootstrap the first lane.
+2. **Reasoner:** vLLM-served 70B on the same H100 (needs the full 80 GB HBM) vs a smaller domain model. Decide before the fusion/reasoner pod spins up — it drives instance count.
+3. **Data pointers first:** Resolve source manifests (DIII-D scenarios, OQMD slices) CPU-side before GPU time starts. See `tools/runpod_cutover_checklist.py` and `tools/verify_sources.py`.
+
+### Operating constraints (GPU wave)
+
+- Same boundary, falsifier, license, and audit/KG gates as CPU. No gate waivers for GPU speed.
+- No Class C/D/E licensed tool enters the product path without `kg://license-grant/...` evidence.
+- No bulk datasets in git; use manifests, small fixtures, checksums, private Hugging Face where needed.
+- Set a 2-hour idle timeout on each pod and a hard budget kill switch before starting.
+- Runpod operating runbook and artifact checksums must be committed before claiming enterprise completion.
+
+Full gate definition: [`H100-ENTERPRISE-COMPLETION-PLAN.md`](./H100-ENTERPRISE-COMPLETION-PLAN.md).
