@@ -41,7 +41,7 @@ Within Energy Physics Pipeline, the two sub-verticals may share L6 design and th
 | Identifier | Energy Physics Pipeline |
 | Repository | https://github.com/Zer0pa/Energy-Physics-Pipeline |
 | Portfolio | Energy workstream |
-| Visibility | INTERNAL |
+| Visibility | PUBLIC |
 | Default Branch | main |
 | Authority Source | `RUNPOD-READINESS.md`; `H100-ENTERPRISE-COMPLETION-PLAN.md`; `PRD.md` |
 | License | Proprietary - Zer0pa internal research artifact |
