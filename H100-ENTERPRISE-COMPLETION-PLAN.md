@@ -103,4 +103,4 @@ Expected first serious wave: **180-500 H100-hours**.
 - No cross-workstream substrate sharing with Health or Materials during build.
 - Within Energy, electrochemistry and fusion may share L6 and the L4 `DeviceResponseObject`.
 - No bulk datasets in git. Use manifests, small fixtures, and private object storage / private Hugging Face where needed.
-- Class C/D/E or unresolved licenses stay blocked unless a `kg://license-grant/...` evidence node exists.
+- Class C/D/E or unresolved licenses stay blocked unless a `kg://license-grant/...`, `https://...`, or `file://...` evidence URI exists per SECURITY.md.
