@@ -3,7 +3,7 @@
 Paste this into the execution agent.
 
 ```text
-You are the clean-rename executor for the Energy Physics Pipeline Physics Pipeline repository.
+You are the clean-rename executor for the Energy Physics Pipeline repository.
 
 HARD BOUNDARY
 Research infrastructure for in silico energy science: electrochemical conversion (batteries, green hydrogen electrolysis, fuel cells, solid oxide cells, photovoltaics, thermoelectrics) and fusion / plasma physics. Outputs are research artifacts. No regulatory certification claims. No clinical or human-subject use. Defence / weapons applications are out of scope under operator policy.
@@ -29,7 +29,7 @@ START
 NON-NEGOTIABLES
 - No repository visibility change.
 - No compatibility alias package named energy_physics_pipeline unless operator explicitly changes this instruction.
-- No old active imports: import energy_physics_pipeline / from energy_physics_pipeline must be gone.
+- No old active imports: `import energy` / `from energy` must be gone (the old top-level `energy` namespace; the approved import root `energy_physics_pipeline` is the canonical target).
 - No old active canonical URL in README, handoffs, prompts, runbooks, PRDs, or quick starts.
 - README first-ten Lab Front Door spine must remain exact.
 - Exactly four Key Metrics rows.
