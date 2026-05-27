@@ -1,232 +1,250 @@
 # Energy-Physics-Pipeline
 
-> Product-page mirror for `/energy/Energy/`.
-> Live public repo: [Zer0pa/Energy-Physics-Pipeline](https://github.com/Zer0pa/Energy-Physics-Pipeline).
-> GitHub Markdown cannot reproduce the website typography, CSS, JavaScript, scroll behavior, or live bento layout; this README translates the product page into GitHub-safe Markdown evidence blocks.
-
 ## 0. Install / Developer Commands
 
-The product page is the positioning authority. This section is the only retained developer-surface material from the previous root README.
+#### Quick Start
 
 ```bash
 git clone https://github.com/Zer0pa/Energy-Physics-Pipeline
+cd Energy-Physics-Pipeline
+python3.13 -m venv .venv
 .venv/bin/pip install -e '.[test,tda,mcp]'
 .venv/bin/pip install pybamm pybop pypsa pvlib cantera pyscf netCDF4 freegs omas pyrokinetics qiskit mcp ripser persim
+ENERGY_AUDIT_DIR=$(mktemp -d) ENERGY_KG_DIR=$(mktemp -d) bash scripts/full_check.sh
+energy-physics --help
 ```
 
-## Product Page Mirror
-
-**Product-page title:** Energy · CPU baseline for energy physics runs · Zer0pa
-
-**Product-page description:** Energy-Physics-Pipeline · CPU-backed in-silico energy research lane · electrochemistry & fusion · 475/475 strict-full, 79.72% coverage, 6/6 anchors resolve · PyPI 0.1.0 stale; H100 completion pending
-
-### Hero Translation
-
-> 00 · ENERGY · IN-SILICO PHYSICS PIPELINELIVE LANE · 011600Z CPU-backed energy baseline. In-silico physics pipeline · electrochemistry to fusion · Energy-Physics-Pipeline Energy research groups need a reproducible baseline before they spend H100 budget. Energy-Physics-Pipeline organizes six in-silico layers — electrons, atoms, mesoscale, device, stack, orchestration — across electrochemistry and fusion/plasma research, all running on commodity CPUs today. 475 of 475 strict CPU tests pass at 79.72% coverage; 39 of 39 source manifests verify; 6 of 6 anchors resolve. H100 execution remains untested. This is research infrastructure, not a deployable energy product.
-
-## Positioning
-
-| Field | Value |
-| --- | --- |
-| Section | energy |
-| Product route | /energy/Energy/ |
-| Live public repository | https://github.com/Zer0pa/Energy-Physics-Pipeline |
-| Repo identity used here | Energy-Physics-Pipeline |
-| Website display identity | Energy |
-| Verdict | STAGED |
-| Posture | always_in_beta |
-| Headline metric | 475 passed, 0 failed, STRICT FULL CHECK OK, 79.72% coverage; 39 source manifests verified; same-endpoint Runpod cutover wired. |
-| Honest blocker | No GPU-backed enterprise completion wave has passed yet. A service smoke test, shaped envelope, or single endpoint flip is not completion. The first serious H100 mandate is one electrochem GPU lane, one fusion or reasoner lane, live same-endpoint cutover, audit/KG provenance, and full falsification/regression. |
-| Mechanics asset from product page |  |
-
-## Key Metrics
-
-| Metric | Value | Baseline |
-| --- | --- | --- |
-| Strict CPU gate | 475 passed, 0 failed, STRICT FULL CHECK OK, 79.72% coverage | RUNPOD-READINESS.md; Wave 4 |
-| Source manifests | 39 ok, 0 fail, 2 non_authority skipped | tools/verify_sources.py --dry-run |
-| Runpod cutover substrate | Same public endpoint flips by config flag | tests/integration/test_runpod_same_endpoint.py |
-| Enterprise H100 completion | 180-500 H100-hours minimum; 600-1500 H100-hours full multi-lane | H100-ENTERPRISE-COMPLETION-PLAN.md |
-
-## Proof Anchors
-
-| Path | State |
-| --- | --- |
-| RUNPOD-READINESS.md | VERIFIED |
-| H100-ENTERPRISE-COMPLETION-PLAN.md | VERIFIED |
-| FINAL-REPORT.md | VERIFIED |
-| PRD.md | VERIFIED |
-| tests/integration/test_runpod_same_endpoint.py | VERIFIED |
-| sources_log/verification_summary.md | VERIFIED |
-
-## What We Prove
-
-- Wave 4 same-endpoint cutover is wired: public /v1/<sub>/<layer>/<op> routes through energy_pipeline.l6.backend_resolver.resolve_and_dispatch.
-- Accepted envelopes go through central accept_envelope / accept_envelope_and_dro enforcement with production falsifiers, audit JSONL/DuckDB, and KG writes.
-- The CPU-first suite is strict enough to reject overclaiming: full check, Runpod same-endpoint tests, mandatory audit/KG tests, and parallel audit/KG safety tests are present.
-- Source evidence is content-addressed or demoted: current authority sources report 39 verified entries, zero authority failures, and two non-authority skips.
-- The H100 completion plan names the real remaining work: dataful GPU-backed lanes, CPU-vs-GPU regression, cross-model disagreement, TDA where applicable, and enterprise handoff.
-
-## What We Do Not Claim
-
-- We do not claim the enterprise Energy pipeline is complete.
-- We do not claim a Runpod smoke test, single shaped envelope, or one endpoint flip is sufficient completion evidence.
-- We do not claim regulatory certification, deployable product readiness, clinical/human-subject use, or defence/weapons applicability.
-- We do not claim all GPU/HPC tools are integrated; MACE/fairchem/eSEN, GyroSwin/CGYRO, vLLM reasoner, OpenMC/GPAW/R2S remain H100 work.
-- We do not claim blocked or conditional licenses are cleared without kg://license-grant/... evidence.
-- We do not commit bulk datasets to git; dataful execution must use manifests, small fixtures, checksums, and private object storage where needed.
-
-## Blockers / Failures
-
-> No GPU-backed enterprise completion wave has passed yet. A service smoke test, shaped envelope, or single endpoint flip is not completion. The first serious H100 mandate is one electrochem GPU lane, one fusion or reasoner lane, live same-endpoint cutover, audit/KG provenance, and full falsification/regression.
-
-## Verification Surface
-
-| Code | Check | Verdict |
-| --- | --- | --- |
-| V_01 | Wave 4 strict CPU gate: 475 passed, 0 failed, 79.72% coverage | PASS |
-| V_02 | Same-endpoint Runpod cutover tests | PASS |
-| V_03 | Mandatory audit/KG and parallel runtime tests | PASS |
-| V_04 | Source manifest authority verification: 39 ok / 0 fail / 2 non-authority skipped | PASS |
-| V_05 | H100 enterprise GPU completion wave | PENDING |
-
-## License
-
-| Field | Value |
-| --- | --- |
-| License | LicenseRef-Zer0pa-OWNER_DEFERRED |
-| Authority source | RUNPOD-READINESS.md; H100-ENTERPRISE-COMPLETION-PLAN.md; PRD.md |
-
-## Upcoming Workstreams
-
-| Category | Summary |
-| --- | --- |
-| Active Engineering | H100 enterprise completion wave: GPU-backed scientific lanes, CPU-vs-GPU regression, cross-model disagreement, TDA where applicable, and enterprise handoff. Estimated 180-500 H100-hours minimum. |
-| Research-Deferred — Investigation Underway | Full multi-lane enterprise hardening: MACE/fairchem/eSEN, GyroSwin/CGYRO, vLLM reasoner, OpenMC/GPAW/R2S integration. Estimated 600-1500 H100-hours full multi-lane. |
-
-## Related Repos
-
-No related repos are declared on the product page frontmatter.
-
-<details>
-<summary>Full Visible Product-Page Bento Translation</summary>
-
-This section preserves the product page cells as Markdown text blocks. It intentionally omits shared site navigation, footer chrome, CSS, and scripts.
-
-### Bento Cell 1
-
-> 00 · ENERGY · IN-SILICO PHYSICS PIPELINELIVE LANE · 011600Z CPU-backed energy baseline. In-silico physics pipeline · electrochemistry to fusion · Energy-Physics-Pipeline Energy research groups need a reproducible baseline before they spend H100 budget. Energy-Physics-Pipeline organizes six in-silico layers — electrons, atoms, mesoscale, device, stack, orchestration — across electrochemistry and fusion/plasma research, all running on commodity CPUs today. 475 of 475 strict CPU tests pass at 79.72% coverage; 39 of 39 source manifests verify; 6 of 6 anchors resolve. H100 execution remains untested. This is research infrastructure, not a deployable energy product.
-
-### Bento Cell 2
-
-> 01 · THE GAPCPU BASELINE FIRST “Energy teams need a reproducible CPU baseline before GPU/H100 physics runs carry weight.”
-
-### Bento Cell 3
-
-> 02 · MARKETSUSER GROUPS Fusion / plasma research$496.7B '31 Hydrogen generation$316.5B '30 Fuel-cell modeling$17.9B '30 Computational chemistry$13.7B '30 Battery software$8.9B '30 Adjacent energy-transition forecasts; this pipeline is research infrastructure, not a deployable energy product or certification claim.
-
-### Bento Cell 4
-
-> 03 · VALUE 475/475PASS Six layers run end-to-end on commodity CPUs, before any GPU hour is spent.
-
-### Bento Cell 5
-
-> 04 · INSIGHT 475 / 475 CPU pass. GPU execution still untested.
-
-### Bento Cell 6
-
-> 05.0 · CURRENT TECHPOINT TOOLS + HPC Battery, electrochemistry, and fusion teams each run mature solvers — but in separate stacks, with separate manifests, separate result formats, and separate notions of which version of which dataset was actually used.
-
-### Bento Cell 7
-
-> 05.1 · OUR TECHCPU-FIRST BASELINE Energy-Physics-Pipeline ships one CPU-first stack across six layers — electrons, atoms, mesoscale, device, stack, orchestration. Source manifests resolve at known SHAs, electrochemistry and fusion runs share the same execution path, and the same code path will run on GPU once cluster time arrives. A research engineer can re-run the full chain on a laptop.
-
-### Bento Cell 8
-
-> 05.2 · BENCHMARKSSTRICT FULL CHECK Strict475 / 475tests PASS Coverage79.72% of source Sources39 / 39verified, 0 miss Anchors6 / 6resolve CPU strict475/475 Source verify39/39 Cutover hooksstaged Open work: H100 enterprise wave untested — 180–500 GPU-hours pending real cluster time.
-
-### Bento Cell 9
-
-> 06 · MEASUREMENTSTRICT FULL + SOURCE VERIFY CPU results come first; GPU runs are still untested.
-
-### Bento Cell 10
-
-> 06.1 · BOUNDED VALIDATION ON STRICT CPU CHAIN CPU strict475 / 475 Source verify39 / 39 Runpod cutover hooksstaged H100 execution wave0 / 180–500 hrs Strict CPU check plus source verification across all six layers · 39 of 39 manifests resolve at known SHAs · GPU execution path wired but unrun · H100 wave open at 180–500 GPU-hours.
-
-### Bento Cell 11
-
-> 07 · KEY METRICSSTRICT FULL CHECK + SOURCE VERIFY
-
-### Bento Cell 12
-
-> 07.1 · CPU STRICT CHECK 475/475PASS Strict full check · 0 miss
-
-### Bento Cell 13
-
-> 07.2 · COVERAGE 79.72% Of source · strict full check
-
-### Bento Cell 14
-
-> 07.3 · SOURCE MANIFESTS 39/39OK Verified at known SHAs · 0 miss
-
-### Bento Cell 15
-
-> 07.4 · H100 BUDGET 180–500HRS H100 execution · not yet run
-
-### Bento Cell 16
-
-> 07.5 · PIPELINE LAYERS 6layers Electrons through orchestration
-
-### Bento Cell 17
-
-> 08 · DETERMINISMFROZEN-INPUTS · CPU CHAIN CPU layer outputs re-derive from frozen inputs.
-
-### Bento Cell 18
-
-> 08.1 · WHAT DETERMINISTIC MEANSSTRICT-FULL · SAME ENDPOINTS Across all six layers — electrons through orchestration — current results are reproducible from frozen inputs on commodity CPU. Source manifests resolve at known SHAs, and Runpod cutover hooks preserve the same endpoint shape for later GPU runs. Unit of bit-exactness: per-layer, against strict-full on a fresh venv. H100 enterprise work must later pass CPU-vs-GPU regression against real GPU artifacts before it can claim parity with the CPU baseline.
-
-### Bento Cell 19
-
-> 08.2 · THE FIDELITY GAP Honest Blocker · No GPU-backed enterprise completion wave has run yet. PyPI remains at energy-physics-pipeline 0.1.0 with stale text; 0.1.1 is pending. Smoke tests and shaped envelopes are not completion. No production, regulatory, or defense claim. 180–500 H100-hours are owed before this becomes a GPU-backed result.
-
-### Bento Cell 20
-
-> 09 ONE STACK FROM ELECTRONS TO FUSION.
-
-### Bento Cell 21
-
-> 09.1 · THIS REPO'S AMBITION The ambition is one public energy-computation workbench that a fusion lab, an electrochemistry group, and a grid-physics modeler can all extend without forking. CPU baselines, GPU execution, source manifests, and domain routing share one architecture so the science argument stays about physics, not tooling.
-
-### Bento Cell 22
-
-> 09.2 · WHAT WORKS NOW Working now: CPU strict baseline, source manifests at known SHAs, domain routing, and Runpod GPU cutover staged.
-
-### Bento Cell 23
-
-> 09.3 · WHAT'S STILL OPEN Still open: H100 execution wave, PyPI 0.1.1 release, GPU-comparison artifacts, and broader domain data.
-
-### Bento Cell 24
-
-> 09.4 · RELEASES · NEAR-TERM (12–24 MO) Public package matches the working repo A research engineer evaluating tools no longer has to choose between a stale PyPI page and a fresher GitHub. Procurement, software audits, and library-of-record decisions can use the same identity the running pipeline carries.
-
-### Bento Cell 25
-
-> 09.5 · ELECTROCHEMISTRY · NEAR-TERM (12–24 MO) Battery and hydrogen runs gain a shared yardstick A battery-materials group and a hydrogen-electrolyzer group can compare numbers across the same six-layer chain instead of arguing about toolchains. CPU baselines settle the methodology argument before either team spends device-cluster hours.
-
-### Bento Cell 26
-
-> 09.6 · FUSION · MID-TERM (24–48 MO) GPU plasma runs inherit the CPU receipt When H100 fusion and plasma work lands inside the same execution path, scale stops weakening evidence. A national lab can attach the GPU run, the CPU comparison, and the source manifest to the same record a reviewer will read.
-
-### Bento Cell 27
-
-> 09.7 · DOMAINS · MID-TERM (24–48 MO) Energy domains stop forking their stacks Battery research, fuel-cell modeling, and fusion teams stop maintaining bespoke pipelines for queueing, source manifests, and result tables. A shared workbench means a postdoc moves between domains without learning a new operations stack.
-
-### Bento Cell 28
-
-> 09.8 · GRID · PARADIGM (48 MO+) Energy R&D ships the whole run, not the result Funders, regulators, and grid planners stop reviewing a single number. They review the run object — inputs, environment, source SHAs, comparisons, boundary notes — and decide what to fund or interconnect against an artifact they can re-run themselves.
-
-</details>
-
----
-
-Source mapping: product route `/energy/Energy/` -> live public repo `Zer0pa/Energy-Physics-Pipeline`. README generated from product-page authority plus retained install/dev commands only.
+Runpod migration starts by setting `ENERGY_RUNPOD_BASE_URL` and flipping the target layer with `ENERGY_L?_BACKEND=runpod_rest`. The enterprise completion standard is in [`H100-ENTERPRISE-COMPLETION-PLAN.md`](./H100-ENTERPRISE-COMPLETION-PLAN.md).
+
+<table>
+<tr>
+<td colspan="7" valign="top">
+<sub>01 · Bento cell · b-cell b-hero cell-7 row-2</sub>
+<div><span><b>00 · ENERGY</b> · IN-SILICO PHYSICS PIPELINE</span><span>LIVE LANE · 011600Z</span></div>
+      <h1>CPU-backed energy <span>baseline.</span></h1>
+      <p>In-silico physics pipeline &middot; electrochemistry to fusion &middot; Energy-Physics-Pipeline</p>
+      <p>Energy research groups need a reproducible baseline before they spend H100 budget. Energy-Physics-Pipeline organizes six in-silico layers &mdash; <strong>electrons, atoms, mesoscale, device, stack, orchestration</strong> &mdash; across electrochemistry and fusion/plasma research, all running on commodity CPUs today. <strong>475 of 475 strict CPU tests pass at 79.72% coverage; 39 of 39 source manifests verify; 6 of 6 anchors resolve.</strong> H100 execution remains untested. This is research infrastructure, not a deployable energy product.</p>
+</td>
+<td colspan="5" valign="top">
+<sub>02 · Energy animated mechanics diagram · b-cell b-codec-mechanics cell-5 row-2</sub>
+<figure>
+        <div><img src="docs/assets/product-page-mechanics.gif" alt="Energy approved scientific square mechanics diagram showing layered physics-resolver mechanics."></div>
+        <figcaption><b>Scope:</b> CPU baseline across six in-silico layers. 475 strict tests, manifests, and anchors pass; H100 evidence is not yet claimed.</figcaption>
+      </figure>
+</td>
+</tr>
+<tr>
+<td colspan="4" valign="top">
+<sub>03 · Bento cell · b-cell b-title cell-4</sub>
+<div><b>01 · THE GAP</b><span>CPU BASELINE FIRST</span></div>
+      <h2>&ldquo;Energy teams need a reproducible CPU baseline before GPU/H100 physics runs carry weight.&rdquo;</h2>
+</td>
+<td colspan="5" valign="top">
+<sub>04 · Bento cell · b-cell b-fig cell-5</sub>
+<div><b>02 · MARKETS</b><span>USER GROUPS</span></div>
+      <div>
+        <div>
+          <div><span>Fusion / plasma research</span><span></span><span>$496.7B '31</span></div>
+          <div><span>Hydrogen generation</span><span></span><span>$316.5B '30</span></div>
+          <div><span>Fuel-cell modeling</span><span></span><span>$17.9B '30</span></div>
+          <div><span>Computational chemistry</span><span></span><span>$13.7B '30</span></div>
+          <div><span>Battery software</span><span></span><span>$8.9B '30</span></div>
+        </div>
+      </div>
+      <div>Adjacent energy-transition forecasts; this pipeline is research infrastructure, not a deployable energy product or certification claim.</div>
+</td>
+<td colspan="3" valign="top">
+<sub>05 · Bento cell · b-cell b-stat cell-3</sub>
+<div><b>03 · VALUE</b></div>
+      <div>475<span>/475</span><span>PASS</span></div>
+      <div>Six layers run end-to-end on commodity CPUs, <b>before any GPU hour is spent.</b></div>
+</td>
+</tr>
+<tr>
+<td colspan="3" valign="top">
+<sub>06 · Bento cell · b-cell b-title is-centered cell-3</sub>
+<div><b>04 · INSIGHT</b></div>
+      <h2>475 / 475 CPU pass. <span>GPU execution still untested.</span></h2>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>07 · Bento cell · b-cell b-prose is-technical b-tech-panel</sub>
+<div><b>05.0 · CURRENT TECH</b><span>POINT TOOLS + HPC</span></div>
+        <p>Battery, electrochemistry, and fusion teams each run mature solvers &mdash; but in separate stacks, with separate manifests, separate result formats, and separate notions of which version of which dataset was actually used.</p>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>08 · Bento cell · b-cell b-prose is-technical b-tech-panel</sub>
+<div><b>05.1 · OUR TECH</b><span>CPU-FIRST BASELINE</span></div>
+        <p>Energy-Physics-Pipeline ships one CPU-first stack across six layers &mdash; <strong>electrons, atoms, mesoscale, device, stack, orchestration</strong>. Source manifests resolve at known SHAs, electrochemistry and fusion runs share the same execution path, and the same code path will run on GPU once cluster time arrives. <strong>A research engineer can re-run the full chain on a laptop.</strong></p>
+</td>
+</tr>
+<tr>
+<td colspan="3" valign="top">
+<sub>09 · Bento cell · b-cell b-fig b-benchmark-mini cell-3</sub>
+<div><b>05.2 · BENCHMARKS</b><span>STRICT FULL CHECK</span></div>
+      <div>
+        <div>
+          <div><span>Strict</span><b>475 / 475</b><small>tests PASS</small></div>
+          <div><span>Coverage</span><b>79.72</b><small>% of source</small></div>
+          <div><span>Sources</span><b>39 / 39</b><small>verified, 0 miss</small></div>
+          <div><span>Anchors</span><b>6 / 6</b><small>resolve</small></div>
+        </div>
+        <div>
+          <div><span>CPU strict</span><span></span><span>475/475</span></div>
+          <div><span>Source verify</span><span></span><span>39/39</span></div>
+          <div><span>Cutover hooks</span><span></span><span>staged</span></div>
+        </div>
+      </div>
+      <div><b>Open work:</b> H100 enterprise wave untested &mdash; 180&ndash;500 GPU-hours pending real cluster time.</div>
+</td>
+<td colspan="4" valign="top">
+<sub>10 · Bento cell · b-cell b-title cell-4</sub>
+<div><b>06 · MEASUREMENT</b><span>STRICT FULL + SOURCE VERIFY</span></div>
+      <h2>CPU results come first; <span>GPU runs are still untested.</span></h2>
+</td>
+</tr>
+<tr>
+<td colspan="8" valign="top">
+<sub>11 · Bento cell · b-cell b-fig cell-8</sub>
+<div><b>06.1 · BOUNDED VALIDATION ON STRICT CPU CHAIN</b></div>
+      <div>
+        <div>
+          <div><span>CPU strict</span><span></span><span>475 / 475</span></div>
+          <div><span>Source verify</span><span></span><span>39 / 39</span></div>
+          <div><span>Runpod cutover hooks</span><span></span><span>staged</span></div>
+          <div><span>H100 execution wave</span><span></span><span>0 / 180&ndash;500 hrs</span></div>
+        </div>
+      </div>
+      <div>Strict CPU check plus source verification across all six layers &middot; 39 of 39 manifests resolve at known SHAs &middot; GPU execution path wired but unrun &middot; H100 wave open at 180&ndash;500 GPU-hours.</div>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>12 · Bento cell · b-cell b-row-label cell-12</sub>
+<div><b>07 · KEY METRICS</b><span>STRICT FULL CHECK + SOURCE VERIFY</span></div>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>13 · Bento cell · b-cell b-stat</sub>
+<div><b>07.1 · CPU STRICT CHECK</b></div>
+      <div>475/475<span>PASS</span></div>
+      <div>Strict full check · <b>0 miss</b></div>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>14 · Bento cell · b-cell b-stat</sub>
+<div><b>07.2 · COVERAGE</b></div>
+      <div>79.72<span>%</span></div>
+      <div>Of source · <b>strict full check</b></div>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>15 · Bento cell · b-cell b-stat</sub>
+<div><b>07.3 · SOURCE MANIFESTS</b></div>
+      <div>39/39<span>OK</span></div>
+      <div>Verified at known SHAs · <b>0 miss</b></div>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>16 · Bento cell · b-cell b-stat</sub>
+<div><b>07.4 · H100 BUDGET</b></div>
+      <div>180&ndash;500<span>HRS</span></div>
+      <div>H100 execution · <b>not yet run</b></div>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>17 · Bento cell · b-cell b-stat</sub>
+<div><b>07.5 · PIPELINE LAYERS</b></div>
+      <div>6<span>layers</span></div>
+      <div>Electrons through <b>orchestration</b></div>
+</td>
+</tr>
+<tr>
+<td colspan="4" valign="top">
+<sub>18 · Bento cell · b-cell b-title is-centered cell-4</sub>
+<div><b>08 · DETERMINISM</b><span>FROZEN-INPUTS · CPU CHAIN</span></div>
+      <h2>CPU layer outputs <span>re-derive from frozen inputs.</span></h2>
+</td>
+<td colspan="5" valign="top">
+<sub>19 · Bento cell · b-cell b-prose is-technical cell-5</sub>
+<div><b>08.1 · WHAT DETERMINISTIC MEANS</b><span>STRICT-FULL · SAME ENDPOINTS</span></div>
+      <p>Across all six layers &mdash; electrons through orchestration &mdash; current results are <strong>reproducible from frozen inputs on commodity CPU</strong>. Source manifests resolve at known SHAs, and Runpod cutover hooks preserve the same endpoint shape for later GPU runs.</p>
+      <p>Unit of bit-exactness: <em>per-layer, against strict-full on a fresh venv</em>. <strong>H100 enterprise work must later pass CPU-vs-GPU regression against real GPU artifacts</strong> before it can claim parity with the CPU baseline.</p>
+</td>
+<td colspan="3" valign="top">
+<sub>20 · Bento cell · b-cell b-blocker cell-3</sub>
+<div><b>08.2 · THE FIDELITY GAP</b></div>
+      <span>Honest Blocker &middot;</span>
+      <p><strong>No GPU-backed enterprise completion wave has run yet.</strong> PyPI remains at <strong>energy-physics-pipeline 0.1.0</strong> with stale text; 0.1.1 is pending. Smoke tests and shaped envelopes are not completion. <strong>No production, regulatory, or defense claim.</strong> 180&ndash;500 H100-hours are owed before this becomes a GPU-backed result.</p>
+</td>
+</tr>
+<tr>
+<td colspan="4" valign="top">
+<sub>21 · Bento cell · b-cell b-title cell-4</sub>
+<div><b>09</b></div>
+      <h2>ONE STACK FROM ELECTRONS TO <span>FUSION.</span></h2>
+</td>
+<td colspan="4" valign="top">
+<sub>22 · Bento cell · b-cell b-prose cell-4</sub>
+<div><b>09.1 · THIS REPO'S AMBITION</b></div>
+      <p>The ambition is one public energy-computation workbench that a fusion lab, an electrochemistry group, and a grid-physics modeler can all extend without forking. CPU baselines, GPU execution, source manifests, and domain routing share one architecture so the science argument stays about physics, not tooling.</p>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>23 · Bento cell · b-cell b-title b-statement-card</sub>
+<div><b>09.2 · WHAT WORKS NOW</b></div>
+        <h2>Working now: CPU strict baseline, source manifests at known SHAs, domain routing, and Runpod GPU cutover staged.</h2>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>24 · Bento cell · b-cell b-title b-statement-card</sub>
+<div><b>09.3 · WHAT'S STILL OPEN</b></div>
+        <h2>Still open: H100 execution wave, PyPI 0.1.1 release, GPU-comparison artifacts, and broader domain data.</h2>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>25 · Bento cell · b-cell b-unlock</sub>
+<div><b>09.4</b> &middot; RELEASES · NEAR-TERM (12&ndash;24 MO)</div>
+      <div>Public package matches the working repo</div><div>A research engineer evaluating tools no longer has to choose between a stale PyPI page and a fresher GitHub. Procurement, software audits, and library-of-record decisions can use the same identity the running pipeline carries.</div>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>26 · Bento cell · b-cell b-unlock</sub>
+<div><b>09.5</b> &middot; ELECTROCHEMISTRY · NEAR-TERM (12&ndash;24 MO)</div>
+      <div>Battery and hydrogen runs gain a shared yardstick</div><div>A battery-materials group and a hydrogen-electrolyzer group can compare numbers across the same six-layer chain instead of arguing about toolchains. CPU baselines settle the methodology argument before either team spends device-cluster hours.</div>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>27 · Bento cell · b-cell b-unlock</sub>
+<div><b>09.6</b> &middot; FUSION · MID-TERM (24&ndash;48 MO)</div>
+      <div>GPU plasma runs inherit the CPU receipt</div><div>When H100 fusion and plasma work lands inside the same execution path, scale stops weakening evidence. A national lab can attach the GPU run, the CPU comparison, and the source manifest to the same record a reviewer will read.</div>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>28 · Bento cell · b-cell b-unlock</sub>
+<div><b>09.7</b> &middot; DOMAINS · MID-TERM (24&ndash;48 MO)</div>
+      <div>Energy domains stop forking their stacks</div><div>Battery research, fuel-cell modeling, and fusion teams stop maintaining bespoke pipelines for queueing, source manifests, and result tables. A shared workbench means a postdoc moves between domains without learning a new operations stack.</div>
+</td>
+</tr>
+<tr>
+<td colspan="12" valign="top">
+<sub>29 · Bento cell · b-cell b-unlock</sub>
+<div><b>09.8</b> &middot; GRID · PARADIGM (48 MO+)</div>
+      <div>Energy R&amp;D ships the whole run, not the result</div><div>Funders, regulators, and grid planners stop reviewing a single number. They review the run object &mdash; inputs, environment, source SHAs, comparisons, boundary notes &mdash; and decide what to fund or interconnect against an artifact they can re-run themselves.</div>
+</td>
+</tr>
+</table>
