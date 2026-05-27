@@ -68,7 +68,7 @@ Runpod migration starts by setting `ENERGY_RUNPOD_BASE_URL` and flipping the tar
 <table width="100%">
 <tr>
 <td width="50%" valign="top">
-<div><b>03 · VALUE</b></div>
+<div><b>03 · VALUE OF MARKET</b></div>
       <div>475<span>/475</span> <span>PASS</span></div>
       <div>Six layers run end-to-end on commodity CPUs, <b>before any GPU hour is spent.</b></div>
 </td>
