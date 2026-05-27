@@ -2,6 +2,39 @@
 
 ## Install / Developer Commands
 
+<!-- INSTALL-DX:START -->
+#### Package Install
+
+Installable package: `python3.11 -m pip install energy-physics-pipeline`.
+Current release: `0.1.0` on [PyPI](https://pypi.org/project/energy-physics-pipeline/).
+Source: [Zer0pa/Energy-Physics-Pipeline](https://github.com/Zer0pa/Energy-Physics-Pipeline/).
+
+```bash
+python3.11 -m pip install energy-physics-pipeline
+```
+
+Import smoke:
+
+```bash
+python3.11 - <<'PY'
+import importlib.metadata as md
+import energy_physics_pipeline
+
+print("energy-physics-pipeline", md.version("energy-physics-pipeline"))
+PY
+```
+
+
+CLI smoke:
+
+```bash
+energy-physics --help
+```
+
+Install success only proves package acquisition/import. Product scope, stale PyPI state, platform limits, and blockers remain in the front-door sections below.
+- PyPI project URLs are incomplete and PyPI copy is stale; install success is not product readiness.
+<!-- INSTALL-DX:END -->
+
 #### Quick Start
 
 ```bash
