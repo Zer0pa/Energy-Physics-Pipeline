@@ -52,7 +52,7 @@ Runpod migration starts by setting `ENERGY_RUNPOD_BASE_URL` and flipping the tar
 <table width="100%">
 <tr>
 <td width="100%" valign="top">
-<div><span><b>00 · ENERGY</b> · IN-SILICO PHYSICS PIPELINE</span> <span>LIVE LANE · 011600Z</span></div>
+<div><span><b>00 · ENERGY</b> · IN-SILICO PHYSICS PIPELINE</span> <span>RESEARCH-READY · H100 WAVE OPEN</span></div>
       <h1>CPU-backed energy <span>baseline.</span></h1>
       <p>In-silico physics pipeline &middot; electrochemistry to fusion &middot; Energy-Physics-Pipeline</p>
       <p>Energy research groups need a reproducible baseline before they spend H100 budget. Energy-Physics-Pipeline organizes six in-silico layers &mdash; <strong>electrons, atoms, mesoscale, device, stack, orchestration</strong> &mdash; across electrochemistry and fusion/plasma research, all running on commodity CPUs today. <strong>475 of 475 strict CPU tests pass at 79.72% coverage; 39 of 39 source manifests verify; 6 of 6 anchors resolve.</strong> H100 execution remains untested. This is research infrastructure, not a deployable energy product.</p>
