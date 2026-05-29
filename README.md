@@ -1,9 +1,6 @@
 # Energy-Physics-Pipeline
 
-## Install / Developer Commands
-
-<!-- INSTALL-DX:START -->
-#### Package Install
+## Package Install
 
 Installable package: `python3.11 -m pip install energy-physics-pipeline`.
 Current release: `0.1.0` on [PyPI](https://pypi.org/project/energy-physics-pipeline/).
@@ -13,41 +10,9 @@ Source: [Zer0pa/Energy-Physics-Pipeline](https://github.com/Zer0pa/Energy-Physic
 python3.11 -m pip install energy-physics-pipeline
 ```
 
-Import smoke:
+For full install, smoke, source, and developer commands, [click here](#install-developer-commands-detailed).
 
-```bash
-python3.11 - <<'PY'
-import importlib.metadata as md
-import energy_physics_pipeline
-
-print("energy-physics-pipeline", md.version("energy-physics-pipeline"))
-PY
-```
-
-
-CLI smoke:
-
-```bash
-energy-physics --help
-```
-
-Install success only proves package acquisition/import. Product scope, stale PyPI state, platform limits, and blockers remain in the front-door sections below.
-- PyPI project URLs are incomplete and PyPI copy is stale; install success is not product readiness.
-<!-- INSTALL-DX:END -->
-
-#### Quick Start
-
-```bash
-git clone https://github.com/Zer0pa/Energy-Physics-Pipeline
-cd Energy-Physics-Pipeline
-python3.13 -m venv .venv
-.venv/bin/pip install -e '.[test,tda,mcp]'
-.venv/bin/pip install pybamm pybop pypsa pvlib cantera pyscf netCDF4 freegs omas pyrokinetics qiskit mcp ripser persim
-ENERGY_AUDIT_DIR=$(mktemp -d) ENERGY_KG_DIR=$(mktemp -d) bash scripts/full_check.sh
-energy-physics --help
-```
-
-Runpod migration starts by setting `ENERGY_RUNPOD_BASE_URL` and flipping the target layer with `ENERGY_L?_BACKEND=runpod_rest`. The enterprise completion standard is in [`H100-ENTERPRISE-COMPLETION-PLAN.md`](./H100-ENTERPRISE-COMPLETION-PLAN.md).
+---
 
 <table width="100%">
 <tr>
@@ -320,3 +285,56 @@ Runpod migration starts by setting `ENERGY_RUNPOD_BASE_URL` and flipping the tar
 </td>
 </tr>
 </table>
+
+---
+
+<a id="install-developer-commands-detailed"></a>
+
+## Install / Developer Commands Detailed
+
+<!-- INSTALL-DX:START -->
+#### Package Install
+
+Installable package: `python3.11 -m pip install energy-physics-pipeline`.
+Current release: `0.1.0` on [PyPI](https://pypi.org/project/energy-physics-pipeline/).
+Source: [Zer0pa/Energy-Physics-Pipeline](https://github.com/Zer0pa/Energy-Physics-Pipeline/).
+
+```bash
+python3.11 -m pip install energy-physics-pipeline
+```
+
+Import smoke:
+
+```bash
+python3.11 - <<'PY'
+import importlib.metadata as md
+import energy_physics_pipeline
+
+print("energy-physics-pipeline", md.version("energy-physics-pipeline"))
+PY
+```
+
+
+CLI smoke:
+
+```bash
+energy-physics --help
+```
+
+Install success only proves package acquisition/import. Product scope, stale PyPI state, platform limits, and blockers remain in the front-door sections below.
+- PyPI project URLs are incomplete and PyPI copy is stale; install success is not product readiness.
+<!-- INSTALL-DX:END -->
+
+#### Quick Start
+
+```bash
+git clone https://github.com/Zer0pa/Energy-Physics-Pipeline
+cd Energy-Physics-Pipeline
+python3.13 -m venv .venv
+.venv/bin/pip install -e '.[test,tda,mcp]'
+.venv/bin/pip install pybamm pybop pypsa pvlib cantera pyscf netCDF4 freegs omas pyrokinetics qiskit mcp ripser persim
+ENERGY_AUDIT_DIR=$(mktemp -d) ENERGY_KG_DIR=$(mktemp -d) bash scripts/full_check.sh
+energy-physics --help
+```
+
+Runpod migration starts by setting `ENERGY_RUNPOD_BASE_URL` and flipping the target layer with `ENERGY_L?_BACKEND=runpod_rest`. The enterprise completion standard is in [`H100-ENTERPRISE-COMPLETION-PLAN.md`](./H100-ENTERPRISE-COMPLETION-PLAN.md).
